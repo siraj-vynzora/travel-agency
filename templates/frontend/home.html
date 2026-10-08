@@ -2117,13 +2117,103 @@
 {% comment %} features section css end {% endcomment %}
 
 
+{% comment %} testimonials css start {% endcomment %}
+/* =========================================================
+   TESTIMONIAL FOOTER FIX - single grey strip behind avatar
+========================================================= */
 
-{% comment %} gallery section css start {% endcomment %}
+/* 1. Remove every old grey shape (theme + your previous attempts) */
+.home-testimonial-section .testimonial-box-item .client-info-item::before,
+.home-testimonial-section .testimonial-box-item .client-info-item::after,
+.home-testimonial-section .testimonial-box-item .info-item::after,
+.home-testimonial-section .testimonial-box-item .client-image::before,
+.home-testimonial-section .testimonial-box-item .client-image::after {
+    content: none !important;
+    display: none !important;
+}
 
+/* 2. Card: a little taller, footer sits above the bottom edge */
+.home-testimonial-section .testimonial-box-item {
+    height: 400px;
+}
 
+.home-testimonial-section .testimonial-box-item .client-info-item {
+    height: 82px;
+    flex: 0 0 82px !important;
+    margin: auto -36px 36px !important;   /* space below the footer like the reference */
+    padding: 0 36px !important;
+    background: transparent !important;
+}
 
+/* 3. The ONE grey strip: card edge -> just past the avatar, rounded end */
+.home-testimonial-section .testimonial-box-item .client-info-item .info-item {
+    position: relative;
+    height: 100%;
+}
 
-{% comment %} gallery section css end {% endcomment %}
+.home-testimonial-section .testimonial-box-item .client-info-item .info-item::before {
+    content: "" !important;
+    display: block !important;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -36px;                 /* start at the card's left edge */
+    width: 108px;                /* 36 padding + 58 avatar + ~14 extra */
+
+    background: #e4e4e4;
+    border-radius: 0 45px 45px 0;
+
+    z-index: 0;
+}
+
+/* 4. Avatar and text sit above the strip */
+.home-testimonial-section .testimonial-box-item .client-image {
+    position: relative;
+    z-index: 1;
+}
+
+.home-testimonial-section .testimonial-box-item .client-info-item .content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Tablet */
+@media (max-width: 991px) {
+    .home-testimonial-section .testimonial-box-item {
+        height: 390px;
+    }
+
+    .home-testimonial-section .testimonial-box-item .client-info-item {
+        margin: auto -28px 30px !important;
+        padding: 0 28px !important;
+    }
+
+    .home-testimonial-section .testimonial-box-item .client-info-item .info-item::before {
+        left: -28px;
+        width: 100px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 575px) {
+    .home-testimonial-section .testimonial-box-item {
+        height: 380px;
+    }
+
+    .home-testimonial-section .testimonial-box-item .client-info-item {
+        height: 76px;
+        flex-basis: 76px !important;
+        margin: auto -20px 24px !important;
+        padding: 0 20px !important;
+    }
+
+    .home-testimonial-section .testimonial-box-item .client-info-item .info-item::before {
+        left: -20px;
+        width: 86px;
+    }
+}
+{% comment %} testimonials css end {% endcomment %}
 
 </style>
 
@@ -2459,11 +2549,22 @@
 window.addEventListener('load', function () {
     if (typeof Swiper === 'undefined') return;
 
-    new Swiper('.dest-slider', {
+    const destSwiper = new Swiper('.dest-slider', {
         slidesPerView: 1.15,
         spaceBetween: 20,
         grabCursor: true,
-        speed: 700,
+        speed: 800,
+
+        /* AUTO MOVE */
+        autoplay: {
+            delay: 3000,                 /* 3 seconds per slide */
+            disableOnInteraction: false, /* keep going after arrow click or drag */
+            pauseOnMouseEnter: true      /* pause while the mouse is over it */
+        },
+
+        /* go back to the first slide after the last one */
+        rewind: true,
+
         navigation: {
             prevEl: '.dest-prev',
             nextEl: '.dest-next'
