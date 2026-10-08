@@ -1,0 +1,1081 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+
+
+{% block title %}
+{{ blog.title }} | Touro
+{% endblock %}
+
+
+{% block meta_description %}
+{{ blog.description|striptags|truncatewords:25 }}
+{% endblock %}
+
+
+{% block extra_css %}
+
+<style>
+
+/* ==========================================================
+   BLOG DETAILS PAGE
+========================================================== */
+
+.blog-detail-page {
+    position: relative;
+}
+
+
+/*
+    Control overall content width.
+
+    Increase this slightly if you want the article/sidebar
+    to occupy more of the screen.
+*/
+.blog-detail-page .container {
+    max-width: 1280px;
+}
+
+
+/* ==========================================================
+   LEFT / RIGHT COLUMN GAP
+========================================================== */
+
+/*
+    IMPORTANT
+
+    Your HTML already has:
+
+        <div class="row blog-details-row">
+
+    Previously there was no CSS for it.
+
+    Bootstrap normally adds gutters between columns.
+    We make the gap smaller here.
+*/
+
+.blog-details-row {
+    --bs-gutter-x: 26px;
+    --bs-gutter-y: 30px;
+
+    align-items: flex-start;
+}
+
+
+/* ==========================================================
+   LEFT ARTICLE
+========================================================== */
+
+.news-details-post {
+    width: 100%;
+}
+
+
+/* ==========================================================
+   MAIN BLOG IMAGE
+========================================================== */
+
+.blog-detail-page .news-details-image {
+    width: 100%;
+    height: 520px;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    margin-bottom: 35px;
+
+    background: #f5f5f5;
+}
+
+
+.blog-detail-page .news-details-image img {
+    display: block;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: cover;
+    object-position: center;
+
+    border-radius: 18px;
+}
+
+
+/* ==========================================================
+   BLOG META
+========================================================== */
+
+.blog-detail-page .news-list {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+
+    padding: 0;
+
+    margin: 0 0 18px;
+
+    list-style: none;
+}
+
+
+.blog-detail-page .news-list li {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+.blog-detail-page .news-list i {
+    color: var(--theme);
+}
+
+
+/* ==========================================================
+   BLOG TITLE
+========================================================== */
+
+.blog-detail-page .news-details-content > h2 {
+    font-size: 42px;
+
+    line-height: 1.25;
+
+    margin-top: 5px;
+
+    margin-bottom: 25px;
+}
+
+
+/* ==========================================================
+   RICH TEXT DESCRIPTION
+========================================================== */
+
+.blog-description {
+    font-size: 16px;
+
+    line-height: 1.85;
+
+    color: #5c6663;
+}
+
+
+.blog-description p {
+    margin-bottom: 22px;
+
+    line-height: 1.85;
+}
+
+
+/* HEADINGS FROM EDITOR */
+
+.blog-description h1,
+.blog-description h2,
+.blog-description h3,
+.blog-description h4,
+.blog-description h5,
+.blog-description h6 {
+    color: #071c16;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+
+    margin-top: 32px;
+
+    margin-bottom: 16px;
+}
+
+
+.blog-description h1 {
+    font-size: 38px;
+}
+
+
+.blog-description h2 {
+    font-size: 34px;
+}
+
+
+.blog-description h3 {
+    font-size: 28px;
+}
+
+
+.blog-description h4 {
+    font-size: 24px;
+}
+
+
+.blog-description h5 {
+    font-size: 20px;
+}
+
+
+.blog-description h6 {
+    font-size: 18px;
+}
+
+
+/* ==========================================================
+   RICH TEXT LIST FIX
+========================================================== */
+
+.blog-description ul,
+.blog-description ol {
+    display: block !important;
+
+    width: 100%;
+
+    margin: 20px 0 25px !important;
+
+    padding-left: 28px !important;
+}
+
+
+.blog-description ul {
+    list-style-type: disc !important;
+}
+
+
+.blog-description ol {
+    list-style-type: decimal !important;
+}
+
+
+.blog-description ul li,
+.blog-description ol li {
+    position: relative;
+
+    display: list-item !important;
+
+    width: auto !important;
+    height: auto !important;
+
+    min-height: 0 !important;
+
+    margin: 0 0 10px 0 !important;
+    padding: 0 !important;
+
+    line-height: 1.7 !important;
+
+    transform: none !important;
+}
+
+
+/*
+   Your editor content contains checkmark images inside LI elements.
+
+   The theme's general image/list styling is causing those checkmarks
+   to become separated from their text.
+*/
+
+.blog-description li img {
+    display: inline-block !important;
+
+    width: 18px !important;
+    height: 18px !important;
+
+    max-width: 18px !important;
+
+    margin: 0 7px 0 0 !important;
+
+    padding: 0 !important;
+
+    border-radius: 0 !important;
+
+    vertical-align: middle;
+
+    object-fit: contain;
+}
+
+
+/*
+   Normal large article images should still be responsive.
+*/
+
+.blog-description > img,
+.blog-description > p > img {
+    display: block;
+
+    max-width: 100% !important;
+
+    width: auto;
+
+    height: auto !important;
+
+    margin: 30px auto;
+
+    border-radius: 14px;
+}
+
+
+/* ==========================================================
+   RICH TEXT IMAGES
+========================================================== */
+
+.blog-description img {
+    display: block;
+
+    max-width: 100% !important;
+
+    height: auto !important;
+
+    margin: 30px auto;
+
+    border-radius: 14px;
+}
+
+
+/* ==========================================================
+   RICH TEXT LINKS
+========================================================== */
+
+.blog-description a {
+    color: var(--theme);
+
+    text-decoration: underline;
+}
+
+
+/* ==========================================================
+   BLOCKQUOTE
+========================================================== */
+
+.blog-description blockquote {
+    margin: 30px 0;
+
+    padding: 25px 30px;
+
+    background: #f7f7f7;
+
+    border-left: 4px solid var(--theme);
+
+    border-radius: 8px;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+}
+
+
+/* ==========================================================
+   RIGHT SIDEBAR
+========================================================== */
+
+/*
+    IMPORTANT
+
+    This makes Search + Latest Blogs move down with the page
+    until they reach 110px from the top.
+
+    Then they stay fixed there while the left article continues
+    scrolling.
+*/
+
+.blog-sidebar {
+    position: -webkit-sticky;
+    position: sticky;
+
+    top: 110px;
+
+    width: 100%;
+
+    align-self: flex-start;
+}
+
+
+/*
+    Do NOT put:
+        overflow: hidden;
+        overflow: auto;
+        overflow: scroll;
+
+    on the sidebar parents because that can break sticky.
+*/
+
+.news-details-wrapper,
+.blog-details-row,
+.blog-details-row > [class*="col-"] {
+    overflow: visible !important;
+}
+
+
+/* ==========================================================
+   SIDEBAR CARD
+========================================================== */
+
+.blog-sidebar-widget {
+    width: 100%;
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 16px;
+
+    padding: 24px;
+
+    margin-bottom: 22px;
+
+    background: #ffffff;
+}
+
+
+.blog-sidebar-widget:last-child {
+    margin-bottom: 0;
+}
+
+
+.blog-sidebar-title {
+    margin-bottom: 22px;
+}
+
+
+.blog-sidebar-title h3 {
+    margin: 0;
+
+    font-size: 24px;
+
+    line-height: 1.3;
+
+    color: #071c16;
+}
+
+
+/* ==========================================================
+   SEARCH
+========================================================== */
+
+.blog-search-form {
+    position: relative;
+}
+
+
+.blog-search-form input {
+    width: 100%;
+
+    height: 58px;
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 10px;
+
+    padding: 0 55px 0 18px;
+
+    outline: none;
+
+    background: #ffffff;
+}
+
+
+.blog-search-form input:focus {
+    border-color: var(--theme);
+}
+
+
+.blog-search-form button {
+    position: absolute;
+
+    right: 0;
+    top: 0;
+
+    width: 55px;
+    height: 58px;
+
+    border: 0;
+
+    background: transparent;
+
+    cursor: pointer;
+}
+
+
+/* ==========================================================
+   LATEST BLOGS
+========================================================== */
+
+.related-blog-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding-bottom: 18px;
+
+    margin-bottom: 18px;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+.related-blog-item:last-child {
+    padding-bottom: 0;
+
+    margin-bottom: 0;
+
+    border-bottom: 0;
+}
+
+
+/* IMAGE */
+
+.related-blog-image {
+    display: block;
+
+    width: 92px;
+    height: 78px;
+
+    flex: 0 0 92px;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    background: #f5f5f5;
+}
+
+
+.related-blog-image img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* CONTENT */
+
+.related-blog-content {
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.related-blog-date {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 12px;
+
+    color: #0866ff;
+
+    text-transform: uppercase;
+}
+
+
+.related-blog-content h5 {
+    margin: 0;
+
+    font-size: 15px;
+
+    line-height: 1.4;
+}
+
+
+.related-blog-content h5 a {
+    color: #071c16;
+
+    transition: color 0.3s ease;
+}
+
+
+.related-blog-content h5 a:hover {
+    color: var(--theme);
+}
+
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (max-width: 1199px) {
+
+    .blog-detail-page .container {
+        max-width: 960px;
+    }
+
+
+    .blog-details-row {
+        --bs-gutter-x: 22px;
+    }
+
+
+    .blog-detail-page .news-details-image {
+        height: 440px;
+    }
+
+
+    .blog-detail-page .news-details-content > h2 {
+        font-size: 36px;
+    }
+
+
+    .blog-sidebar-widget {
+        padding: 20px;
+    }
+
+
+    .related-blog-image {
+        width: 80px;
+        height: 72px;
+
+        flex-basis: 80px;
+    }
+
+
+    .related-blog-content h5 {
+        font-size: 14px;
+    }
+
+}
+
+
+/* ==========================================================
+   MOBILE / SMALL TABLET
+========================================================== */
+
+@media (max-width: 991px) {
+
+    /*
+       Columns stack here.
+
+       Sticky is disabled because sidebar is underneath
+       the article on mobile.
+    */
+
+    .blog-sidebar {
+        position: static;
+
+        top: auto;
+
+        margin-top: 20px;
+    }
+
+
+    .blog-details-row {
+        --bs-gutter-x: 20px;
+    }
+
+
+    .blog-detail-page .news-details-image {
+        height: 400px;
+    }
+
+}
+
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (max-width: 767px) {
+
+    .blog-detail-page .news-details-image {
+        height: 300px;
+
+        border-radius: 12px;
+    }
+
+
+    .blog-detail-page .news-details-image img {
+        border-radius: 12px;
+    }
+
+
+    .blog-detail-page .news-details-content > h2 {
+        font-size: 28px;
+    }
+
+
+    .blog-sidebar-widget {
+        padding: 20px;
+    }
+
+
+    .blog-description {
+        font-size: 15px;
+    }
+
+
+    .blog-description h1 {
+        font-size: 30px;
+    }
+
+
+    .blog-description h2 {
+        font-size: 27px;
+    }
+
+
+    .blog-description h3 {
+        font-size: 24px;
+    }
+
+
+    .blog-description h4 {
+        font-size: 21px;
+    }
+
+}
+
+
+/* ==========================================================
+   SMALL MOBILE
+========================================================== */
+
+@media (max-width: 480px) {
+
+    .blog-detail-page .news-details-image {
+        height: 250px;
+    }
+
+
+    .related-blog-image {
+        width: 85px;
+
+        height: 75px;
+
+        flex-basis: 85px;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<!-- ============================================================
+     BREADCRUMB
+============================================================ -->
+
+<section
+    class="breadcrumb-wrapper fix parallaxie bg-cover"
+    style="background-image: url('{% static 'frontend/assets/img/inner-page/breadcrumb.jpg' %}');"
+>
+
+    <div class="container">
+
+        <div class="page-heading">
+
+            <ul
+                class="breadcrumb-list
+                       d-flex
+                       align-items-center
+                       justify-content-center"
+            >
+
+                <li class="text-white">
+
+                    <a href="{% url 'home' %}">
+                        Home
+                    </a>
+
+                </li>
+
+
+                <li class="text-white">
+                    /
+                </li>
+
+
+                <li class="text-white">
+
+                    <a href="{% url 'blogs' %}">
+                        Blogs
+                    </a>
+
+                </li>
+
+
+                <li class="text-white">
+                    /
+                </li>
+
+
+                <li class="text-white">
+                    Blog Details
+                </li>
+
+            </ul>
+
+
+            <h1 class="breadcrumb-title text-white text-center">
+                Blog Details
+            </h1>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ============================================================
+     BLOG DETAILS
+============================================================ -->
+
+<section
+    class="news-details-section section-padding blog-detail-page"
+>
+
+    <div class="container">
+
+        <div class="news-details-wrapper">
+
+            <div class="row blog-details-row">
+
+
+                <!-- =================================================
+                     LEFT SIDE
+                ================================================== -->
+
+                <div class="col-lg-8 col-12">
+
+                    <article class="news-details-post">
+
+
+                        <!-- ===============================
+                             MAIN BLOG IMAGE
+                        ================================ -->
+
+                        {% if blog.image %}
+
+                        <div class="news-details-image">
+
+                            <img
+                                src="{{ blog.image.url }}"
+                                alt="{{ blog.title }}"
+                            >
+
+                        </div>
+
+                        {% endif %}
+
+
+
+                        <!-- ===============================
+                             BLOG CONTENT
+                        ================================ -->
+
+                        <div class="news-details-content">
+
+
+                            <!-- DATE -->
+
+                            <ul class="news-list">
+
+                                <li>
+
+                                    <i class="flaticon-date"></i>
+
+                                    {{ blog.created_at|date:"F d, Y"|upper }}
+
+                                </li>
+
+                            </ul>
+
+
+
+                            <!-- TITLE -->
+
+                            <h2>
+                                {{ blog.title }}
+                            </h2>
+
+
+
+                            <!-- =================================
+                                 RICH TEXT DESCRIPTION
+
+                                 safe is required because your
+                                 admin editor stores HTML.
+                            ================================== -->
+
+                            <div class="blog-description">
+
+                                {{ blog.description|safe }}
+
+                            </div>
+
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     RIGHT SIDE
+                ================================================== -->
+
+                <div class="col-lg-4 col-12">
+
+                    <!--
+                        Search + Latest Blogs are inside ONE
+                        sticky wrapper.
+                    -->
+
+                    <aside class="blog-sidebar">
+
+
+                        <!-- =========================================
+                             SEARCH
+                        ========================================== -->
+
+                        <div class="blog-sidebar-widget">
+
+                            <div class="blog-sidebar-title">
+
+                                <h3>
+                                    Search
+                                </h3>
+
+                            </div>
+
+
+                            <form
+                                action="{% url 'blogs' %}"
+                                method="get"
+                                class="blog-search-form"
+                            >
+
+                                <input
+                                    type="text"
+                                    name="q"
+                                    placeholder="Search blog"
+                                >
+
+
+                                <button
+                                    type="submit"
+                                    aria-label="Search"
+                                >
+
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+
+                        <!-- =========================================
+                             LATEST BLOGS
+                        ========================================== -->
+
+                        <div class="blog-sidebar-widget">
+
+                            <div class="blog-sidebar-title">
+
+                                <h3>
+                                    Latest Blogs
+                                </h3>
+
+                            </div>
+
+
+                            {% for related in related_blogs %}
+
+                            <div class="related-blog-item">
+
+
+                                <!-- IMAGE -->
+
+                                {% if related.image %}
+
+                                <a
+                                    href="{% url 'blog_detail' slug=related.slug %}"
+                                    class="related-blog-image"
+                                >
+
+                                    <img
+                                        src="{{ related.image.url }}"
+                                        alt="{{ related.title }}"
+                                    >
+
+                                </a>
+
+                                {% endif %}
+
+
+
+                                <!-- BLOG INFORMATION -->
+
+                                <div class="related-blog-content">
+
+
+                                    <span class="related-blog-date">
+
+                                        {{ related.created_at|date:"F d, Y" }}
+
+                                    </span>
+
+
+                                    <h5>
+
+                                        <a
+                                            href="{% url 'blog_detail' slug=related.slug %}"
+                                        >
+
+                                            {{ related.title|truncatechars:55 }}
+
+                                        </a>
+
+                                    </h5>
+
+
+                                </div>
+
+                            </div>
+
+
+                            {% empty %}
+
+                            <p>
+                                No other blogs available.
+                            </p>
+
+                            {% endfor %}
+
+
+                        </div>
+
+
+                    </aside>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{% endblock %}
+
+
+
+{% block extra_js %}
+{% endblock %}

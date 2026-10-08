@@ -1,0 +1,1046 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+
+
+{% block title %}
+Terms & Conditions | Touro Travel & Tours
+{% endblock %}
+
+
+{% block extra_css %}
+
+<style>
+
+/* ==========================================================
+   TERMS & CONDITIONS
+   Keep same simple accordion appearance as Touro FAQ
+========================================================== */
+
+.terms-section {
+    background: #ffffff;
+}
+
+
+/* Main heading area */
+.terms-section .section-title {
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Description under heading */
+.terms-section .section-title p {
+    max-width: 760px;
+    margin: 18px auto 0;
+    color: #666;
+    line-height: 1.8;
+}
+
+
+/* Accordion wrapper */
+.terms-accordion-wrapper {
+    margin-top: 55px;
+}
+
+
+/* Accordion item */
+.terms-accordion .accordion-item {
+    border: 1px solid #dddddd;
+    border-radius: 0 !important;
+    background: #ffffff;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+
+/* Remove bootstrap unwanted shadow */
+.terms-accordion .accordion-button {
+    box-shadow: none !important;
+}
+
+
+/* Question/title */
+.terms-accordion .accordion-button {
+    position: relative;
+
+    width: 100%;
+
+    padding: 26px 32px;
+
+    background: #ffffff;
+
+    color: #071c1f;
+
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.4;
+
+    border: none;
+}
+
+
+/* Opened item */
+.terms-accordion .accordion-button:not(.collapsed) {
+    color: #071c1f;
+    background: #ffffff;
+}
+
+
+/* Remove bootstrap default arrow */
+.terms-accordion .accordion-button::after {
+    display: none;
+}
+
+
+/* Custom PLUS */
+.terms-accordion .accordion-button::before {
+    content: "+";
+
+    position: absolute;
+    right: 30px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #071c1f;
+
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1;
+
+    transition: transform 0.25s ease;
+}
+
+
+/* Change + to − when opened */
+.terms-accordion .accordion-button:not(.collapsed)::before {
+    content: "−";
+}
+
+
+/* Answer */
+.terms-accordion .accordion-body {
+    padding: 0 32px 28px;
+
+    color: #666;
+
+    font-size: 15px;
+    line-height: 1.9;
+}
+
+
+/* Answer paragraphs */
+.terms-accordion .accordion-body p {
+    margin: 0 0 12px;
+}
+
+
+/* Answer list */
+.terms-accordion .accordion-body ul {
+    margin: 10px 0 0;
+    padding-left: 20px;
+}
+
+.terms-accordion .accordion-body li {
+    margin-bottom: 7px;
+    color: #666;
+}
+
+
+/* Mobile */
+@media (max-width: 767px) {
+
+    .terms-accordion-wrapper {
+        margin-top: 35px;
+    }
+
+    .terms-accordion .accordion-button {
+        padding: 21px 50px 21px 20px;
+        font-size: 16px;
+    }
+
+    .terms-accordion .accordion-button::before {
+        right: 20px;
+        font-size: 24px;
+    }
+
+    .terms-accordion .accordion-body {
+        padding: 0 20px 22px;
+        font-size: 14px;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<!-- ==========================================================
+     BREADCRUMB
+========================================================== -->
+
+<section
+    class="breadcrumb-wrapper parallaxie fix bg-cover"
+    style="background-image: url('{% static 'frontend/assets/img/inner-page/breadcrumb.jpg' %}');"
+>
+
+    <div class="container">
+
+        <div class="page-heading">
+
+            <ul
+                class="breadcrumb-list
+                       d-flex
+                       align-items-center
+                       justify-content-center"
+            >
+
+                <li class="text-white">
+
+                    <a href="{% url 'home' %}">
+                        Home
+                    </a>
+
+                </li>
+
+                <li class="text-white">
+                    /
+                </li>
+
+                <li class="text-white">
+                    Terms & Conditions
+                </li>
+
+            </ul>
+
+
+            <h1 class="breadcrumb-title text-white text-center">
+                Terms & Conditions
+            </h1>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==========================================================
+     TERMS & CONDITIONS
+========================================================== -->
+
+<section class="terms-section faq-section section-padding fix">
+
+    <div class="container">
+
+
+        <!-- ==================================================
+             HEADING
+        =================================================== -->
+
+        <div class="section-title style-2 text-center">
+
+            <h6 class="sub-title wow fadeInUp">
+                OUR TERMS
+            </h6>
+
+
+            <h2 class="char-animation">
+                Terms & Conditions
+            </h2>
+
+
+            <p
+                class="wow fadeInUp"
+                data-wow-delay=".3s"
+            >
+                Please read our travel terms and conditions carefully
+                before booking a tour or travel service with us.
+            </p>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             ACCORDION
+        =================================================== -->
+
+        <div class="row justify-content-center">
+
+            <div class="col-xl-12 col-lg-12">
+
+                <div class="terms-accordion-wrapper">
+
+                    <div class="faq-items">
+
+                        <div class="faq-accordion">
+
+                            <div
+                                class="accordion terms-accordion"
+                                id="termsAccordion"
+                            >
+
+
+                                <!-- ======================================
+                                     01
+                                ======================================= -->
+
+                                <div
+                                    class="accordion-item bg-none wow fadeInUp"
+                                    data-wow-delay=".2s"
+                                >
+
+                                    <h5 class="accordion-header">
+
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#term1"
+                                            aria-expanded="false"
+                                            aria-controls="term1"
+                                        >
+                                            Booking & Confirmation
+                                        </button>
+
+                                    </h5>
+
+
+                                    <div
+                                        id="term1"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#termsAccordion"
+                                    >
+
+                                        <div class="accordion-body">
+
+                                            <p>
+                                                All tour and travel bookings are
+                                                subject to availability. A booking
+                                                is considered confirmed only after
+                                                the required payment has been
+                                                received and confirmation has been
+                                                issued by our team.
+                                            </p>
+
+                                            <p>
+                                                Please check all names, travel
+                                                dates, destinations, accommodation
+                                                and other booking information after
+                                                receiving your confirmation.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- ======================================
+                                     02
+                                ======================================= -->
+
+                                <div
+                                    class="accordion-item bg-none wow fadeInUp"
+                                    data-wow-delay=".3s"
+                                >
+
+                                    <h5 class="accordion-header">
+
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#term2"
+                                            aria-expanded="false"
+                                            aria-controls="term2"
+                                        >
+                                            Tour Package Prices
+                                        </button>
+
+                                    </h5>
+
+
+                                    <div
+                                        id="term2"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#termsAccordion"
+                                    >
+
+                                        <div class="accordion-body">
+
+                                            <p>
+                                                Package prices are based on the
+                                                services specifically mentioned in
+                                                the selected tour itinerary or
+                                                quotation.
+                                            </p>
+
+                                            <p>
+                                                Prices may vary depending on travel
+                                                dates, hotel availability,
+                                                transportation costs, taxes,
+                                                seasonal demand and other supplier
+                                                charges.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- ======================================
+                                     03
+                                ======================================= -->
+
+                                <div
+                                    class="accordion-item bg-none wow fadeInUp"
+                                    data-wow-delay=".4s"
+                                >
+
+                                    <h5 class="accordion-header">
+
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#term3"
+                                            aria-expanded="false"
+                                            aria-controls="term3"
+                                        >
+                                            Payment Terms
+                                        </button>
+
+                                    </h5>
+
+
+                                    <div
+                                        id="term3"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#termsAccordion"
+                                    >
+
+                                        <div class="accordion-body">
+
+                                            <p>
+                                                A deposit or full payment may be
+                                                required to confirm a reservation.
+                                                The required amount will depend on
+                                                the selected package and services.
+                                            </p>
+
+                                            <p>
+                                                All payments must be completed
+                                                within the communicated payment
+                                                deadline. Failure to make payment
+                                                within the required period may
+                                                result in cancellation of the
+                                                booking.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- ======================================
+                                     04
+                                ======================================= -->
+
+                                <div
+                                    class="accordion-item bg-none wow fadeInUp"
+                                    data-wow-delay=".3s"
+                                >
+
+                                    <h5 class="accordion-header">
+
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#term4"
+                                            aria-expanded="false"
+                                            aria-controls="term4"
+                                        >
+                                            Cancellation & Refund Policy
+                                        </button>
+
+                                    </h5>
+
+
+                                    <div
+                                        id="term4"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#termsAccordion"
+                                    >
+
+                                        <div class="accordion-body">
+
+                                            <p>
+                                                Cancellation charges depend on the
+                                                selected package, date of
+                                                cancellation and policies of hotels,
+                                                transport operators and other
+                                                service providers.
+                                            </p>
+
+                                            <p>
+                                                Certain promotional packages,
+                                                special fares, hotel reservations
+                                                and other services may be partially
+                                                or completely non-refundable.
+                                            </p>
+
+                                            <p>
+                                                Where a refund is applicable,
+                                                supplier cancellation charges and
+                                                other applicable fees may be
+                                                deducted from the refundable amount.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- ======================================
+                                     05
+                                ======================================= -->
+
+                                <div
+                                    class="accordion-item bg-none wow fadeInUp"
+                                    data-wow-delay=".3s"
+                                >
+
+                                    <h5 class="accordion-header">
+
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#term5"
+                                            aria-expanded="false"
+                                            aria-controls="term5"
+                                        >
+                                            Changes to a Confirmed Booking
+                                        </button>
+
+                                    </h5>
+
+
+                                    <div
+                                        id="term5"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#termsAccordion"
+                                    >
+
+                                        <div class="accordion-body">
+
+                                            <p>
+                                                Requests to change travel dates,
+                                                accommodation, traveller details,
+                                                transportation or other confirmed
+                                                services are subject to availability.
+                                            </p>
+
+                                            <p>
+                                                Additional charges may apply when
+                                                changing a confirmed reservation,
+                                                depending on the policies of the
+                                                relevant service providers.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- ======================================
+                                     06
+                                ======================================= -->
+
+                                <div
+                                    class="accordion-item bg-none wow fadeInUp"
+                                    data-wow-delay=".3s"
+                                >
+
+                                    <h5 class="accordion-header">
+
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#term6"
+                                            aria-expanded="false"
+                                            aria-controls="term6"
+                                        >
+                                            Passport, Visa & Travel Documents
+                                        </button>
+
+                                    </h5>
+
+
+                                    <div
+                                        id="term6"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#termsAccordion"
+                                    >
+
+                                        <div class="accordion-body">
+
+                                            <p>
+                                                Travellers are responsible for
+                                                carrying all documents required for
+                                                their journey, including valid
+                                                identification, passports, visas,
+                                                permits and tickets where applicable.
+                                            </p>
+
+                                            <p>
+                                                Visa approval and immigration
+                                                decisions are made by the relevant
+                                                government authorities. Assistance
+                                                provided by us does not guarantee
+                                                visa approval.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- ======================================
+                                     07
+                                ======================================= -->
+
+                                <div
+                                    class="accordion-item bg-none wow fadeInUp"
+                                    data-wow-delay=".3s"
+                                >
+
+                                    <h5 class="accordion-header">
+
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#term7"
+                                            aria-expanded="false"
+                                            aria-controls="term7"
+                                        >
+                                            Hotels & Accommodation
+                                        </button>
+
+                                    </h5>
+
+
+                                    <div
+                                        id="term7"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#termsAccordion"
+                                    >
+
+                                        <div class="accordion-body">
+
+                                            <p>
+                                                Hotel categories, facilities,
+                                                room types, check-in times and
+                                                check-out times may vary depending
+                                                on the selected property.
+                                            </p>
+
+                                            <p>
+                                                Special requests such as early
+                                                check-in, late check-out, adjoining
+                                                rooms or specific room views remain
+                                                subject to hotel availability.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- ======================================
+                                     08
+                                ======================================= -->
+
+                                <div
+                                    class="accordion-item bg-none wow fadeInUp"
+                                    data-wow-delay=".3s"
+                                >
+
+                                    <h5 class="accordion-header">
+
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#term8"
+                                            aria-expanded="false"
+                                            aria-controls="term8"
+                                        >
+                                            Transportation & Transfers
+                                        </button>
+
+                                    </h5>
+
+
+                                    <div
+                                        id="term8"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#termsAccordion"
+                                    >
+
+                                        <div class="accordion-body">
+
+                                            <p>
+                                                Vehicles used for sightseeing,
+                                                airport transfers and other travel
+                                                services may vary according to the
+                                                number of travellers, destination,
+                                                package type and availability.
+                                            </p>
+
+                                            <p>
+                                                Travellers should arrive at the
+                                                designated pickup location at the
+                                                advised time to avoid delays or
+                                                missed transfers.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- ======================================
+                                     09
+                                ======================================= -->
+
+                                <div
+                                    class="accordion-item bg-none wow fadeInUp"
+                                    data-wow-delay=".3s"
+                                >
+
+                                    <h5 class="accordion-header">
+
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#term9"
+                                            aria-expanded="false"
+                                            aria-controls="term9"
+                                        >
+                                            Tour Itinerary Changes
+                                        </button>
+
+                                    </h5>
+
+
+                                    <div
+                                        id="term9"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#termsAccordion"
+                                    >
+
+                                        <div class="accordion-body">
+
+                                            <p>
+                                                We may occasionally need to modify
+                                                the sequence of an itinerary because
+                                                of weather conditions, road
+                                                conditions, operational requirements,
+                                                attraction closures or other
+                                                circumstances beyond reasonable
+                                                control.
+                                            </p>
+
+                                            <p>
+                                                Where possible, suitable alternative
+                                                arrangements will be made while
+                                                maintaining the overall nature of
+                                                the tour.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- ======================================
+                                     10
+                                ======================================= -->
+
+                                <div
+                                    class="accordion-item bg-none wow fadeInUp"
+                                    data-wow-delay=".3s"
+                                >
+
+                                    <h5 class="accordion-header">
+
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#term10"
+                                            aria-expanded="false"
+                                            aria-controls="term10"
+                                        >
+                                            Traveller Responsibilities
+                                        </button>
+
+                                    </h5>
+
+
+                                    <div
+                                        id="term10"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#termsAccordion"
+                                    >
+
+                                        <div class="accordion-body">
+
+                                            <p>
+                                                Travellers are expected to follow
+                                                applicable laws, respect local
+                                                customs and comply with reasonable
+                                                instructions provided by tour
+                                                representatives and service
+                                                providers.
+                                            </p>
+
+                                            <p>
+                                                Travellers are responsible for
+                                                their personal belongings,
+                                                valuables and travel documents
+                                                throughout the journey.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- ======================================
+                                     11
+                                ======================================= -->
+
+                                <div
+                                    class="accordion-item bg-none wow fadeInUp"
+                                    data-wow-delay=".3s"
+                                >
+
+                                    <h5 class="accordion-header">
+
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#term11"
+                                            aria-expanded="false"
+                                            aria-controls="term11"
+                                        >
+                                            Travel Insurance
+                                        </button>
+
+                                    </h5>
+
+
+                                    <div
+                                        id="term11"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#termsAccordion"
+                                    >
+
+                                        <div class="accordion-body">
+
+                                            <p>
+                                                Travellers are encouraged to obtain
+                                                suitable travel insurance covering
+                                                circumstances relevant to their
+                                                journey, such as medical emergencies,
+                                                trip cancellation, baggage loss and
+                                                travel disruption.
+                                            </p>
+
+                                            <p>
+                                                Travel insurance is not included
+                                                unless it is specifically mentioned
+                                                as part of your selected package.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- ======================================
+                                     12
+                                ======================================= -->
+
+                                <div
+                                    class="accordion-item bg-none wow fadeInUp"
+                                    data-wow-delay=".3s"
+                                >
+
+                                    <h5 class="accordion-header">
+
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#term12"
+                                            aria-expanded="false"
+                                            aria-controls="term12"
+                                        >
+                                            Third-Party Travel Services
+                                        </button>
+
+                                    </h5>
+
+
+                                    <div
+                                        id="term12"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#termsAccordion"
+                                    >
+
+                                        <div class="accordion-body">
+
+                                            <p>
+                                                Some services included in a travel
+                                                package are provided by independent
+                                                hotels, airlines, transport
+                                                operators, activity providers and
+                                                other third-party suppliers.
+                                            </p>
+
+                                            <p>
+                                                These suppliers may have their own
+                                                booking, cancellation, refund and
+                                                operational conditions that apply
+                                                to their respective services.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- ======================================
+                                     13
+                                ======================================= -->
+
+                                <div
+                                    class="accordion-item bg-none wow fadeInUp"
+                                    data-wow-delay=".3s"
+                                >
+
+                                    <h5 class="accordion-header">
+
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#term13"
+                                            aria-expanded="false"
+                                            aria-controls="term13"
+                                        >
+                                            Acceptance of Terms & Conditions
+                                        </button>
+
+                                    </h5>
+
+
+                                    <div
+                                        id="term13"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#termsAccordion"
+                                    >
+
+                                        <div class="accordion-body">
+
+                                            <p>
+                                                By confirming a booking with us,
+                                                you acknowledge that you have read,
+                                                understood and accepted these Terms
+                                                & Conditions.
+                                            </p>
+
+                                            <p>
+                                                These terms may be updated from
+                                                time to time. The applicable terms
+                                                are those provided or published in
+                                                connection with your booking.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{% endblock %}

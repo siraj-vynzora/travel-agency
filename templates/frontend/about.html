@@ -1,0 +1,2457 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+
+
+{% block title %}
+Touro - Travel & Tour Booking Agency | About Us
+{% endblock %}
+
+
+{% block extra_css %}
+<style>
+
+/* ==========================================================
+   ABOUT PAGE HEADER FIX
+   Header overlays the breadcrumb, same as the other pages
+   ========================================================== */
+
+#header-sticky {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: absolute !important;
+    top: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 9999 !important;
+    background: transparent !important;
+}
+
+#header-sticky .container,
+#header-sticky .mega-menu-wrapper,
+#header-sticky .header-main {
+    background: transparent !important;
+}
+
+#header-sticky .header-left,
+#header-sticky .header-right {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.breadcrumb-wrapper {
+    position: relative !important;
+    z-index: 1 !important;
+    margin-top: 0 !important;
+}
+
+@media (max-width: 1199px) {
+
+    #header-sticky .header-main {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+    }
+
+    #header-sticky .header-left {
+        display: block !important;
+        visibility: visible !important;
+    }
+
+    #header-sticky .mean__menu-wrapper {
+        display: none !important;
+    }
+
+    #header-sticky .header__hamburger {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    #header-sticky .sidebar__toggle {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 991px) {
+
+    .header-top-section {
+        display: none !important;
+    }
+
+    #header-sticky {
+        top: 0 !important;
+    }
+}
+
+/* STICKY HEADER AFTER SCROLL */
+
+#header-sticky.sticky {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 99999 !important;
+    background: #ffffff !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+#header-sticky.sticky .mega-menu-wrapper,
+#header-sticky.sticky .header-main {
+    background: #ffffff !important;
+}
+
+#header-sticky.sticky .main-menu ul li a {
+    color: #0b1f1a !important;
+}
+
+#header-sticky.sticky .header-search .search-trigger,
+#header-sticky.sticky .header-search .search-icon {
+    color: #0b1f1a !important;
+}
+
+#header-sticky.sticky .sidebar__toggle {
+    color: #0b1f1a !important;
+}
+
+#header-sticky.sticky .theme-btn {
+    color: #ffffff !important;
+}
+
+
+
+{% comment %} services section css start {% endcomment %}
+
+/* =========================================================
+   ABOUT PAGE - TRAVEL SERVICES
+========================================================= */
+
+.services-adventure-section .adventure-content .icon {
+    width: 62px;
+    min-width: 62px;
+    height: 62px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Service icon */
+
+.services-adventure-section .adventure-content .icon i {
+    font-size: 38px;
+    line-height: 1;
+
+    color: #ff5a36;
+
+    transition:
+        transform .3s ease,
+        color .3s ease;
+}
+
+
+/* Card title */
+
+.services-adventure-section .adventure-content .content h4 {
+    margin: 0;
+
+    font-size: 20px;
+    line-height: 1.45;
+}
+
+
+/* Card link */
+
+.services-adventure-section .adventure-content .content h4 a {
+    color: #071c1f;
+}
+
+
+/* Hover */
+
+.services-adventure-section
+.adventure-items:hover
+.adventure-content
+.icon i {
+    transform: scale(1.08);
+}
+
+
+/* Make service images consistent */
+
+.services-adventure-section .adventure-image > img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+}
+
+
+/* Tablet */
+
+@media (max-width: 991px) {
+
+    .services-adventure-section .adventure-content .icon {
+        width: 52px;
+        min-width: 52px;
+        height: 52px;
+    }
+
+    .services-adventure-section .adventure-content .icon i {
+        font-size: 31px;
+    }
+
+    .services-adventure-section .adventure-content .content h4 {
+        font-size: 18px;
+    }
+}
+
+
+/* Mobile */
+
+@media (max-width: 575px) {
+
+    .services-adventure-section .adventure-content .icon {
+        width: 48px;
+        min-width: 48px;
+        height: 48px;
+    }
+
+    .services-adventure-section .adventure-content .icon i {
+        font-size: 28px;
+    }
+
+    .services-adventure-section .adventure-content .content h4 {
+        font-size: 17px;
+    }
+}
+
+{% comment %} services section end  {% endcomment %}
+
+{% comment %} testimonial css start {% endcomment %}
+/* ==========================================================
+   TESTIMONIAL - ORIGINAL TOURO CIRCULAR IMAGE
+   ========================================================== */
+
+.testimonial-single-section .testimonial-single-items .thumbs {
+    width: 390px;
+    height: 390px;
+    min-width: 390px;
+
+    border-radius: 50%;
+    overflow: hidden;
+
+    display: block;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.testimonial-single-section .testimonial-single-items .thumbs img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+    object-fit: cover;
+    object-position: center;
+
+    border-radius: 50%;
+}
+
+
+/* Keep content spacing similar to original Touro */
+.testimonial-single-section .testimonial-single-items {
+    gap: 90px;
+}
+
+.testimonial-single-section .testimonial-single-items .content {
+    flex: 1;
+    min-width: 0;
+}
+
+
+/* ==========================
+   TABLET
+   ========================== */
+
+@media (max-width: 1199px) {
+
+    .testimonial-single-section .testimonial-single-items {
+        gap: 50px;
+    }
+
+    .testimonial-single-section .testimonial-single-items .thumbs {
+        width: 320px;
+        height: 320px;
+        min-width: 320px;
+    }
+}
+
+
+/* ==========================
+   SMALL TABLET
+   ========================== */
+
+@media (max-width: 991px) {
+
+    .testimonial-single-section .testimonial-single-items {
+        gap: 30px;
+    }
+
+    .testimonial-single-section .testimonial-single-items .thumbs {
+        width: 260px;
+        height: 260px;
+        min-width: 260px;
+    }
+}
+
+
+/* ==========================
+   MOBILE
+   ========================== */
+
+@media (max-width: 575px) {
+
+    .testimonial-single-section .testimonial-single-items {
+        gap: 25px;
+    }
+
+    .testimonial-single-section .testimonial-single-items .thumbs {
+        width: 230px;
+        height: 230px;
+        min-width: 230px;
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .testimonial-single-section .testimonial-single-items .content {
+        width: 100%;
+    }
+}
+{% comment %} testimonials css end  {% endcomment %}
+
+
+{% comment %} blog section css start {% endcomment %}
+/* ==========================================================
+   ABOUT PAGE BLOG CARDS - SAME HEIGHT FIX
+   ========================================================== */
+
+/* Every Bootstrap column stretches its card */
+.news-section .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.news-section .row > [class*="col-"] {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* ==========================================================
+   CARD
+   ========================================================== */
+
+.news-section .news-card-item {
+    width: 100%;
+    height: calc(100% - 30px) !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+
+/* ==========================================================
+   IMAGE - SAME HEIGHT
+   ========================================================== */
+
+.news-section .news-card-item .news-image {
+    width: 100%;
+    height: 280px !important;
+    min-height: 280px !important;
+    max-height: 280px !important;
+
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.news-section .news-card-item .news-image a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.news-section .news-card-item .news-image img {
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block;
+    object-fit: cover !important;
+    object-position: center !important;
+
+    transition: transform 0.4s ease;
+}
+
+.news-section .news-card-item:hover .news-image img {
+    transform: scale(1.05);
+}
+
+
+/* ==========================================================
+   CONTENT
+   ========================================================== */
+
+.news-section .news-card-item .news-content {
+    flex: 1 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    width: 100%;
+}
+
+
+/* ==========================================================
+   META / DATE
+   ========================================================== */
+
+.news-section .news-content .news-meta {
+    flex-shrink: 0;
+}
+
+
+/* ==========================================================
+   TITLE - ALWAYS RESERVE 2 LINES
+   ========================================================== */
+
+.news-section .news-content h4 {
+    min-height: 58px !important;
+    margin-bottom: 12px;
+}
+
+.news-section .news-content h4 a {
+    display: -webkit-box !important;
+
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+
+    line-height: 1.4;
+}
+
+
+/* ==========================================================
+   DESCRIPTION - ALWAYS RESERVE 3 LINES
+   ========================================================== */
+
+.news-section .news-content > p {
+    min-height: 78px !important;
+
+    display: -webkit-box !important;
+
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+
+    line-height: 1.6;
+}
+
+
+/* ==========================================================
+   BUTTON - FORCE TO SAME BOTTOM POSITION
+   ========================================================== */
+
+.news-section .news-content > .theme-btn {
+    margin-top: auto !important;
+    width: 100%;
+    justify-content: center;
+}
+
+
+/* ==========================================================
+   TABLET
+   ========================================================== */
+
+@media (max-width: 991px) {
+
+    .news-section .news-card-item .news-image {
+        height: 250px !important;
+        min-height: 250px !important;
+        max-height: 250px !important;
+    }
+
+}
+
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+
+@media (max-width: 575px) {
+
+    .news-section .news-card-item .news-image {
+        height: 230px !important;
+        min-height: 230px !important;
+        max-height: 230px !important;
+    }
+
+    .news-section .news-content h4 {
+        min-height: auto !important;
+    }
+
+    .news-section .news-content > p {
+        min-height: auto !important;
+    }
+
+}
+{% comment %} blog section css end {% endcomment %}
+
+
+
+{% comment %} destination css start {% endcomment %}
+
+/* ==========================================================
+   DESTINATION SECTION - MATCH ORIGINAL TOURO DESIGN
+   ========================================================== */
+
+/* Each swiper item */
+.testimonial-section4 .testimonial-destination-03 .swiper-slide {
+    height: auto;
+}
+
+
+/* Destination card */
+.testimonial-section4 .destination-items-style03 {
+    width: 100%;
+}
+
+
+/* ==========================================================
+   CIRCULAR IMAGE
+   Original Touro size is much smaller than the current 220px
+   ========================================================== */
+
+.testimonial-section4 .destination-items-style03 .destination-image {
+    width: 145px;
+    height: 145px;
+    min-width: 145px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    border-radius: 50%;
+    overflow: hidden;
+
+    position: relative;
+}
+
+
+/* Link fills complete circle */
+.testimonial-section4 .destination-items-style03 .destination-image a {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+
+/* Destination image */
+.testimonial-section4 .destination-items-style03 .destination-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    border-radius: 50%;
+
+    transition: transform 0.4s ease;
+}
+
+
+/* Image hover */
+.testimonial-section4
+.destination-items-style03:hover
+.destination-image img {
+    transform: scale(1.06);
+}
+
+
+/* ==========================================================
+   DESTINATION TEXT
+   ========================================================== */
+
+.testimonial-section4 .destination-items-style03 .content {
+    width: 100%;
+    text-align: center;
+}
+
+
+.testimonial-section4 .destination-items-style03 .content h4 {
+    margin-bottom: 8px !important;
+
+    font-size: 21px;
+    line-height: 1.25;
+    font-weight: 700;
+}
+
+
+.testimonial-section4 .destination-items-style03 .content h4 a {
+    color: #071c1f;
+
+    text-decoration: none;
+
+    transition: color 0.3s ease;
+}
+
+
+.testimonial-section4
+.destination-items-style03:hover
+.content h4 a {
+    color: #ff5a36;
+}
+
+
+/* Text below destination */
+.testimonial-section4 .destination-items-style03 .content .text-color {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+}
+
+
+/* ==========================================================
+   SECTION SPACING
+   ========================================================== */
+
+.testimonial-section4 {
+    overflow: hidden;
+}
+
+
+.testimonial-section4 .container.pb-100 {
+    padding-bottom: 80px !important;
+}
+
+
+/* More space between title and destinations */
+.testimonial-section4 .section-title {
+    margin-bottom: 65px !important;
+}
+
+
+/* Pagination */
+.testimonial-section4 .swiper-dot-2 {
+    margin-top: 65px !important;
+}
+
+
+/* ==========================================================
+   TABLET
+   ========================================================== */
+
+@media (max-width: 991px) {
+
+    .testimonial-section4 .destination-items-style03 .destination-image {
+        width: 135px;
+        height: 135px;
+        min-width: 135px;
+    }
+
+    .testimonial-section4 .destination-items-style03 .content h4 {
+        font-size: 19px;
+    }
+
+}
+
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+
+@media (max-width: 575px) {
+
+    .testimonial-section4 .destination-items-style03 .destination-image {
+        width: 130px;
+        height: 130px;
+        min-width: 130px;
+    }
+
+    .testimonial-section4 .destination-items-style03 .content h4 {
+        font-size: 18px;
+    }
+
+    .testimonial-section4 .section-title {
+        margin-bottom: 40px !important;
+    }
+
+}
+{% comment %} destination css end {% endcomment %}
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+    <!-- Breadcrumb-Wrapper Section Start -->
+    <section class="breadcrumb-wrapper parallaxie fix bg-cover"
+        style="background-image: url('{% static 'frontend/assets/img/inner-page/breadcrumb.jpg' %}');">
+        <div class="container">
+            <div class="page-heading">
+                <ul class="breadcrumb-list d-flex align-items-center justify-content-center">
+                    <li class="text-white"><a href="{% url 'home' %}">Home</a></li>
+                    <li class="text-white">/</li>
+                    <li class="text-white">About Us</li>
+                </ul>
+                <h1 class="breadcrumb-title text-white text-center">About Us</h1>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section Start (original template markup) -->
+    <section class="about-section03 section-padding pb-0 position-relative">
+        <div class="container">
+            <div class="row g-3">
+                <div class="col-lg-6">
+                    <div class="about-thumb03 position-relative about-thumb_controller">
+                        <img src="{% static 'frontend/img/home-3/fly-ja.png' %}" alt="img"
+                            class="d-sm-block d-none position-absolute end-0 me-10 top-0 mt-50 float-bob-y z-1">
+                        <!-- main -->
+                        <div class="thumb1 position-absolute bottom-0 start-0 mb-60 z-1">
+                            <img src="{% static 'frontend/img/home-3/about3-thumbv1.png' %}" alt="img" class="float-bob-y">
+                        </div>
+                        <div class="thumb2 position-absolute bottom-0 end-0 z-1">
+                            <img src="{% static 'frontend/img/home-3/about3-thumbv2.png' %}" alt="img" class="float-bob-x2">
+                        </div>
+                        <div class="thumb3 position-absolute top-0 start-0 ps-80">
+                            <img src="{% static 'frontend/img/home-3/about3-thumbv3.png' %}" alt="img" class="float-bob-x">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-content ms-lg-40">
+                        <div class="section-title style-2 mb-xxl-40 mb-xl-30 mb-lg-20 mb-15">
+                            <h6 class="sub-title wow fadeInUp" data-wow-delay=".3s">ABOUT TOURO</h6>
+                            <h2 class="char-animation">Our Stories Have the Best Experience in adventure</h2>
+                            <p class="wow fadeInUp" data-wow-delay=".5s">
+                                We are experienced in bringing adventures to their journey, with all out destinations on
+                                the world as our specialties. you!
+                            </p>
+                        </div>
+                        <div class="d-flex flex-column gap-xxl-30 gap-xl-20 gap-lg-10 gap-8 flex-wrap mb-xl-40 mb-lg-30 mb-md-20 mb-sm-10">
+                            <div class="about-list03 d-flex align-items-xl-center gap-xxl-25 gap-xl-15 gap-lg-10 gap-10 wow fadeInUp"
+                                data-wow-delay=".3s">
+                                <div class="icon">
+                                    <img src="{% static 'frontend/img/home-3/icon/camera.png' %}" alt="img">
+                                </div>
+                                <div class="content">
+                                    <h4 class="mb-xxl-15 mb-xl-10 mb-5">Quality at our core</h4>
+                                    <p>Ornare non nulla faucibus pulvinar vulputate neque. At Suscipit tristique nam
+                                        enim mauris consectetur.</p>
+                                </div>
+                            </div>
+                            <div class="about-list03 d-flex align-items-xl-center gap-xxl-25 gap-xl-15 gap-lg-10 gap-10 wow fadeInUp"
+                                data-wow-delay=".5s">
+                                <div class="icon">
+                                    <img src="{% static 'frontend/img/home-3/icon/sutcatse-fly.png' %}" alt="img">
+                                </div>
+                                <div class="content">
+                                    <h4 class="mb-xxl-15 mb-xl-10 mb-5">Memorable experiences</h4>
+                                    <p>Ornare non nulla faucibus pulvinar vulputate neque. At Suscipit tristique nam
+                                        enim mauris consectetur.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-item d-flex align-items-center gap-55 mt-0 wow fadeInUp" data-wow-delay=".7s">
+                            <ul class="list">
+                                <li><i class="fa-solid fa-circle-check"></i> Easy Booking</li>
+                                <li><i class="fa-solid fa-circle-check"></i> 24/7 Support</li>
+                            </ul>
+                            <ul class="list">
+                                <li><i class="fa-solid fa-circle-check"></i> Weather Updates</li>
+                                <li><i class="fa-solid fa-circle-check"></i> Instant Confirmation</li>
+                            </ul>
+                        </div>
+                        <div class="about-button mt-xxl-40 mt-xl-30 mt-lg-20 mt-15 wow fadeInUp" data-wow-delay=".9s">
+                            <a href="{% url 'packages' %}" class="theme-btn">
+                                <i class="fa-sharp fa-regular fa-arrow-right"></i> Discover More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Section Start -->
+    <div class="brand-section section-padding position-relative">
+        {% comment %} <div class="container">
+            <p class="text-center pb-60">Trips awarded and featured by:</p>
+            <div class="swiper brand-slider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><div class="brand-image text-center"><img src="https://touro.template.wowtheme7.com/assets/img/home-1/brand/brand-1.png" alt="img"></div></div>
+                    <div class="swiper-slide"><div class="brand-image text-center"><img src="https://touro.template.wowtheme7.com/assets/img/home-1/brand/brand-2.png" alt="img"></div></div>
+                    <div class="swiper-slide"><div class="brand-image text-center"><img src="https://touro.template.wowtheme7.com/assets/img/home-1/brand/brand-3.png" alt="img"></div></div>
+                    <div class="swiper-slide"><div class="brand-image text-center"><img src="https://touro.template.wowtheme7.com/assets/img/home-1/brand/brand-4.png" alt="img"></div></div>
+                    <div class="swiper-slide"><div class="brand-image text-center"><img src="https://touro.template.wowtheme7.com/assets/img/home-1/brand/brand-5.png" alt="img"></div></div>
+                    <div class="swiper-slide"><div class="brand-image text-center"><img src="https://touro.template.wowtheme7.com/assets/img/home-1/brand/brand-6.png" alt="img"></div></div>
+                </div>
+            </div>
+        </div> {% endcomment %}
+    </div>
+
+ <!-- =========================================================
+     TRAVEL SERVICES SECTION
+========================================================= -->
+
+<section class="adventure-section services-adventure-section section-padding mb-0 fix">
+
+    <!-- Background Top Shape -->
+    <div class="top-shape">
+        <img
+            src="{% static 'frontend/img/home-1/adventure/bg-shape.png' %}"
+            alt=""
+        >
+    </div>
+
+    <!-- Plane Decoration -->
+    <div class="plane-shape float-bob-y">
+        <img
+            src="{% static 'frontend/img/home-1/adventure/plane.png' %}"
+            alt=""
+        >
+    </div>
+
+
+    <!-- =====================================================
+         SECTION HEADING
+    ====================================================== -->
+
+    <div class="container">
+
+        <div class="section-title-area">
+
+            <div class="section-title">
+
+                <h6 class="sub-title text-white wow fadeInUp">
+                    OUR TRAVEL SERVICES
+                </h6>
+
+                <h2 class="text-white char-animation">
+                    Everything You Need for <br>
+                    a Perfect Journey
+                </h2>
+
+            </div>
+
+
+            <p
+                class="wow fadeInUp"
+                data-wow-delay=".5s"
+            >
+                From carefully planned tour packages and customized
+                itineraries to hotels, transportation and complete
+                travel assistance, we make every part of your journey
+                simple, comfortable and memorable.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SERVICES SLIDER
+    ====================================================== -->
+
+    <div class="swiper adventure-slider services-slider">
+
+        <div class="swiper-wrapper">
+
+
+            <!-- ================= SERVICE 01 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-60">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/01.jpg' %}"
+                            alt="Tour Packages"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-suitcase-rolling"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'packages' %}">
+                                        Tour <br> Packages
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 02 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-30">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/02.jpg' %}"
+                            alt="Customized Itineraries"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'contact' %}">
+                                        Customized <br> Itineraries
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 03 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-0">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/03.jpg' %}"
+                            alt="Hotel Bookings"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-hotel"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'contact' %}">
+                                        Hotel <br> Bookings
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 04 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-30">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/04.jpg' %}"
+                            alt="Transportation"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-car-side"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'contact' %}">
+                                        Travel <br> Transportation
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 05 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-60">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/05.jpg' %}"
+                            alt="Honeymoon Packages"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'packages' %}">
+                                        Honeymoon <br> Packages
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 06 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-30">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/01.jpg' %}"
+                            alt="Family Vacations"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-people-roof"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'packages' %}">
+                                        Family <br> Vacations
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 07 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-0">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/02.jpg' %}"
+                            alt="Group Tours"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'packages' %}">
+                                        Group <br> Tours
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 08 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-30">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/03.jpg' %}"
+                            alt="Adventure Trips"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-person-hiking"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'packages' %}">
+                                        Adventure <br> Trips
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 09 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-60">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/04.jpg' %}"
+                            alt="Pilgrimage Tours"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-place-of-worship"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'packages' %}">
+                                        Pilgrimage <br> Tours
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 10 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-30">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/05.jpg' %}"
+                            alt="Corporate Travel"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'contact' %}">
+                                        Corporate <br> Travel
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 11 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-0">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/01.jpg' %}"
+                            alt="Travel Insurance"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-shield-heart"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'contact' %}">
+                                        Travel <br> Insurance
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 12 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-30">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/02.jpg' %}"
+                            alt="Airport Transfers"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-plane-arrival"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'contact' %}">
+                                        Airport <br> Transfers
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 13 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-60">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/03.jpg' %}"
+                            alt="Travel Consultation"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-headset"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'contact' %}">
+                                        Travel <br> Consultation
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SLIDER PAGINATION
+    ====================================================== -->
+
+    <div class="swiper-dot">
+
+        <div class="dot"></div>
+
+    </div>
+
+</section>
+
+    {% comment %} <!-- Destination Section Start -->
+    <!-- =========================================================
+     DYNAMIC DESTINATION SECTION
+========================================================= -->
+
+{% if destinations %}
+
+<section
+    class="testimonial-section4 fix section-padding position-relative bg-top-cover"
+    style="background: url('{% static 'frontend/assets/img/home-3/desti-bg.png' %}');">
+
+    <div class="container pb-100">
+
+        <!-- =========================
+             SECTION HEADING
+        ========================== -->
+
+        <div class="section-title style-2 max-w-590px mb-xxl-60 mb-xl-50 mb-lg-40 mb-30">
+
+            <h6 class="sub-title">
+                POPULAR DESTINATIONS
+            </h6>
+
+            <h2 class="mb-0 char-animation">
+                Our Featured Destinations
+            </h2>
+
+        </div>
+
+
+        <!-- =========================
+             DESTINATION SLIDER
+        ========================== -->
+
+        <div class="swiper testimonial-destination-03">
+
+            <div class="swiper-wrapper">
+
+
+{% for destination in destinations %}
+
+<div class="swiper-slide">
+
+    <div class="destination-items-style03 d-flex flex-column gap-15 align-items-center text-center">
+
+        <!-- Destination Image -->
+        <div class="destination-image rounded-circle mb-xxl-15 mb-xl-10 mb-5">
+
+            <a href="{% url 'destination_details' destination.slug %}">
+
+                {% if destination.image %}
+                    <img
+                        src="{{ destination.image.url }}"
+                        alt="{{ destination.name }}"
+                        class="rounded-circle"
+                        loading="lazy"
+                    >
+                {% endif %}
+
+            </a>
+
+        </div>
+
+
+        <!-- Destination Content -->
+        <div class="content">
+
+            <h4 class="mb-5">
+
+                <a href="{% url 'destination_details' destination.slug %}">
+                    {{ destination.name }}
+                </a>
+
+            </h4>
+
+
+            {% if destination.location %}
+                <span class="text-color">
+                    <i class="fa-solid fa-location-dot"></i>
+                    {{ destination.location }}
+                </span>
+            {% endif %}
+
+
+            <div class="mt-1">
+                <span class="text-color">
+                    {{ destination.get_destination_type_display }}
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}                
+
+
+            </div>
+
+
+            <!-- =========================
+                 SLIDER PAGINATION
+            ========================== -->
+
+            {% if destinations|length > 1 %}
+
+            <div class="swiper-dot-2 text-center mt-xl-60 mt-lg-50 mt-md-40 mt-30">
+
+                <div class="dot-2"></div>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endif %} {% endcomment %}
+
+
+    {% comment %} <!-- Offer Section Start -->
+    <section class="offer-section offer-styleing03 mb-0 transform-none">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                    <div class="offer-item position-relative bg-cover rounded-4 overflow-hidden"
+                        style="background: url('{% static 'frontend/assets/img/home-3/offer-thumb1.jpg' %}');">
+                        <div class="section-title style-2 m-0">
+                            <h6 class="sub-title text-white">SPECIAL OFFER</h6>
+                            <h2 class="mb-xl-25 mb-lg-20 mb-15 text-white">Time to Explore the New Destinations</h2>
+                            <a href="{% url 'contact' %}" class="theme-btn_white"><i class="fa-solid fa-arrow-right-long"></i> Discover</a>
+                        </div>
+                        <img src="{% static 'frontend/assets/img/home-3/offer50.png' %}" alt="img"
+                            class="float-bob-y position-absolute end-0 bottom-0 mb-lg-30 me-lg-100 me-10 pe-xl-50">
+                    </div>
+                </div>
+                <div class="col-md-6 wow fadeInUp" data-wow-delay=".5s">
+                    <div class="offer-item position-relative bg-cover rounded-4 overflow-hidden"
+                        style="background: url('{% static 'frontend/assets/img/home-3/offer-thumb2.jpg' %}');">
+                        <div class="section-title style-2 m-0">
+                            <h6 class="sub-title text-white">SPECIAL OFFER</h6>
+                            <h2 class="mb-xl-25 mb-lg-20 mb-15 text-white">Time to Explore the New Destinations</h2>
+                            <a href="{% url 'contact' %}" class="theme-btn_white text-primary"><i class="fa-solid fa-arrow-right-long"></i> Discover</a>
+                        </div>
+                        <img src="https://touro.template.wowtheme7.com/assets/img/home-3/offer30.png" alt="img"
+                            class="float-bob-y position-absolute end-0 bottom-0 mb-lg-30 me-lg-100 me-10 pe-xl-50">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> {% endcomment %}
+
+
+
+{% comment %} packages {% endcomment %}
+ 
+<!-- =========================================================
+     DYNAMIC TOUR PACKAGES
+========================================================= -->
+
+<section
+    class="news-sections style-5 section-padding fix position-relative bg-cover"
+    style="
+        background-image:
+        url('{% static 'frontend/assets/img/home-5/destination/bg.jpg' %}');
+    "
+>
+
+    <div class="container">
+
+
+        <!-- =================================================
+             SECTION HEADING
+        ================================================== -->
+
+        <div class="mb-xxl-45 mb-xl-35 mb-lg-25 mb-20">
+
+            <div class="section-title text-center">
+
+                <h6 class="sub-title wow fadeInUp">
+                    BEST PACKAGES
+                </h6>
+
+                <h2 class="char-animation">
+                    Choose Your Best Tour Package
+                </h2>
+
+                <p
+                    class="wow fadeInUp"
+                    data-wow-delay=".2s"
+                >
+                    Discover our carefully selected tour packages
+                    and start planning your next unforgettable
+                    journey.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             PACKAGE CARDS
+        ================================================== -->
+
+        {% if about_packages %}
+
+        <div class="row g-4">
+
+            {% for package in about_packages %}
+
+            <div
+                class="col-md-6 col-lg-6 wow fadeInUp"
+                data-wow-delay=".2s"
+            >
+
+                <div
+                    class="
+                        blog__item
+                        blog__item4
+                        d-flex
+                        align-items-center
+                        bg-white
+                        rounded-4
+                        p-10
+                        card-effect
+                        gap-lg-0
+                        gap-12
+                        style-2
+                    "
+                >
+
+
+                    <!-- =========================================
+                         PACKAGE IMAGE
+                    ========================================== -->
+
+                    <div class="thumb-img position-relative">
+
+                        {% if package.main_image %}
+
+                            <img
+                                src="{{ package.main_image.url }}"
+                                alt="{{ package.name }}"
+                                class="w--100"
+                            >
+
+                        {% else %}
+
+                            <img
+                                src="{% static 'frontend/assets/img/home-5/destination/05.jpg' %}"
+                                alt="{{ package.name }}"
+                                class="w--100"
+                            >
+
+                        {% endif %}
+
+
+                        <!-- HEART -->
+
+                        <span
+                            class="
+                                desti-badge
+                                w-38
+                                h-38
+                                position-absolute
+                                top-0
+                                end-0
+                                mt-20
+                                me-20
+                                d-center
+                                rounded-circle
+                                bg-white
+                                theme-color-2
+                            "
+                        >
+
+                            <i
+                                class="
+                                    fa-regular
+                                    fa-heart
+                                    position-relative
+                                    top-02
+                                "
+                            ></i>
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- =========================================
+                         PACKAGE CONTENT
+                    ========================================== -->
+
+                    <div class="px-3">
+
+
+                        <!-- PACKAGE TYPE -->
+
+                        <div
+                            class="
+                                d-flex
+                                align-items-center
+                                gap-5
+                                fs-16
+                            "
+                        >
+
+                            <i
+                                class="
+                                    fa-solid
+                                    fa-location-dot
+                                    theme-color
+                                "
+                            ></i>
+
+                            {{ package.get_package_type_display }}
+
+                        </div>
+
+
+
+                        <!-- PACKAGE NAME -->
+
+                        <h4>
+
+                            <a
+                                href="{% url 'package_details' package.slug %}"
+                                class="link-effect fw-medium"
+                            >
+                                {{ package.name }}
+                            </a>
+
+                        </h4>
+
+
+
+                        <!-- =====================================
+                             RATING + DURATION
+                        ====================================== -->
+
+                        <div
+                            class="
+                                d-flex
+                                align-items-center
+                                gap-10
+                                flex-wrap
+                            "
+                        >
+
+
+                            <!-- RATING -->
+
+                            <div
+                                class="
+                                    d-flex
+                                    align-items-center
+                                    gap-5
+                                    text-color3
+                                    fw-semibold
+                                "
+                            >
+
+                                <i
+                                    class="
+                                        fa-solid
+                                        fa-star
+                                        theme-color-2
+                                    "
+                                ></i>
+
+                                5.00
+
+                            </div>
+
+
+                            <div class="line"></div>
+
+
+                            <!-- DURATION -->
+
+                            <div class="text-color3 fw-semibold">
+
+                                {% if package.duration %}
+
+                                    {{ package.duration }}
+
+                                {% else %}
+
+                                    Tour Package
+
+                                {% endif %}
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div
+                            class="
+                                border-bottom-dash
+                                my-lg-3
+                                my-2
+                            "
+                        ></div>
+
+
+
+                        <!-- =====================================
+                             PRICE + BUTTON
+                        ====================================== -->
+
+                        <div
+                            class="
+                                price-item
+                                d-flex
+                                justify-content-between
+                                align-items-center
+                            "
+                        >
+
+
+                            <!-- PRICE -->
+
+                            <div class="content">
+
+                                {% if package.price_from %}
+
+                                    <h3 class="lh-1">
+
+                                        ₹{{ package.price_from|floatformat:0 }}
+
+                                    </h3>
+
+                                    <span>
+                                        / Per Person
+                                    </span>
+
+                                {% else %}
+
+                                    <h3 class="lh-1">
+                                        Contact Us
+                                    </h3>
+
+                                    <span>
+                                        For Price
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+
+                            <!-- DETAILS BUTTON -->
+
+                            <a
+                                href="{% url 'package_details' package.slug %}"
+                                class="
+                                    theme-btn_white
+                                    py-3
+                                    theme-border-25
+                                "
+                            >
+
+                                <i
+                                    class="
+                                        fa-solid
+                                        fa-arrow-right-long
+                                    "
+                                ></i>
+
+                                View Package
+
+                            </a>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- =================================================
+             NO PACKAGES
+        ================================================== -->
+
+        <div class="text-center py-5">
+
+            <i
+                class="fa-solid fa-suitcase-rolling"
+                style="
+                    font-size: 45px;
+                    color: #ff5a36;
+                "
+            ></i>
+
+            <h4 class="mt-3">
+                Tour packages coming soon
+            </h4>
+
+        </div>
+
+
+        {% endif %}
+
+
+
+        <!-- =================================================
+             VIEW ALL PACKAGES
+        ================================================== -->
+
+        <div
+            class="
+                text-center
+                mt-xxl-50
+                mt-xl-40
+                mt-lg-30
+                mt-20
+                wow
+                fadeInUp
+            "
+            data-wow-delay=".3s"
+        >
+
+            <a
+                href="{% url 'packages' %}"
+                class="theme-btn"
+            >
+
+                View All Packages
+
+                <i
+                    class="
+                        fa-solid
+                        fa-arrow-right-long
+                    "
+                ></i>
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+{% comment %} packages end  {% endcomment %}
+
+
+
+
+    <!-- Testimonial Single Section Start -->
+    <!-- =========================================================
+     TESTIMONIAL SECTION
+========================================================= -->
+
+{% if testimonials %}
+
+<section class="testimonial-single-section position-relative section-padding fix">
+
+    <!-- =========================
+         SECTION TITLE
+    ========================== -->
+
+    <div class="container">
+
+        <div class="section-title mb-xxl-60 mb-xl-40 mb-lg-30 mb-25">
+
+            <h6 class="sub-title wow fadeInUp">
+                OUR TESTIMONIALS
+            </h6>
+
+            <h2 class="char-animation mb-0">
+                What Our Travelers Say About Us
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         TESTIMONIAL SLIDER
+    ========================== -->
+
+    <div class="container position-relative">
+
+        <!-- Decorative Shape -->
+
+        <img
+            src="{% static 'frontend/img/inner-page/single-img-shape.png' %}"
+            alt=""
+            class="position-absolute d-lg-block d-none"
+            style="top: -120px; right: 300px;"
+        >
+
+
+        <div class="swiper testimonial-single-slider">
+
+            <div class="swiper-wrapper">
+
+
+                {% for testimonial in testimonials %}
+
+                <div class="swiper-slide">
+
+                    <div class="testimonial-single-items d-flex flex-sm-nowrap flex-wrap align-items-center">
+
+
+                        <!-- =========================
+                             CUSTOMER IMAGE
+                        ========================== -->
+
+                        <div class="thumbs">
+
+                            {% if testimonial.image %}
+
+                                <img
+                                    src="{{ testimonial.image.url }}"
+                                    alt="{{ testimonial.name }}"
+                                    loading="lazy"
+                                >
+
+                            {% else %}
+
+                                <img
+                                    src="{% static 'frontend/img/inner-page/singe-img.png' %}"
+                                    alt="{{ testimonial.name }}"
+                                    loading="lazy"
+                                >
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- =========================
+                             TESTIMONIAL CONTENT
+                        ========================== -->
+
+                        <div class="content">
+
+
+                            <!-- Rating / Google -->
+
+                            <div class="test-meta d-flex flex-column gap-2 mb-xl-40 mb-lg-30 mb-md-20 mb-10">
+
+                                <div class="star">
+
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+
+                                </div>
+
+
+                                <div class="google-image">
+
+                                    <img
+                                        src="{% static 'frontend/img/home-1/testimonial/google.png' %}"
+                                        alt="Google Review"
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Review -->
+
+                            <p class="mb-xxl-30 mb-xl-25 mb-lg-20 mb-md-15 mb-10">
+
+                                 {{ testimonial.review|safe }}
+
+                            </p>
+
+
+                            <!-- Customer -->
+
+                            <h4 class="text-dark mb-md-5 mb-0">
+
+                                {{ testimonial.name }}
+
+                            </h4>
+
+                            <span>
+                                Traveler
+                            </span>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             SLIDER ARROWS
+        ========================== -->
+
+        {% if testimonials|length > 1 %}
+
+        <div
+            class="array-button wow fadeInUp"
+            data-wow-delay=".5s"
+        >
+
+            <button
+                class="array-next"
+                type="button"
+                aria-label="Previous testimonial"
+            >
+                <i class="fa-solid fa-arrow-left-long"></i>
+            </button>
+
+
+            <button
+                class="array-prev"
+                type="button"
+                aria-label="Next testimonial"
+            >
+                <i class="fa-solid fa-arrow-right-long"></i>
+            </button>
+
+        </div>
+
+        {% endif %}
+
+
+    </div>
+
+</section>
+
+{% endif %}
+
+
+    <!-- News Section Start -->
+<!-- =========================================================
+     BLOG SECTION
+========================================================= -->
+
+{% if blogs %}
+
+<section class="news-section section-padding news-bg fix">
+
+    <!-- Decorative Shape -->
+    <div class="left-shape">
+        <img
+            src="{% static 'frontend/img/home-1/news/shape.png' %}"
+            alt=""
+        >
+    </div>
+
+
+    <div class="container">
+
+        <!-- =========================
+             SECTION TITLE
+        ========================== -->
+
+        <div class="section-title text-center">
+
+            <h6 class="sub-title wow fadeInUp">
+                OUR BLOG
+            </h6>
+
+            <h2 class="char-animation">
+                Travel Stories, Tips & Guides
+            </h2>
+
+        </div>
+
+
+        <!-- =========================
+             BLOG CARDS
+        ========================== -->
+
+        <div class="row">
+
+            {% for blog in blogs %}
+
+            <div class="col-xl-4 col-lg-6 col-md-6">
+
+                <div
+                    class="news-card-item news-card-item-style-1 mt-30
+                    {% if forloop.first %}
+                        item_right_1
+                    {% elif forloop.last %}
+                        item_left_1
+                    {% endif %}
+                    "
+                >
+
+                    <!-- BLOG IMAGE -->
+
+                    <div class="news-image">
+
+                        {% if blog.image %}
+
+                            <a href="{{ blog.get_absolute_url }}">
+
+                                <img
+                                    src="{{ blog.image.url }}"
+                                    alt="{{ blog.title }}"
+                                    loading="lazy"
+                                >
+
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- BLOG CONTENT -->
+
+                    <div class="news-content">
+
+
+                        <!-- DATE -->
+
+                        <ul class="news-meta d-flex align-items-center">
+
+                            <li>
+
+                                <i class="fa-light fa-calendar"></i>
+
+                                {{ blog.created_at|date:"d F, Y" }}
+
+                            </li>
+
+                            <li class="style-2">
+                                Blog
+                            </li>
+
+                        </ul>
+
+
+                        <!-- TITLE -->
+
+                        <h4>
+
+                            <a href="{{ blog.get_absolute_url }}">
+
+                                {{ blog.title }}
+
+                            </a>
+
+                        </h4>
+
+
+                        <!-- DESCRIPTION -->
+
+                        <p>
+                            {{ blog.description|striptags|truncatewords:18 }}
+                        </p>
+
+
+                        <!-- READ MORE -->
+
+                        <a
+                            href="{{ blog.get_absolute_url }}"
+                            class="theme-btn"
+                        >
+
+                            <i class="fa-sharp fa-regular fa-arrow-right"></i>
+
+                            Continue Reading
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- =========================
+             VIEW ALL BLOGS
+        ========================== -->
+
+        <div class="text-center mt-50 wow fadeInUp">
+
+            <a href="{% url 'blogs' %}" class="theme-btn">
+
+                <i class="fa-sharp fa-regular fa-arrow-right"></i>
+
+                View All Blogs
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+{% endif %}
+
+
+
+ <!-- faq Section Start -->
+    <section class="faq-sections4 section-padding pb-0 position-relative fix">
+        <img src="{% static 'frontend/img/home-2/faq-shape.png' %}" alt="img"
+            class="position-absolute start-0 top-0 float-bob-y m-xl-40 pt-120">
+        <div class="container">
+            <div class="section-title text-center mb-xl-50 mb-md-30 mb-20">
+                <h6 class="sub-title wow fadeInUp">
+                    OUR FAQS
+                </h6>
+                <h2 class="fw-medium char-animation">
+                    Frequently Asked Questions
+                </h2>
+                <p class="max-w-575px mx-auto wow fadeInUp" data-wow-delay=".3s">
+                    Bringing adventures to their journey, with all outdoor destinations on the world as our specialties.
+                    Start your
+                    adventure now!
+                </p>
+            </div>
+            <div class="faq-accordion faq-custom">
+                <!-- Accordion Start -->
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item wow fadeInUp" data-wow-delay=".2s">
+                        <h5 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq1" aria-expanded="false" aria-controls="faq1">
+                                What are the payment terms for a charter?
+                            </button>
+                        </h5>
+                        <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <p>
+                                    Innovation with world-class tech teams. We’ll match you to an entire remote team.
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item wow fadeInUp" data-wow-delay=".4s">
+                        <h5 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                                Do all yachts accept children on board?
+                            </button>
+                        </h5>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <p>
+                                    Innovation with world-class tech teams. We’ll match you to an entire remote team.
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item wow fadeInUp" data-wow-delay=".6s">
+                        <h5 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                                What is the minimum length of charter and how are the rates calculated?
+                            </button>
+                        </h5>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <p>
+                                    Innovation with world-class tech teams. We’ll match you to an entire remote team.
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item wow fadeInUp" data-wow-delay=".8s">
+                        <h5 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                                What do I need to do to secure my chosen yacht?
+                            </button>
+                        </h5>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <p>
+                                    Innovation with world-class tech teams. We’ll match you to an entire remote team.
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item wow fadeInUp" data-wow-delay="1s">
+                        <h5 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">
+                                Is VAT applicable on the charter fee?
+                            </button>
+                        </h5>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <p>
+                                    Innovation with world-class tech teams. We’ll match you to an entire remote team.
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Accordion End -->
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock %}
+
+
+{% block extra_js %}
+{% endblock %}

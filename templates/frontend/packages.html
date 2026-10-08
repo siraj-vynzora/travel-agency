@@ -1,0 +1,1332 @@
+{% extends 'frontend/base.html' %}
+
+{% load static %}
+
+
+
+{% block title %}Touro - Travel & Tour Booking Agency | Tour{% endblock %}
+
+
+
+{% block extra_css %}
+
+<style>
+
+/* ==========================================================
+   TOUR PAGE HEADER FIX
+   Keep header OVER breadcrumb just like About page
+   ========================================================== */
+
+#header-sticky {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+
+    /* IMPORTANT: don't use relative here */
+    position: absolute !important;
+
+    top: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+
+    z-index: 9999 !important;
+
+    /* remove the white header strip */
+    background: transparent !important;
+}
+
+
+/* Header inner areas must also stay transparent */
+#header-sticky .header-main,
+#header-sticky .mega-menu-wrapper,
+#header-sticky .container {
+    background: transparent !important;
+}
+
+
+/* ==========================================================
+   BREADCRUMB
+   ========================================================== */
+
+.breadcrumb-wrapper {
+    position: relative !important;
+    z-index: 1 !important;
+    margin-top: 0 !important;
+}
+
+
+/* ==========================================================
+   HEADER CONTENT
+   ========================================================== */
+
+#header-sticky .header-main,
+#header-sticky .header-left,
+#header-sticky .header-right {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+
+/* ==========================================================
+   DESKTOP
+   ========================================================== */
+
+@media (min-width: 1200px) {
+
+    #header-sticky {
+        position: absolute !important;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background: transparent !important;
+    }
+
+}
+
+
+/* ==========================================================
+   TABLET + MOBILE
+   ========================================================== */
+
+@media (max-width: 1199px) {
+
+    #header-sticky {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+
+        position: absolute !important;
+
+        left: 0;
+        right: 0;
+        width: 100%;
+
+        z-index: 9999 !important;
+
+        background: transparent !important;
+    }
+
+
+    #header-sticky .header-main {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        background: transparent !important;
+    }
+
+
+    /* Logo */
+    #header-sticky .header-left {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+
+    /* Hide desktop navigation */
+    #header-sticky .mean__menu-wrapper {
+        display: none !important;
+    }
+
+
+    /* Hamburger */
+    #header-sticky .header__hamburger {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+
+    #header-sticky .sidebar__toggle {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        align-items: center;
+        justify-content: center;
+    }
+
+}
+
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+
+@media (max-width: 991px) {
+
+    /* About page also doesn't need desktop top bar on mobile */
+    .header-top-section {
+        display: none !important;
+    }
+
+    #header-sticky {
+        top: 0 !important;
+    }
+
+}
+
+
+/* ==========================================================
+   STICKY HEADER AFTER SCROLL
+   ========================================================== */
+
+/* =========================================================
+   STICKY HEADER AFTER SCROLL
+   ========================================================= */
+
+#header-sticky.sticky {
+    position: fixed !important;
+
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+
+    width: 100% !important;
+
+    z-index: 99999 !important;
+
+    /* IMPORTANT */
+    background: #ffffff !important;
+
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+
+    transition:
+        background-color 0.3s ease,
+        box-shadow 0.3s ease !important;
+}
+
+
+/* The previous rules force these transparent.
+   Restore white when sticky. */
+
+#header-sticky.sticky .mega-menu-wrapper,
+#header-sticky.sticky .header-main {
+    background: #ffffff !important;
+}
+
+
+/* Keep navbar text visible on white background */
+
+#header-sticky.sticky .main-menu ul li a {
+    color: #0b1f1a !important;
+}
+
+
+/* Search icon */
+
+#header-sticky.sticky .header-search .search-trigger,
+#header-sticky.sticky .header-search .search-icon {
+    color: #0b1f1a !important;
+}
+
+
+/* Hamburger */
+
+#header-sticky.sticky .sidebar__toggle {
+    color: #0b1f1a !important;
+}
+
+
+/* Keep Discover button styling */
+
+#header-sticky.sticky .theme-btn {
+    color: #ffffff !important;
+}
+
+
+
+{% comment %} card css start {% endcomment %}
+/* Tour cards: same tall card as the template, whatever size you upload */
+.tours-image-itmes-style-1 .tour-image {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.tours-image-itmes-style-1 .tour-image > img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 478 / 685;   /* the template card's proportion */
+    object-fit: cover;         /* crops instead of stretching */
+}
+
+   .tour-single-sideber-box .post-thumb img {
+       width: 90px;
+       height: 100px;
+       object-fit: cover;
+       border-radius: 8px;
+   }
+
+
+   /* Sidebar "Top Packages" list */
+.tour-single-sideber-box .recent-post-item .post-thumb {
+    flex: 0 0 90px;          /* fixed width, never grows or shrinks */
+    width: 90px;
+}
+
+.tour-single-sideber-box .recent-post-item .post-thumb img {
+    width: 90px;
+    height: 100px;
+    object-fit: cover;       /* crops the photo instead of stretching */
+    border-radius: 8px;
+    display: block;
+}
+
+.tour-single-sideber-box .recent-post-item .content {
+    flex: 1;
+    min-width: 0;            /* lets the text use the remaining space */
+}
+
+.tour-single-sideber-box .recent-post-item .star {
+    white-space: nowrap;     /* keeps all 5 stars on one line */
+    display: flex;
+    gap: 2px;
+}
+
+.tour-single-sideber-box .recent-post-item .content p {
+    white-space: normal;
+    line-height: 1.4;
+}
+
+
+
+/* ==========================================================
+   3 PACKAGE GRID
+========================================================== */
+
+.tour-section .row > [class*="col-"] {
+    display: flex;
+}
+
+.tour-section .tours-image-itmes {
+    width: 100%;
+}
+
+
+/* Image consistency */
+
+.tour-section .tours-image-itmes-style-1 .tour-image > img {
+    width: 100%;
+    aspect-ratio: 478 / 685;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+/* Pagination spacing */
+
+.tour-section .page-nav-wrap {
+    margin-top: 60px;
+}
+
+
+/* Tablet */
+
+@media (max-width: 991px) {
+
+    .tour-section .page-nav-wrap {
+        margin-top: 45px;
+    }
+
+}
+
+
+/* Mobile */
+
+@media (max-width: 575px) {
+
+    .tour-section .page-nav-wrap {
+        margin-top: 35px;
+    }
+
+}
+{% comment %} card css end {% endcomment %}
+
+
+{% comment %} fitration css start {% endcomment %}
+
+/* ==========================================================
+   PACKAGE PAGE INTRO + FILTER
+========================================================== */
+
+.package-listing-header {
+    position: relative;
+    margin-bottom: 55px;
+}
+
+
+/* ==========================================================
+   TITLE AREA
+========================================================== */
+
+.package-listing-title-area {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 35px;
+}
+
+.package-listing-title {
+    max-width: 720px;
+}
+
+.package-listing-title .sub-title {
+    margin-bottom: 12px;
+}
+
+.package-listing-title h2 {
+    color: #08251d;
+    font-size: 48px;
+    line-height: 1.15;
+    font-weight: 700;
+    margin: 0 0 15px;
+}
+
+.package-listing-title p {
+    max-width: 650px;
+    color: #68736f;
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+
+/* PACKAGE COUNT */
+
+.package-result-count {
+    flex-shrink: 0;
+    color: #6f7975;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.package-result-count strong {
+    color: #ff5a36;
+    font-size: 20px;
+    margin-right: 4px;
+}
+
+
+/* ==========================================================
+   FILTER WRAPPER
+========================================================== */
+
+.package-filter-bar {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    padding: 10px;
+
+    background: #ffffff;
+
+    border: 1px solid #edf0ef;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 40px rgba(16, 40, 32, 0.07);
+}
+
+
+/* ==========================================================
+   FILTER ITEMS
+========================================================== */
+
+.package-filter-options {
+    flex: 1;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    align-items: center;
+}
+
+
+/* INDIVIDUAL FILTER */
+
+.package-filter-option {
+    position: relative;
+
+    min-height: 62px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 28px;
+
+    color: #122720;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    border-right: 1px solid #e9edeb;
+
+    transition: all 0.3s ease;
+}
+
+
+/* ICON */
+
+.package-filter-option i {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 12px;
+
+    border-radius: 50%;
+
+    background: #f5f7f6;
+
+    color: #ff5a36;
+
+    font-size: 15px;
+
+    transition: all 0.3s ease;
+}
+
+
+/* ARROW */
+
+.package-filter-option .filter-arrow {
+    margin-left: auto;
+
+    width: auto;
+    height: auto;
+
+    background: transparent;
+
+    color: #8b9490;
+
+    font-size: 12px;
+}
+
+
+/* HOVER */
+
+.package-filter-option:hover {
+    color: #ff5a36;
+}
+
+
+/* ACTIVE */
+
+.package-filter-option.active {
+    color: #ff5a36;
+}
+
+.package-filter-option.active > i:first-child {
+    background: rgba(255, 90, 54, 0.10);
+    color: #ff5a36;
+}
+
+
+/* ==========================================================
+   SEARCH / VIEW BUTTON
+========================================================== */
+
+.package-filter-submit {
+    min-width: 175px;
+    height: 62px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: #ff5a36;
+
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    transition: all 0.3s ease;
+}
+
+.package-filter-submit:hover {
+    background: #08251d;
+    color: #ffffff;
+}
+
+.package-filter-submit i {
+    font-size: 14px;
+}
+
+
+/* ==========================================================
+   PACKAGE GRID SPACING
+========================================================== */
+
+.package-grid-wrapper {
+    margin-top: 0;
+}
+
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (max-width: 991px) {
+
+    .package-listing-title-area {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .package-listing-title h2 {
+        font-size: 38px;
+    }
+
+    .package-filter-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .package-filter-options {
+        width: 100%;
+    }
+
+    .package-filter-option {
+        padding: 0 18px;
+    }
+
+    .package-filter-submit {
+        width: 100%;
+    }
+}
+
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (max-width: 767px) {
+
+    .package-listing-header {
+        margin-bottom: 40px;
+    }
+
+    .package-listing-title h2 {
+        font-size: 32px;
+    }
+
+    .package-listing-title p {
+        font-size: 14px;
+    }
+
+    .package-filter-options {
+        grid-template-columns: 1fr;
+    }
+
+    .package-filter-option {
+        width: 100%;
+
+        min-height: 58px;
+
+        border-right: none;
+
+        border-bottom: 1px solid #edf0ef;
+    }
+
+    .package-filter-option:last-child {
+        border-bottom: none;
+    }
+
+    .package-filter-submit {
+        height: 58px;
+    }
+}
+{% comment %} filtration css end {% endcomment %}
+
+
+{% comment %} camera shape css start {% endcomment %}
+/* ==========================================================
+   PACKAGE SECTION DECORATION
+   ========================================================== */
+
+.package-section-decorated {
+    position: relative;
+
+    /* Needed so decoration does not create horizontal scroll */
+    overflow: hidden;
+
+    /* Keep normal section background */
+    background-color: #ffffff;
+
+    isolation: isolate;
+}
+
+
+/* ==========================================================
+   KEEP REAL CONTENT ABOVE DECORATION
+   ========================================================== */
+
+.package-section-decorated > .container {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* ==========================================================
+   FLOATING CAMERA
+   ========================================================== */
+
+.package-camera-decoration {
+    position: absolute;
+
+    /*
+       Position on upper-right side of package section
+    */
+    top: 75px;
+    right: -55px;
+
+    width: 330px;
+
+    z-index: 0;
+
+    pointer-events: none;
+    user-select: none;
+
+    /*
+       Overall transparency.
+       Keeps it decorative instead of competing with content.
+    */
+    opacity: 0.10;
+}
+
+
+.package-camera-decoration img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    /*
+       Only move up/down.
+    */
+    animation: packageCameraFloat 4.5s ease-in-out infinite;
+
+    will-change: transform;
+}
+
+
+/* ==========================================================
+   UP / DOWN ANIMATION
+   ========================================================== */
+
+@keyframes packageCameraFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-22px);
+    }
+
+}
+
+
+/* ==========================================================
+   TABLET
+   ========================================================== */
+
+@media (max-width: 1199px) {
+
+    .package-camera-decoration {
+        width: 270px;
+
+        top: 80px;
+        right: -70px;
+
+        opacity: 0.08;
+    }
+
+}
+
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+
+@media (max-width: 767px) {
+
+    .package-camera-decoration {
+        width: 190px;
+
+        top: 45px;
+        right: -65px;
+
+        opacity: 0.06;
+    }
+
+}
+
+
+/* ==========================================================
+   ACCESSIBILITY
+   Stop decorative animation if user requests reduced motion
+   ========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .package-camera-decoration img {
+        animation: none;
+    }
+
+}
+{% comment %} camera shape css end  {% endcomment %}
+
+</style>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+    <!-- Breadcrumb-Wrapper Section Start -->
+
+
+
+    <section class="breadcrumb-wrapper parallaxie fix bg-cover"
+
+
+
+        style="background-image: url('{% static 'frontend/assets/img/inner-page/breadcrumb.jpg' %}');">
+
+
+
+        <div class="container">
+
+
+
+            <div class="page-heading">
+
+
+
+                <ul class="breadcrumb-list d-flex align-items-center justify-content-center">
+
+
+
+                    <li class="text-white"><a href="{% url 'home' %}">Home</a></li>
+
+
+
+                    <li class="text-white">/</li>
+
+
+
+                    <li class="text-white">Our Packages</li>
+
+
+
+                </ul>
+
+
+
+                <h1 class="breadcrumb-title text-white text-center">Our Packages</h1>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </section>
+
+
+
+
+
+
+
+    <!-- Tour Section Start -->
+
+
+<!-- =========================================================
+     TOUR PACKAGES SECTION
+========================================================= -->
+
+<section class="tour-section section-padding package-section-decorated">
+
+    <!-- ================================================
+         DECORATIVE FLOATING CAMERA
+    ================================================= -->
+
+    <div class="package-camera-decoration" aria-hidden="true">
+
+        <img
+            src="{% static 'frontend/assets/img/packages/camera.png' %}"
+            alt=""
+        >
+
+    </div>
+
+
+    <div class="container">
+
+        <!-- =====================================================
+             PAGE TITLE / INTRO
+        ====================================================== -->
+
+        <div class="package-listing-header">
+
+            <div class="package-listing-title-area">
+
+                <div class="package-listing-title">
+
+                    <h6 class="sub-title wow fadeInUp">
+                        OUR TOUR PACKAGES
+                    </h6>
+
+                    <h2 class="char-animation">
+                        Find Your Perfect Travel Experience
+                    </h2>
+
+                    <p class="wow fadeInUp" data-wow-delay=".2s">
+                        Explore our carefully selected travel packages and
+                        discover unforgettable destinations across India and
+                        around the world.
+                    </p>
+
+                </div>
+
+
+                <!-- RESULT COUNT -->
+
+                <div class="package-result-count wow fadeInUp">
+
+                    <strong>
+                        {{ page_obj.paginator.count }}
+                    </strong>
+
+                    {% if current_type == "domestic" %}
+
+                        Domestic Package{{ page_obj.paginator.count|pluralize }}
+
+                    {% elif current_type == "international" %}
+
+                        International Package{{ page_obj.paginator.count|pluralize }}
+
+                    {% else %}
+
+                        Package{{ page_obj.paginator.count|pluralize }} Available
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PACKAGE FILTER BAR
+            ================================================== -->
+
+            <div class="package-filter-bar wow fadeInUp"
+                 data-wow-delay=".3s">
+
+
+                <div class="package-filter-options">
+
+
+                    <!-- =========================
+                         ALL PACKAGES
+                    ========================== -->
+
+                    <a
+                        href="{% url 'packages' %}"
+                        class="package-filter-option
+                        {% if not current_type %}active{% endif %}"
+                    >
+
+                        <i class="fa-regular fa-grid-2"></i>
+
+                        <span>
+                            All Packages
+                        </span>
+
+                        <i class="fa-regular fa-arrow-right filter-arrow"></i>
+
+                    </a>
+
+
+
+                    <!-- =========================
+                         DOMESTIC
+                    ========================== -->
+
+                    <a
+                        href="{% url 'packages' %}?type=domestic"
+                        class="package-filter-option
+                        {% if current_type == 'domestic' %}active{% endif %}"
+                    >
+
+                        <i class="fa-regular fa-location-dot"></i>
+
+                        <span>
+                            Domestic
+                        </span>
+
+                        <i class="fa-regular fa-arrow-right filter-arrow"></i>
+
+                    </a>
+
+
+
+                    <!-- =========================
+                         INTERNATIONAL
+                    ========================== -->
+
+                    <a
+                        href="{% url 'packages' %}?type=international"
+                        class="package-filter-option
+                        {% if current_type == 'international' %}active{% endif %}"
+                    >
+
+                        <i class="fa-regular fa-earth-americas"></i>
+
+                        <span>
+                            International
+                        </span>
+
+                        <i class="fa-regular fa-arrow-right filter-arrow"></i>
+
+                    </a>
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             PACKAGE GRID
+        ====================================================== -->
+
+        <div
+            class="row g-4 package-grid-wrapper"
+            id="package-grid"
+        >
+
+
+            {% for p in packages %}
+
+
+            <div class="col-xl-4 col-lg-4 col-md-6">
+
+                <div class="tours-image-itmes tours-image-itmes-style-1">
+
+                    <div class="tour-image">
+
+
+                        <!-- IMAGE -->
+
+                        {% if p.main_image %}
+
+                        <img
+                            src="{{ p.main_image.url }}"
+                            alt="{{ p.name }}"
+                            loading="lazy"
+                        >
+
+                        {% endif %}
+
+
+
+                        <!-- =====================================
+                             PACKAGE CONTENT
+                        ====================================== -->
+
+                        <div class="tour-content">
+
+
+                            <!-- DURATION -->
+
+                            <ul class="list mb-10">
+
+                                <li>
+
+                                    <i class="fa-regular fa-clock"></i>
+
+                                    {% if p.duration %}
+
+                                        {{ p.duration }}
+
+                                    {% else %}
+
+                                        {{ p.get_package_type_display }}
+
+                                    {% endif %}
+
+                                </li>
+
+                            </ul>
+
+
+
+                            <!-- PACKAGE NAME -->
+
+                            <h3>
+
+                                <a href="{% url 'package_details' p.slug %}">
+
+                                    {{ p.name|truncatechars:28 }}
+
+                                </a>
+
+                            </h3>
+
+
+
+                            <!-- PRICE -->
+
+                            <div class="price-item mt-25 d-flex align-items-center">
+
+
+                                <div class="content">
+
+                                    {% if p.price_from %}
+
+                                    <h3>
+                                        ₹{{ p.price_from|floatformat:0 }}
+                                    </h3>
+
+                                    <span>
+                                        / Per Person
+                                    </span>
+
+                                    {% else %}
+
+                                    <h3>
+                                        On Request
+                                    </h3>
+
+                                    {% endif %}
+
+                                </div>
+
+
+
+                                <!-- BUTTON -->
+
+                                <div class="tour-button">
+
+                                    <a
+                                        href="{% url 'package_details' p.slug %}"
+                                        class="theme-btn"
+                                    >
+
+                                        <i class="fa-sharp fa-regular fa-arrow-right"></i>
+
+                                        View Details
+
+                                    </a>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            {% empty %}
+
+
+            <!-- =================================================
+                 EMPTY RESULT
+            ================================================== -->
+
+            <div class="col-12">
+
+                <div class="text-center py-5">
+
+                    <i
+                        class="fa-regular fa-suitcase-rolling"
+                        style="
+                            font-size: 50px;
+                            color: #ff5a36;
+                            margin-bottom: 20px;
+                        "
+                    ></i>
+
+                    <h3>
+                        No Packages Found
+                    </h3>
+
+                    <p>
+                        No travel packages are currently available
+                        in this category.
+                    </p>
+
+
+                    {% if current_type %}
+
+                    <a
+                        href="{% url 'packages' %}"
+                        class="theme-btn mt-20"
+                    >
+
+                        <i class="fa-regular fa-arrow-left"></i>
+
+                        View All Packages
+
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+
+        <!-- =====================================================
+             PAGINATION
+        ====================================================== -->
+
+        {% if page_obj.has_other_pages %}
+
+        <div class="row">
+
+            <div class="col-12">
+
+                <div class="page-nav-wrap text-center mt-50">
+
+                    <ul>
+
+
+                        <!-- PREVIOUS -->
+
+                        {% if page_obj.has_previous %}
+
+                        <li>
+
+                            <a
+                                class="page-numbers"
+                                href="?page={{ page_obj.previous_page_number }}{% if current_type %}&type={{ current_type }}{% endif %}"
+                            >
+
+                                <i class="fa-solid fa-arrow-left"></i>
+
+                            </a>
+
+                        </li>
+
+                        {% endif %}
+
+
+
+                        <!-- PAGE NUMBERS -->
+
+                        {% for n in page_obj.paginator.page_range %}
+
+                        <li
+                            {% if n == page_obj.number %}
+                                class="active"
+                            {% endif %}
+                        >
+
+                            <a
+                                class="page-numbers"
+                                href="?page={{ n }}{% if current_type %}&type={{ current_type }}{% endif %}"
+                            >
+
+                                {{ n|stringformat:"02d" }}
+
+                            </a>
+
+                        </li>
+
+                        {% endfor %}
+
+
+
+                        <!-- NEXT -->
+
+                        {% if page_obj.has_next %}
+
+                        <li>
+
+                            <a
+                                class="page-numbers"
+                                href="?page={{ page_obj.next_page_number }}{% if current_type %}&type={{ current_type }}{% endif %}"
+                            >
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+                        </li>
+
+                        {% endif %}
+
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+    </div>
+
+</section>
+
+
+
+
+{% endblock %}
+
+
+
+{% block extra_js %}
+
+{% endblock %}

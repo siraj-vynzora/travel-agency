@@ -1,0 +1,1288 @@
+{% extends "admin_pages/base.html" %}
+{% load static %}
+
+{% block title %}Booking Enquiries | Admin Dashboard{% endblock %}
+
+
+{% block extra_css %}
+
+<style>
+
+/* ============================================================
+   BOOKING ENQUIRY PAGE
+============================================================ */
+
+.enquiry-page {
+    width: 100%;
+}
+
+
+/* ============================================================
+   HEADER
+============================================================ */
+
+.enquiry-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.enquiry-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.enquiry-title-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: #ecfdf5;
+    color: #10b981;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+}
+
+.enquiry-title-wrap h4 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.enquiry-title-wrap p {
+    margin: 3px 0 0;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+
+/* ============================================================
+   SEARCH
+============================================================ */
+
+.enquiry-search {
+    position: relative;
+    width: 300px;
+    max-width: 100%;
+}
+
+.enquiry-search i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+.enquiry-search input {
+    width: 100%;
+    height: 44px;
+    padding: 0 15px 0 40px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+
+    background: #fff;
+    font-size: 14px;
+
+    outline: none;
+    transition: .2s;
+}
+
+.enquiry-search input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .08);
+}
+
+
+/* ============================================================
+   TABLE CARD
+============================================================ */
+
+.enquiry-table-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
+}
+
+.enquiry-table-scroll {
+    overflow-x: auto;
+}
+
+.enquiry-table {
+    width: 100%;
+    margin: 0;
+    min-width: 1050px;
+}
+
+.enquiry-table thead th {
+    background: #f8fafc;
+    color: #64748b;
+
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+
+    padding: 15px 16px;
+    border-bottom: 1px solid #e5e7eb;
+
+    white-space: nowrap;
+}
+
+.enquiry-table tbody td {
+    padding: 16px;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f5f9;
+
+    font-size: 14px;
+    color: #334155;
+}
+
+.enquiry-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.enquiry-table tbody tr:hover {
+    background: #fafcff;
+}
+
+
+/* ============================================================
+   CUSTOMER
+============================================================ */
+
+.customer-name {
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 3px;
+}
+
+.customer-phone {
+    color: #64748b;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.customer-phone:hover {
+    color: #2563eb;
+}
+
+
+/* ============================================================
+   PACKAGE BADGE
+============================================================ */
+
+.package-badge {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 6px 10px;
+    border-radius: 7px;
+
+    background: #eff6ff;
+    color: #2563eb;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.general-badge {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+
+/* ============================================================
+   DATE
+============================================================ */
+
+.date-main {
+    color: #334155;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.date-time {
+    color: #94a3b8;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+
+/* ============================================================
+   ACTION BUTTON
+============================================================ */
+
+.enquiry-action-btn {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+    border: 1px solid #e2e8f0;
+
+    background: #fff;
+    color: #475569;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: .2s;
+}
+
+.enquiry-action-btn:hover {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #fff;
+}
+
+
+/* ============================================================
+   EMPTY STATE
+============================================================ */
+
+.enquiry-empty {
+    padding: 60px 20px !important;
+    text-align: center;
+}
+
+.enquiry-empty i {
+    font-size: 42px;
+    color: #cbd5e1;
+    margin-bottom: 15px;
+}
+
+.enquiry-empty h5 {
+    color: #334155;
+    margin-bottom: 5px;
+}
+
+.enquiry-empty p {
+    color: #94a3b8;
+    margin: 0;
+}
+
+
+/* ============================================================
+   MODAL
+============================================================ */
+
+.enquiry-modal .modal-content {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.enquiry-modal .modal-header {
+    padding: 20px 24px;
+    background: #f8fafc;
+}
+
+.enquiry-modal .modal-title {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.enquiry-modal .modal-body {
+    padding: 24px;
+}
+
+.enquiry-customer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.enquiry-avatar {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+
+    border-radius: 50%;
+
+    background: #eff6ff;
+    color: #2563eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.enquiry-customer h5 {
+    margin: 0 0 4px;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.enquiry-customer a {
+    color: #64748b;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+
+/* ============================================================
+   DETAIL GRID
+============================================================ */
+
+.enquiry-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.enquiry-detail-item {
+    padding: 14px;
+    border-radius: 10px;
+    background: #f8fafc;
+}
+
+.enquiry-detail-label {
+    display: block;
+    margin-bottom: 5px;
+
+    color: #94a3b8;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.enquiry-detail-value {
+    color: #334155;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   MESSAGE
+============================================================ */
+
+.enquiry-message {
+    margin-top: 18px;
+}
+
+.enquiry-message-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.enquiry-message-box {
+    padding: 15px;
+
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.7;
+
+    white-space: pre-line;
+}
+
+
+/* ============================================================
+   MODAL BUTTONS
+============================================================ */
+
+.enquiry-modal-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    padding: 18px 24px;
+}
+
+.whatsapp-btn {
+    background: #25D366;
+    border-color: #25D366;
+    color: #fff;
+}
+
+.whatsapp-btn:hover {
+    background: #1ebe5d;
+    border-color: #1ebe5d;
+    color: #fff;
+}
+
+
+/* ============================================================
+   PAGINATION
+============================================================ */
+
+.enquiry-pagination {
+    margin-top: 25px;
+}
+
+.enquiry-pagination .page-link {
+    border-radius: 8px;
+    margin: 0 3px;
+    color: #475569;
+    border-color: #e2e8f0;
+}
+
+.enquiry-pagination .page-item.active .page-link {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #fff;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 767px) {
+
+    .enquiry-page-header {
+        align-items: stretch;
+    }
+
+    .enquiry-search {
+        width: 100%;
+    }
+
+    .enquiry-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .enquiry-modal-footer {
+        flex-direction: column;
+    }
+
+    .enquiry-modal-footer > * {
+        width: 100%;
+    }
+
+    .enquiry-modal-footer .btn {
+        width: 100%;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="enquiry-page">
+
+
+    <!-- ========================================================
+         PAGE HEADER
+    ========================================================= -->
+
+    <div class="enquiry-page-header">
+
+        <div class="enquiry-title-wrap">
+
+            <div class="enquiry-title-icon">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+
+            <div>
+                <h4>Booking Enquiries</h4>
+                <p>
+                    View and manage customer travel enquiries.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="enquiry-search">
+
+            <i class="fas fa-search"></i>
+
+            <input
+                type="text"
+                id="enquirySearchInput"
+                placeholder="Search name, phone or package..."
+                autocomplete="off"
+            >
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ========================================================
+         TABLE
+    ========================================================= -->
+
+    <div class="enquiry-table-card">
+
+        <div class="enquiry-table-scroll">
+
+            <table class="table enquiry-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>Customer</th>
+
+                        <th>Package</th>
+
+                        <th>Travel Date</th>
+
+                        <th>Guests</th>
+
+                        <th>Received</th>
+
+                        <th class="text-center">
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="enquiryTableBody">
+
+                    {% for enquiry in enquiries %}
+
+                    <tr class="enquiry-row">
+
+                        <!-- NUMBER -->
+                        <td>
+
+                            {% if enquiries.start_index %}
+
+                                {{ enquiries.start_index|add:forloop.counter0 }}
+
+                            {% else %}
+
+                                {{ forloop.counter }}
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- CUSTOMER -->
+                        <td>
+
+                            <div class="customer-name">
+                                {{ enquiry.name }}
+                            </div>
+
+                            <a
+                                href="tel:{{ enquiry.phone }}"
+                                class="customer-phone"
+                            >
+                                <i class="fas fa-phone-alt me-1"></i>
+                                {{ enquiry.phone }}
+                            </a>
+
+                        </td>
+
+
+                        <!-- PACKAGE -->
+                        <td>
+
+                            {% if enquiry.package %}
+
+                                <span class="package-badge">
+
+                                    <i class="fas fa-suitcase-rolling me-1"></i>
+
+                                    {{ enquiry.package }}
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="package-badge general-badge">
+                                    General Enquiry
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- TRAVEL DATE -->
+                        <td>
+
+                            <div class="date-main">
+
+                                {{ enquiry.start_date|date:"d M Y" }}
+
+                            </div>
+
+                            <div class="date-time">
+
+                                to
+
+                                {{ enquiry.end_date|date:"d M Y" }}
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- GUESTS -->
+                        <td>
+
+                            <div class="date-main">
+
+                                <i class="fas fa-user me-1"></i>
+
+                                {{ enquiry.adults }}
+
+                                Adult{{ enquiry.adults|pluralize }}
+
+                            </div>
+
+                            <div class="date-time">
+
+                                {{ enquiry.children }}
+
+                                Child{{ enquiry.children|pluralize:"ren" }}
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- RECEIVED -->
+                        <td>
+
+                            <div class="date-main">
+
+                                {{ enquiry.created_at|date:"d M Y" }}
+
+                            </div>
+
+                            <div class="date-time">
+
+                                {{ enquiry.created_at|time:"h:i A" }}
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- ACTION -->
+                        <td class="text-center">
+
+                            <button
+                                type="button"
+                                class="enquiry-action-btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#enquiryModal{{ enquiry.id }}"
+                                title="View enquiry"
+                            >
+
+                                <i class="fas fa-ellipsis-v"></i>
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% empty %}
+
+
+                    <tr>
+
+                        <td
+                            colspan="7"
+                            class="enquiry-empty"
+                        >
+
+                            <i class="fas fa-inbox d-block"></i>
+
+                            <h5>No booking enquiries</h5>
+
+                            <p>
+                                Customer booking enquiries will appear here.
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ========================================================
+         PAGINATION
+    ========================================================= -->
+
+    {% if enquiries.has_other_pages %}
+
+    <nav
+        class="enquiry-pagination"
+        aria-label="Booking enquiry pagination"
+    >
+
+        <ul class="pagination justify-content-center">
+
+
+            <!-- PREVIOUS -->
+
+            {% if enquiries.has_previous %}
+
+            <li class="page-item">
+
+                <a
+                    class="page-link"
+                    href="?page={{ enquiries.previous_page_number }}"
+                >
+
+                    <i class="fas fa-chevron-left"></i>
+
+                </a>
+
+            </li>
+
+            {% else %}
+
+            <li class="page-item disabled">
+
+                <span class="page-link">
+
+                    <i class="fas fa-chevron-left"></i>
+
+                </span>
+
+            </li>
+
+            {% endif %}
+
+
+
+            <!-- PAGE NUMBERS -->
+
+            {% for page_number in enquiries.paginator.page_range %}
+
+                {% if page_number == enquiries.number %}
+
+                    <li class="page-item active">
+
+                        <span class="page-link">
+                            {{ page_number }}
+                        </span>
+
+                    </li>
+
+                {% else %}
+
+                    <li class="page-item">
+
+                        <a
+                            class="page-link"
+                            href="?page={{ page_number }}"
+                        >
+                            {{ page_number }}
+                        </a>
+
+                    </li>
+
+                {% endif %}
+
+            {% endfor %}
+
+
+
+            <!-- NEXT -->
+
+            {% if enquiries.has_next %}
+
+            <li class="page-item">
+
+                <a
+                    class="page-link"
+                    href="?page={{ enquiries.next_page_number }}"
+                >
+
+                    <i class="fas fa-chevron-right"></i>
+
+                </a>
+
+            </li>
+
+            {% else %}
+
+            <li class="page-item disabled">
+
+                <span class="page-link">
+
+                    <i class="fas fa-chevron-right"></i>
+
+                </span>
+
+            </li>
+
+            {% endif %}
+
+        </ul>
+
+    </nav>
+
+    {% endif %}
+
+
+</div>
+
+
+
+<!-- ============================================================
+     BOOKING ENQUIRY DETAIL MODALS
+============================================================ -->
+
+{% for enquiry in enquiries %}
+
+<div
+    class="modal fade enquiry-modal"
+    id="enquiryModal{{ enquiry.id }}"
+    tabindex="-1"
+    aria-labelledby="enquiryModalLabel{{ enquiry.id }}"
+    aria-hidden="true"
+>
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+
+        <div class="modal-content">
+
+
+            <!-- HEADER -->
+
+            <div class="modal-header">
+
+                <h5
+                    class="modal-title"
+                    id="enquiryModalLabel{{ enquiry.id }}"
+                >
+
+                    <i class="fas fa-calendar-check text-primary me-2"></i>
+
+                    Booking Enquiry
+
+                </h5>
+
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+
+            </div>
+
+
+
+            <!-- BODY -->
+
+            <div class="modal-body">
+
+
+                <!-- CUSTOMER -->
+
+                <div class="enquiry-customer">
+
+                    <div class="enquiry-avatar">
+
+                        {{ enquiry.name|first|upper }}
+
+                    </div>
+
+
+                    <div>
+
+                        <h5>
+                            {{ enquiry.name }}
+                        </h5>
+
+                        <a href="tel:{{ enquiry.phone }}">
+
+                            <i class="fas fa-phone-alt me-1"></i>
+
+                            {{ enquiry.phone }}
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- DETAILS -->
+
+                <div class="enquiry-detail-grid">
+
+
+                    <div class="enquiry-detail-item">
+
+                        <span class="enquiry-detail-label">
+                            Package
+                        </span>
+
+                        <span class="enquiry-detail-value">
+
+                            {% if enquiry.package %}
+
+                                {{ enquiry.package }}
+
+                            {% else %}
+
+                                General Enquiry
+
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="enquiry-detail-item">
+
+                        <span class="enquiry-detail-label">
+                            Start Date
+                        </span>
+
+                        <span class="enquiry-detail-value">
+
+                            {{ enquiry.start_date|date:"d M Y" }}
+
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="enquiry-detail-item">
+
+                        <span class="enquiry-detail-label">
+                            End Date
+                        </span>
+
+                        <span class="enquiry-detail-value">
+
+                            {{ enquiry.end_date|date:"d M Y" }}
+
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="enquiry-detail-item">
+
+                        <span class="enquiry-detail-label">
+                            Adults
+                        </span>
+
+                        <span class="enquiry-detail-value">
+
+                            {{ enquiry.adults }}
+
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="enquiry-detail-item">
+
+                        <span class="enquiry-detail-label">
+                            Children
+                        </span>
+
+                        <span class="enquiry-detail-value">
+
+                            {{ enquiry.children }}
+
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="enquiry-detail-item">
+
+                        <span class="enquiry-detail-label">
+                            Received
+                        </span>
+
+                        <span class="enquiry-detail-value">
+
+                            {{ enquiry.created_at|date:"d M Y" }}
+
+                            at
+
+                            {{ enquiry.created_at|time:"h:i A" }}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MESSAGE -->
+
+                <div class="enquiry-message">
+
+                    <div class="enquiry-message-title">
+
+                        <i class="fas fa-comment-alt me-1"></i>
+
+                        Message / Special Request
+
+                    </div>
+
+
+                    <div class="enquiry-message-box">
+
+                        {% if enquiry.message %}
+
+                            {{ enquiry.message }}
+
+                        {% else %}
+
+                            No special request provided.
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- FOOTER -->
+
+            <div class="modal-footer enquiry-modal-footer">
+
+
+                <div class="d-flex gap-2">
+
+
+                    <!-- CALL -->
+
+                    <a
+                        href="tel:{{ enquiry.phone }}"
+                        class="btn btn-outline-primary"
+                    >
+
+                        <i class="fas fa-phone-alt me-1"></i>
+
+                        Call
+
+                    </a>
+
+
+
+                    <!-- WHATSAPP -->
+
+                    <a
+                        href="https://wa.me/{{ enquiry.phone }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn whatsapp-btn"
+                    >
+
+                        <i class="fab fa-whatsapp me-1"></i>
+
+                        WhatsApp
+
+                    </a>
+
+
+                </div>
+
+
+
+                <!-- DELETE -->
+
+                <form
+                    method="post"
+                    action="{% url 'admin_enquiry_delete' enquiry.id %}"
+                    class="delete-enquiry-form"
+                    data-name="{{ enquiry.name }}"
+                >
+
+                    {% csrf_token %}
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-outline-danger"
+                    >
+
+                        <i class="fas fa-trash-alt me-1"></i>
+
+                        Delete
+
+                    </button>
+
+                </form>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}
+
+
+
+{% block extra_js %}
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+    /* ========================================================
+       SEARCH
+    ======================================================== */
+
+    const searchInput =
+        document.getElementById("enquirySearchInput");
+
+    const enquiryRows =
+        document.querySelectorAll(
+            "#enquiryTableBody .enquiry-row"
+        );
+
+
+    if (searchInput) {
+
+        searchInput.addEventListener(
+            "input",
+            function () {
+
+                const search =
+                    this.value
+                        .toLowerCase()
+                        .trim();
+
+
+                enquiryRows.forEach(function (row) {
+
+                    const rowText =
+                        row.textContent
+                            .toLowerCase();
+
+
+                    if (rowText.includes(search)) {
+
+                        row.style.display = "";
+
+                    } else {
+
+                        row.style.display = "none";
+
+                    }
+
+                });
+
+            }
+        );
+
+    }
+
+
+
+    /* ========================================================
+       DELETE CONFIRMATION
+    ======================================================== */
+
+    const deleteForms =
+        document.querySelectorAll(
+            ".delete-enquiry-form"
+        );
+
+
+    deleteForms.forEach(function (form) {
+
+        form.addEventListener(
+            "submit",
+            function (event) {
+
+                const customerName =
+                    form.dataset.name || "this customer";
+
+                const confirmed = confirm(
+                    "Delete the booking enquiry from " +
+                    customerName +
+                    "?"
+                );
+
+
+                if (!confirmed) {
+
+                    event.preventDefault();
+
+                }
+
+            }
+        );
+
+    });
+
+
+});
+
+</script>
+
+{% endblock %}

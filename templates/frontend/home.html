@@ -1,0 +1,4769 @@
+{% extends "frontend/base.html" %}
+{% load static %}
+
+
+
+{% block extra_css %}
+
+<style>
+
+{% comment %} destination css start {% endcomment %}
+
+/* =========================================================
+   POPULAR DESTINATION (Touro index-two style)
+========================================================= */
+
+/* ---------- title + arrows ---------- */
+
+.rafting-section .destination-title-area {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 10px;
+}
+
+.rafting-section .destination-title-area .section-title {
+    max-width: 680px;
+}
+
+.rafting-section .destination-title-area .section-title p {
+    max-width: 620px;
+    margin: 12px 0 0;
+}
+
+.rafting-section .dest-arrows {
+    display: flex;
+    gap: 10px;
+    flex: 0 0 auto;
+}
+
+.rafting-section .dest-arrows button {
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e8e8e8;
+    border-radius: 50%;
+    background: #fff;
+    color: #071c1f;
+    cursor: pointer;
+    transition: background .3s, color .3s, border-color .3s, transform .3s;
+}
+
+.rafting-section .dest-arrows button:hover {
+    background: #ff5a36;
+    border-color: #ff5a36;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.rafting-section .dest-arrows button.swiper-button-disabled {
+    opacity: .45;
+    cursor: default;
+}
+
+
+/* ---------- slider: starts at container edge, bleeds off the right side ---------- */
+
+.rafting-section .dest-slider {
+    margin-top: 40px;
+    margin-right: calc((100% - 100vw) / 2);
+    overflow: hidden;
+}
+
+.rafting-section .dest-slider .swiper-wrapper {
+    align-items: flex-start;   /* lets tall and short cards differ in height */
+}
+
+.rafting-section .dest-slider .swiper-slide {
+    height: auto;
+}
+
+
+/* ---------- card ---------- */
+
+.rafting-section .dest-card {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #f2f2f2;
+}
+
+.rafting-section .dest-card.is-tall  { height: 640px; }
+.rafting-section .dest-card.is-short { height: 575px; }
+
+.rafting-section .dest-card > .dest-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform .6s ease;
+}
+
+.rafting-section .dest-card:hover > .dest-img {
+    transform: scale(1.06);
+}
+
+.rafting-section .dest-no-image {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3f0eb;
+    color: #b7b7b7;
+    font-size: 55px;
+}
+
+
+/* ---------- rating pill ---------- */
+
+.rafting-section .dest-rating {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 3;
+    height: 52px;
+    padding: 0 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    border-radius: 50px;
+    color: #071c1f;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.rafting-section .dest-rating i {
+    color: #ff5a36;
+    font-size: 22px;
+}
+
+
+/* ---------- white content box ---------- */
+
+.rafting-section .dest-content {
+    position: absolute;
+    left: 25px;
+    right: 25px;
+    bottom: 25px;
+    z-index: 3;
+    height: 136px;
+    padding: 0 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;
+    border-radius: 10px;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.rafting-section .dest-card:hover .dest-content {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 35px rgba(0, 0, 0, .12);
+}
+
+.rafting-section .dest-content h3 {
+    margin: 0 0 8px;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.25;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.rafting-section .dest-content h3 a {
+    color: #071c1f;
+    transition: color .25s;
+}
+
+.rafting-section .dest-content h3 a:hover {
+    color: #ff5a36;
+}
+
+.rafting-section .dest-content p {
+    margin: 0;
+    color: #5f6062;
+    font-size: 20px;
+    line-height: 1.4;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1399px) {
+    .rafting-section .dest-card.is-tall  { height: 560px; }
+    .rafting-section .dest-card.is-short { height: 500px; }
+    .rafting-section .dest-content { height: 120px; padding: 0 28px; }
+    .rafting-section .dest-content h3 { font-size: 24px; }
+    .rafting-section .dest-content p  { font-size: 17px; }
+}
+
+@media (max-width: 991px) {
+    .rafting-section .dest-card.is-tall  { height: 500px; }
+    .rafting-section .dest-card.is-short { height: 450px; }
+}
+
+@media (max-width: 767px) {
+    .rafting-section .destination-title-area { display: block; }
+    .rafting-section .dest-arrows { margin-top: 22px; }
+    .rafting-section .dest-card.is-tall  { height: 450px; }
+    .rafting-section .dest-card.is-short { height: 410px; }
+    .rafting-section .dest-content {
+        left: 15px; right: 15px; bottom: 15px;
+        height: 100px; padding: 0 22px;
+    }
+    .rafting-section .dest-content h3 { font-size: 21px; margin-bottom: 5px; }
+    .rafting-section .dest-content p  { font-size: 15px; }
+    .rafting-section .dest-rating { height: 44px; padding: 0 18px; font-size: 17px; }
+    .rafting-section .dest-rating i { font-size: 18px; }
+}
+
+{% comment %} destination css end {% endcomment %}
+
+
+{% comment %} packages css start {% endcomment %}
+/* =========================================================
+   BEST PACKAGES SECTION
+========================================================= */
+
+.best-packages-section {
+    position: relative;
+}
+
+.best-packages-section .section-title {
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.best-packages-section .section-title h2 {
+    margin-bottom: 12px;
+}
+
+.best-packages-section .section-title p {
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   PACKAGE CARD
+========================================================= */
+
+.best-packages-section .best-package-card {
+    position: relative;
+
+    width: 100%;
+    min-height: 255px;
+
+    padding: 12px;
+
+    gap: 25px !important;
+
+    overflow: hidden;
+
+    background: #fff;
+
+    border: 1px solid rgba(0, 0, 0, 0.045);
+
+    border-radius: 22px !important;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.04);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        border-color .35s ease;
+}
+
+
+/* Hover */
+
+.best-packages-section .best-package-card:hover {
+    transform: translateY(-6px);
+
+    border-color: rgba(255, 88, 52, 0.15);
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.09);
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.best-packages-section .best-package-card > .thumb-img {
+    position: relative;
+
+    flex: 0 0 43%;
+
+    width: 43%;
+    height: 230px;
+
+    border-radius: 17px;
+
+    overflow: hidden;
+}
+
+
+.best-packages-section .best-package-card > .thumb-img > img {
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: cover;
+    object-position: center;
+
+    display: block;
+
+    transition: transform .55s ease;
+}
+
+
+.best-packages-section .best-package-card:hover > .thumb-img > img {
+    transform: scale(1.06);
+}
+
+
+/* =========================================================
+   PACKAGE TYPE BADGE
+========================================================= */
+
+.best-packages-section .best-package-card
+.thumb-img > span:first-of-type {
+
+    margin-top: 15px !important;
+    margin-left: 15px !important;
+
+    padding: 7px 15px !important;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    line-height: 1.2;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================================
+   HEART BUTTON
+========================================================= */
+
+.best-packages-section .desti-badge {
+    width: 42px !important;
+    height: 42px !important;
+
+    margin-top: 15px !important;
+    margin-right: 15px !important;
+
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.08);
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .3s ease;
+}
+
+
+.best-packages-section .desti-badge:hover {
+    background: var(--theme2) !important;
+    color: #fff !important;
+
+    transform: scale(1.08);
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.best-packages-section .best-package-card > .px-3 {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 10px 14px 10px 0 !important;
+}
+
+
+/* package type */
+
+.best-packages-section .best-package-card
+.d-flex.align-items-center.gap-5.fs-16 {
+
+    margin-bottom: 9px;
+
+    font-size: 14px !important;
+}
+
+
+/* location icon */
+
+.best-packages-section .best-package-card
+.d-flex.align-items-center.gap-5.fs-16 i {
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   PACKAGE NAME
+========================================================= */
+
+.best-packages-section .best-package-card h4 {
+    margin-bottom: 12px;
+
+    font-size: 22px;
+    line-height: 1.3;
+
+    font-weight: 600;
+}
+
+
+.best-packages-section .best-package-card h4 a {
+    color: #071c1f;
+
+    transition: color .25s ease;
+}
+
+
+.best-packages-section .best-package-card h4 a:hover {
+    color: #ff5a36;
+}
+
+
+/* =========================================================
+   RATING + DURATION
+========================================================= */
+
+.best-packages-section .best-package-card
+.d-flex.align-items-center.gap-10.flex-wrap {
+
+    min-height: 28px;
+
+    font-size: 14px;
+}
+
+
+.best-packages-section .best-package-card
+.d-flex.align-items-center.gap-10.flex-wrap .line {
+
+    height: 18px;
+}
+
+
+/* =========================================================
+   DASHED DIVIDER
+========================================================= */
+
+.best-packages-section .best-package-card
+.border-bottom-dash {
+
+    margin-top: 16px !important;
+    margin-bottom: 16px !important;
+
+    opacity: .65;
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.best-packages-section .price-item {
+    gap: 15px;
+}
+
+
+.best-packages-section .price-item .content h3 {
+    margin-bottom: 5px;
+
+    font-size: 24px;
+    line-height: 1;
+
+    font-weight: 700;
+}
+
+
+.best-packages-section .price-item .content span {
+    font-size: 14px;
+    color: #666;
+}
+
+
+/* =========================================================
+   VIEW DETAILS BUTTON
+========================================================= */
+
+.best-packages-section .price-item .theme-btn_white {
+    min-width: 130px;
+
+    padding: 12px 18px !important;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    border-radius: 30px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+.best-packages-section .price-item .theme-btn_white i {
+    transition: transform .3s ease;
+}
+
+
+.best-packages-section
+.price-item .theme-btn_white:hover i {
+
+    transform: translateX(4px);
+}
+
+
+/* =========================================================
+   ROW SPACING
+========================================================= */
+
+.best-packages-section .row.g-4 {
+    --bs-gutter-x: 24px;
+    --bs-gutter-y: 24px;
+}
+
+
+/* =========================================================
+   DISCOVER MORE
+========================================================= */
+
+.best-packages-section .theme_btn {
+    padding-left: 28px;
+    padding-right: 28px;
+
+    box-shadow:
+        0 10px 25px rgba(255, 88, 52, 0.16);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1199px) {
+
+    .best-packages-section .best-package-card {
+        min-height: 225px;
+
+        gap: 18px !important;
+    }
+
+
+    .best-packages-section
+    .best-package-card > .thumb-img {
+
+        flex-basis: 42%;
+        width: 42%;
+        height: 205px;
+    }
+
+
+    .best-packages-section
+    .best-package-card h4 {
+
+        font-size: 19px;
+    }
+
+
+    .best-packages-section
+    .price-item .content h3 {
+
+        font-size: 21px;
+    }
+
+
+    .best-packages-section
+    .price-item .theme-btn_white {
+
+        min-width: 110px;
+
+        padding: 10px 14px !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .best-packages-section .best-package-card {
+        display: block !important;
+
+        padding: 10px;
+
+        border-radius: 18px !important;
+    }
+
+
+    .best-packages-section
+    .best-package-card > .thumb-img {
+
+        width: 100%;
+        height: 240px;
+
+        border-radius: 14px;
+    }
+
+
+    .best-packages-section
+    .best-package-card > .px-3 {
+
+        padding: 20px 10px 10px !important;
+    }
+
+
+    .best-packages-section
+    .best-package-card h4 {
+
+        font-size: 20px;
+    }
+
+
+    .best-packages-section
+    .price-item {
+
+        align-items: center !important;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 450px) {
+
+    .best-packages-section
+    .best-package-card > .thumb-img {
+
+        height: 215px;
+    }
+
+
+    .best-packages-section
+    .price-item {
+
+        flex-wrap: wrap;
+    }
+
+
+    .best-packages-section
+    .price-item .theme-btn_white {
+
+        width: 100%;
+
+        margin-top: 8px;
+    }
+}
+
+.best-packages-section .package-details-btn {
+    white-space: nowrap;
+}
+{% comment %} packages section css end  {% endcomment %}
+
+
+{% comment %} testimonial section css Start {% endcomment %}
+
+/* =========================================================
+   TESTIMONIAL SECTION
+========================================================= */
+
+.home-testimonial-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.home-testimonial-section .section-title {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.home-testimonial-section .section-title h2 {
+    margin-bottom: 12px;
+}
+
+.home-testimonial-section .section-title p {
+    max-width: 650px;
+    margin: 0 auto;
+    color: #666;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   SLIDER
+========================================================= */
+
+.home-testimonial-section .testimonial-slider {
+    width: 100%;
+    overflow: hidden;
+    padding-top: 30px;
+}
+
+.home-testimonial-section .testimonial-slider .swiper-wrapper {
+    align-items: stretch;
+}
+
+.home-testimonial-section .testimonial-slider .swiper-slide {
+    height: auto !important;
+    display: flex;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.home-testimonial-section .testimonial-box-item {
+    width: 100%;
+    height: 365px;
+
+    padding: 32px 36px 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    position: relative;
+
+    background: #ffffff;
+
+    border: 1px solid #e7e7e7 !important;
+    border-radius: 28px !important;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
+}
+
+.home-testimonial-section .testimonial-box-item:hover {
+    transform: translateY(-4px);
+
+    border-color: rgba(255, 90, 54, .18) !important;
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, .07);
+}
+
+
+/* =========================================================
+   GOOGLE + STARS
+========================================================= */
+
+.home-testimonial-section .test-meta {
+    width: 100%;
+
+    margin: 0 0 24px !important;
+    padding: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 9px;
+
+    flex: 0 0 auto;
+
+    background: transparent !important;
+}
+
+.home-testimonial-section .google-image {
+    display: flex;
+    align-items: center;
+}
+
+.home-testimonial-section .google-image img {
+    width: 72px !important;
+    max-width: 72px !important;
+    height: auto !important;
+
+    display: block !important;
+}
+
+.home-testimonial-section .star {
+    display: flex !important;
+    align-items: center;
+
+    gap: 5px;
+}
+
+.home-testimonial-section .star i {
+    color: #ff5a36 !important;
+
+    font-size: 16px;
+    line-height: 1;
+}
+
+
+/* =========================================================
+   REVIEW
+========================================================= */
+
+.home-testimonial-section .testimonial-review {
+    flex: 1 1 auto;
+
+    min-height: 0;
+
+    margin: 0 0 18px !important;
+    padding: 0 6px 0 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    color: #102b26;
+
+    font-size: 17px;
+    line-height: 1.6;
+
+    font-weight: 400;
+
+    word-break: break-word;
+
+    scrollbar-width: thin;
+    scrollbar-color: #ff5a36 transparent;
+}
+
+.home-testimonial-section
+.testimonial-review::-webkit-scrollbar {
+    width: 4px;
+}
+
+.home-testimonial-section
+.testimonial-review::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.home-testimonial-section
+.testimonial-review::-webkit-scrollbar-thumb {
+    background: #ff5a36;
+    border-radius: 20px;
+}
+
+.home-testimonial-section .testimonial-review p {
+    margin: 0 0 10px !important;
+}
+
+.home-testimonial-section .testimonial-review p:last-child {
+    margin-bottom: 0 !important;
+}
+
+
+/* =========================================================
+   CLIENT FOOTER
+========================================================= */
+
+.home-testimonial-section .client-info-item {
+    width: calc(100% + 72px);
+    height: 82px;
+
+    margin: auto -36px 0 !important;
+    padding: 0 36px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    flex: 0 0 82px !important;
+
+    position: relative;
+
+    background: #ffffff !important;
+
+    overflow: visible;
+}
+
+
+/* =========================================================
+   IMPORTANT:
+   REMOVE ALL OLD GREY PSEUDO ELEMENTS
+========================================================= */
+
+.home-testimonial-section .client-info-item::before,
+.home-testimonial-section .client-info-item::after,
+.home-testimonial-section .info-item::before,
+.home-testimonial-section .info-item::after {
+    content: none !important;
+    display: none !important;
+}
+
+
+/* =========================================================
+   CLIENT LEFT SIDE
+========================================================= */
+
+.home-testimonial-section .client-info-item .info-item {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 13px;
+
+    min-width: 0;
+
+    position: relative;
+}
+
+
+/* =========================================================
+   PROFILE IMAGE DECORATION
+
+   This creates ONLY the small shape visible behind the
+   circular avatar. It does NOT stretch across the footer.
+========================================================= */
+
+.home-testimonial-section .client-image {
+    width: 58px !important;
+    height: 58px !important;
+
+    min-width: 58px !important;
+    min-height: 58px !important;
+
+    flex: 0 0 58px !important;
+
+    position: relative;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    z-index: 2;
+}
+
+
+/* small decorative shape */
+
+.home-testimonial-section .client-image::before {
+    content: "";
+
+    position: absolute;
+
+    width: 75px;
+    height: 28px;
+
+    left: -36px;
+    top: -5px;
+
+    background: #dedede;
+
+    border-radius: 0 30px 30px 0;
+
+    z-index: -1;
+}
+
+
+/* actual image */
+
+.home-testimonial-section .client-image img {
+    width: 58px !important;
+    height: 58px !important;
+
+    display: block !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    object-fit: cover;
+    object-position: center;
+
+    border-radius: 50%;
+
+    border: 0 !important;
+    outline: 0 !important;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   NAME
+========================================================= */
+
+.home-testimonial-section .client-info-item .content {
+    min-width: 0;
+}
+
+.home-testimonial-section .client-info-item .content h5 {
+    margin: 0 0 3px !important;
+    padding: 0 !important;
+
+    color: #102b26;
+
+    font-size: 17px;
+    line-height: 1.25;
+
+    font-weight: 500;
+
+    white-space: nowrap;
+}
+
+.home-testimonial-section .client-info-item .content span {
+    display: block;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #777;
+
+    font-size: 14px;
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   QUOTE
+========================================================= */
+
+.home-testimonial-section .client-info-item > .icon {
+    margin-left: auto;
+
+    flex: 0 0 auto;
+
+    opacity: .7;
+}
+
+.home-testimonial-section .client-info-item > .icon img {
+    width: 52px !important;
+    height: auto !important;
+
+    display: block;
+}
+
+
+/* =========================================================
+   DOTS
+========================================================= */
+
+.home-testimonial-section .swiper-dot-2 {
+    position: relative;
+
+    z-index: 5;
+
+    margin-top: 38px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .home-testimonial-section .testimonial-box-item {
+        height: 350px;
+
+        padding: 28px 28px 0 !important;
+
+        border-radius: 24px !important;
+    }
+
+    .home-testimonial-section .client-info-item {
+        width: calc(100% + 56px);
+
+        margin: auto -28px 0 !important;
+
+        padding: 0 28px !important;
+    }
+
+    .home-testimonial-section .client-image::before {
+        left: -28px;
+    }
+
+    .home-testimonial-section .testimonial-review {
+        font-size: 16px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 575px) {
+
+    .home-testimonial-section .testimonial-slider {
+        padding-top: 20px;
+    }
+
+    .home-testimonial-section .testimonial-box-item {
+        height: 340px;
+
+        padding: 24px 20px 0 !important;
+
+        border-radius: 20px !important;
+    }
+
+    .home-testimonial-section .test-meta {
+        margin-bottom: 20px !important;
+        gap: 7px;
+    }
+
+    .home-testimonial-section .google-image img {
+        width: 64px !important;
+    }
+
+    .home-testimonial-section .star {
+        gap: 3px;
+    }
+
+    .home-testimonial-section .star i {
+        font-size: 14px;
+    }
+
+    .home-testimonial-section .testimonial-review {
+        margin-bottom: 15px !important;
+
+        font-size: 14.5px;
+        line-height: 1.6;
+    }
+
+    .home-testimonial-section .client-info-item {
+        width: calc(100% + 40px);
+        height: 76px;
+
+        margin: auto -20px 0 !important;
+
+        padding: 0 20px !important;
+
+        flex-basis: 76px !important;
+    }
+
+    .home-testimonial-section .client-image {
+        width: 52px !important;
+        height: 52px !important;
+
+        min-width: 52px !important;
+        min-height: 52px !important;
+
+        flex-basis: 52px !important;
+    }
+
+    .home-testimonial-section .client-image img {
+        width: 52px !important;
+        height: 52px !important;
+    }
+
+    .home-testimonial-section .client-image::before {
+        width: 66px;
+        height: 25px;
+
+        left: -20px;
+        top: -4px;
+    }
+
+    .home-testimonial-section
+    .client-info-item .info-item {
+        gap: 10px;
+    }
+
+    .home-testimonial-section
+    .client-info-item .content h5 {
+        font-size: 15px;
+    }
+
+    .home-testimonial-section
+    .client-info-item .content span {
+        font-size: 13px;
+    }
+
+    .home-testimonial-section
+    .client-info-item > .icon img {
+        width: 42px !important;
+    }
+}
+
+{% comment %} testimonial section css end {% endcomment %}
+
+
+{% comment %} blog section css start {% endcomment %}
+
+
+/* =========================================================
+   HOME BLOG SECTION
+   TOURO INDEX-TWO STYLE
+========================================================= */
+
+.blog-home-section {
+    position: relative;
+}
+
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
+.blog-home-section .section-title {
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.blog-home-section .section-title h2 {
+    margin-bottom: 12px;
+}
+
+.blog-home-section .section-title p {
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   LARGE BLOG CARD
+========================================================= */
+
+.blog-home-section .home-blog-main-card {
+    width: 100%;
+    height: 100%;
+
+    background: transparent;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================================================
+   LARGE BLOG IMAGE
+========================================================= */
+
+.blog-home-section .home-blog-main-image {
+    position: relative;
+
+    width: 100%;
+    height: 338px;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+}
+
+
+.blog-home-section .home-blog-main-image > a {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+}
+
+
+.blog-home-section .home-blog-main-image > a > img {
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition: transform .5s ease;
+}
+
+
+/* image hover */
+
+.blog-home-section
+.home-blog-main-card:hover
+.home-blog-main-image > a > img {
+
+    transform: scale(1.055);
+}
+
+
+/* =========================================================
+   CATEGORY BADGE
+========================================================= */
+
+.blog-home-section
+.home-blog-main-image > span {
+
+    z-index: 4;
+
+    padding: 8px 17px !important;
+
+    font-size: 15px !important;
+    line-height: 1.2;
+
+    border-radius: 0 5px 5px 0 !important;
+}
+
+
+/* =========================================================
+   DATE BOX
+========================================================= */
+
+.blog-home-section .home-blog-date {
+    min-width: 84px;
+    min-height: 80px;
+
+    z-index: 5;
+
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, .07);
+}
+
+
+.blog-home-section .home-blog-date h3 {
+    margin: 0 !important;
+
+    font-size: 23px;
+    line-height: 1.1;
+
+    font-weight: 500;
+}
+
+
+.blog-home-section .home-blog-date p {
+    margin: 0 !important;
+
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   LARGE BLOG CONTENT
+========================================================= */
+
+.blog-home-section .home-blog-main-content {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    padding-top: 2px;
+}
+
+
+.blog-home-section .home-blog-main-content h3 {
+    margin-top: 0;
+
+    color: #071c1f;
+
+    font-size: 23px;
+    line-height: 1.45;
+
+    font-weight: 500;
+}
+
+
+.blog-home-section .home-blog-main-content h3 a {
+    color: #071c1f;
+}
+
+
+.blog-home-section .home-blog-main-content h3 a:hover {
+    color: #ff5a36;
+}
+
+
+/* =========================================================
+   CONTINUE READING BUTTON
+========================================================= */
+
+.blog-home-section
+.home-blog-main-content
+.theme-btn_white {
+
+    width: fit-content;
+
+    margin-top: auto;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    min-height: 58px;
+
+    padding: 13px 28px !important;
+
+    border: 1px solid #ff5a36;
+
+    border-radius: 30px;
+
+    color: #ff5a36;
+
+    background: transparent;
+
+    font-size: 15px;
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .3s ease;
+}
+
+
+.blog-home-section
+.home-blog-main-content
+.theme-btn_white i {
+
+    transition: transform .3s ease;
+}
+
+
+.blog-home-section
+.home-blog-main-content
+.theme-btn_white:hover {
+
+    background: #ff5a36;
+
+    color: #ffffff !important;
+}
+
+
+.blog-home-section
+.home-blog-main-content
+.theme-btn_white:hover i {
+
+    transform: translateX(4px);
+}
+
+
+/* =========================================================
+   RIGHT SIDE WRAPPER
+========================================================= */
+
+.blog-home-section .home-blog-side-list {
+    height: 100%;
+}
+
+
+/* =========================================================
+   RIGHT SMALL CARD
+========================================================= */
+
+.blog-home-section .home-blog-side-card {
+    width: 100%;
+
+    flex: 1;
+
+    min-height: 225px;
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+
+    background: #f3f0eb !important;
+
+    border-radius: 10px !important;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        background .3s ease;
+}
+
+
+.blog-home-section .home-blog-side-card:hover {
+    transform: translateY(-3px);
+
+    background: #f6f3ef !important;
+
+    box-shadow:
+        0 14px 35px rgba(0, 0, 0, .055);
+}
+
+
+/* =========================================================
+   RIGHT CARD META
+========================================================= */
+
+.blog-home-section .home-blog-side-meta {
+    color: #555;
+
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+
+.blog-home-section .home-blog-side-meta i {
+    color: #ff5a36;
+
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   RIGHT CARD TITLE
+========================================================= */
+
+.blog-home-section .home-blog-side-card h4 {
+    margin-top: 15px;
+
+    font-size: 21px;
+    line-height: 1.45;
+
+    font-weight: 500;
+}
+
+
+.blog-home-section .home-blog-side-card h4 a {
+    color: #071c1f;
+}
+
+
+.blog-home-section .home-blog-side-card h4 a:hover {
+    color: #ff5a36;
+}
+
+
+/* =========================================================
+   RIGHT READ MORE
+========================================================= */
+
+.blog-home-section .home-blog-side-link {
+    width: fit-content;
+
+    margin-top: 25px;
+
+    color: #ff5a36 !important;
+
+    transition: gap .3s ease;
+}
+
+
+.blog-home-section .home-blog-side-link:hover {
+    gap: 15px !important;
+}
+
+
+.blog-home-section .home-blog-side-link i {
+    transition: transform .3s ease;
+}
+
+
+.blog-home-section .home-blog-side-link:hover i {
+    transform: translateX(3px);
+}
+
+
+/* =========================================================
+   DESKTOP HEIGHT MATCHING
+========================================================= */
+
+@media (min-width: 992px) {
+
+    .blog-home-section .row.align-items-stretch > div {
+        display: flex;
+    }
+
+    .blog-home-section .home-blog-main-card {
+        min-height: 515px;
+    }
+
+    .blog-home-section .home-blog-side-list {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .blog-home-section .home-blog-main-image {
+        height: 300px;
+    }
+
+    .blog-home-section .home-blog-main-content h3 {
+        font-size: 21px;
+    }
+
+
+    /* Right cards become two columns */
+
+    .blog-home-section .home-blog-side-list {
+        width: 100%;
+
+        display: grid !important;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 20px !important;
+
+        margin-top: 10px;
+    }
+
+    .blog-home-section .home-blog-side-card {
+        min-height: 210px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .blog-home-section .home-blog-main-image {
+        height: 285px;
+    }
+
+    .blog-home-section .home-blog-main-content {
+        padding-bottom: 10px;
+    }
+
+    .blog-home-section .home-blog-main-content h3 {
+        font-size: 20px;
+        line-height: 1.4;
+    }
+
+    .blog-home-section
+    .home-blog-main-content
+    .theme-btn_white {
+
+        min-height: 52px;
+
+        padding:
+            11px 22px !important;
+    }
+
+
+    /* Right cards one below another */
+
+    .blog-home-section .home-blog-side-list {
+        display: flex !important;
+
+        flex-direction: column !important;
+
+        gap: 15px !important;
+    }
+
+    .blog-home-section .home-blog-side-card {
+        min-height: 190px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 575px) {
+
+    .blog-home-section .home-blog-main-image {
+        height: 245px;
+
+        border-radius: 8px;
+    }
+
+    .blog-home-section .home-blog-date {
+        min-width: 68px;
+        min-height: 68px;
+
+        padding:
+            8px 14px !important;
+    }
+
+    .blog-home-section .home-blog-date h3 {
+        font-size: 20px;
+    }
+
+    .blog-home-section .home-blog-date p {
+        font-size: 12px;
+    }
+
+    .blog-home-section .home-blog-main-content h3 {
+        font-size: 19px;
+    }
+
+    .blog-home-section .home-blog-side-card {
+        min-height: 175px;
+
+        padding:
+            22px 20px !important;
+    }
+
+    .blog-home-section .home-blog-side-card h4 {
+        margin-top: 10px;
+
+        font-size: 18px;
+    }
+
+    .blog-home-section .home-blog-side-meta {
+        font-size: 13px;
+    }
+
+    .blog-home-section .home-blog-side-link {
+        margin-top: 18px;
+
+        font-size: 14px !important;
+    }
+
+}
+
+
+{% comment %} blog section css end {% endcomment %}
+
+
+
+
+{% comment %} services section css start {% endcomment %}
+
+/* =========================================================
+   ABOUT PAGE - TRAVEL SERVICES
+========================================================= */
+
+.services-adventure-section .adventure-content .icon {
+    width: 62px;
+    min-width: 62px;
+    height: 62px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Service icon */
+
+.services-adventure-section .adventure-content .icon i {
+    font-size: 38px;
+    line-height: 1;
+
+    color: #ff5a36;
+
+    transition:
+        transform .3s ease,
+        color .3s ease;
+}
+
+
+/* Card title */
+
+.services-adventure-section .adventure-content .content h4 {
+    margin: 0;
+
+    font-size: 20px;
+    line-height: 1.45;
+}
+
+
+/* Card link */
+
+.services-adventure-section .adventure-content .content h4 a {
+    color: #071c1f;
+}
+
+
+/* Hover */
+
+.services-adventure-section
+.adventure-items:hover
+.adventure-content
+.icon i {
+    transform: scale(1.08);
+}
+
+
+/* Make service images consistent */
+
+.services-adventure-section .adventure-image > img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+}
+
+
+/* Tablet */
+
+@media (max-width: 991px) {
+
+    .services-adventure-section .adventure-content .icon {
+        width: 52px;
+        min-width: 52px;
+        height: 52px;
+    }
+
+    .services-adventure-section .adventure-content .icon i {
+        font-size: 31px;
+    }
+
+    .services-adventure-section .adventure-content .content h4 {
+        font-size: 18px;
+    }
+}
+
+
+/* Mobile */
+
+@media (max-width: 575px) {
+
+    .services-adventure-section .adventure-content .icon {
+        width: 48px;
+        min-width: 48px;
+        height: 48px;
+    }
+
+    .services-adventure-section .adventure-content .icon i {
+        font-size: 28px;
+    }
+
+    .services-adventure-section .adventure-content .content h4 {
+        font-size: 17px;
+    }
+}
+
+{% comment %} services section end  {% endcomment %}
+
+
+{% comment %} features section css start {% endcomment %}
+
+/* =========================================================
+   TRAVEL FEATURES
+   Touro Home-6 inspired feature style
+========================================================= */
+
+.rafting-section .travel-feature-row {
+    position: relative;
+    z-index: 5;
+
+    margin-bottom: 75px;
+}
+
+
+/* =========================================================
+   FEATURE ITEM
+========================================================= */
+
+.rafting-section .travel-feature-item {
+    width: 100%;
+
+    text-align: center;
+
+    padding: 5px 18px 0;
+
+    position: relative;
+
+    transition: transform .3s ease;
+}
+
+
+/* subtle hover only */
+.rafting-section .travel-feature-item:hover {
+    transform: translateY(-5px);
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.rafting-section .travel-feature-icon {
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #ff5a36;
+
+    font-size: 42px;
+    line-height: 1;
+
+    transition:
+        transform .3s ease,
+        color .3s ease;
+}
+
+
+.rafting-section .travel-feature-icon i {
+    display: block;
+
+    color: #ff5a36;
+
+    font-size: 42px;
+    line-height: 1;
+}
+
+
+/* hover icon */
+
+.rafting-section .travel-feature-item:hover
+.travel-feature-icon {
+
+    transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.rafting-section .travel-feature-content h3 {
+    margin: 0;
+
+    color: #071c1f;
+
+    font-size: 22px;
+    line-height: 1.3;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   SMALL DOTTED LINE
+========================================================= */
+
+.rafting-section .travel-feature-line {
+    width: 118px;
+
+    margin: 22px auto 20px;
+
+    border-top: 1px dashed #d8d8d8;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.rafting-section .travel-feature-content p {
+    max-width: 245px;
+
+    margin: 0 auto;
+
+    color: #5f6062;
+
+    font-size: 15px;
+    line-height: 1.8;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .rafting-section .travel-feature-row {
+        margin-bottom: 55px;
+
+        --bs-gutter-y: 45px;
+    }
+
+
+    .rafting-section .travel-feature-item {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+
+    .rafting-section .travel-feature-icon {
+        width: 64px;
+        height: 64px;
+
+        margin-bottom: 17px;
+    }
+
+
+    .rafting-section .travel-feature-icon i {
+        font-size: 38px;
+    }
+
+
+    .rafting-section .travel-feature-content h3 {
+        font-size: 21px;
+    }
+
+
+    .rafting-section .travel-feature-line {
+        margin-top: 18px;
+        margin-bottom: 17px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 575px) {
+
+    .rafting-section .travel-feature-row {
+        margin-bottom: 45px;
+
+        --bs-gutter-y: 38px;
+    }
+
+
+    .rafting-section .travel-feature-item {
+        padding: 0 12px;
+    }
+
+
+    .rafting-section .travel-feature-icon {
+        width: 58px;
+        height: 58px;
+
+        margin-bottom: 14px;
+    }
+
+
+    .rafting-section .travel-feature-icon i {
+        font-size: 34px;
+    }
+
+
+    .rafting-section .travel-feature-content h3 {
+        font-size: 19px;
+    }
+
+
+    .rafting-section .travel-feature-line {
+        width: 95px;
+
+        margin-top: 15px;
+        margin-bottom: 14px;
+    }
+
+
+    .rafting-section .travel-feature-content p {
+        max-width: 290px;
+
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .rafting-section .travel-feature-row > div {
+        width: 100%;
+    }
+
+}
+
+{% comment %} features section css end {% endcomment %}
+
+
+
+{% comment %} gallery section css start {% endcomment %}
+
+
+
+
+{% comment %} gallery section css end {% endcomment %}
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+        <!-- ==================== Hero ==================== -->
+        <section class="hero-section2 position-relative hero-2 parallaxie bg-cover"
+            style="background-image: url('{% static 'frontend/img/home-2/hero2-bg.jpg' %}');">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="hero-content">
+                            <h1 class="char-animation">Explore The Beautiful World</h1>
+                            <p class="wow fadeInUp" data-wow-delay=".3s">
+                                Nemo enim ipsam voluptatem quia voluptas sit asper natur aut oditut fugit seduia con senim
+                            </p>
+                            <a href="destination.html" class="theme-btn wow fadeInUp" data-wow-delay=".5s">
+                                <i class="fa-solid fa-arrow-right"></i> Discover Destination
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Booking search bar ==================== -->
+        {% comment %} <div class="daterangepicker-section-custom wow fadeInUp" data-wow-delay=".3s">
+            <div class="container">
+                <div class="date-range-wrapper">
+                    <div class="booking-list-area d-flex flex-xl-nowrap flex-wrap align-items-center justify-content-between">
+                        <div class="booking-list d-flex">
+                            <div class="icon">
+                                <img src="{% static 'frontend/img/home-1/icon/13.svg' %}" alt="img">
+                            </div>
+                            <div class="content">
+                                <span class="subt">Destination</span>
+                                <div class="form-clt">
+                                    <div class="form">
+                                        <select class="single-select w-100">
+                                            <option>Your city or Region</option>
+                                            <option>Australia</option>
+                                            <option>India</option>
+                                            <option>Italy</option>
+                                            <option>Japan</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line d-xl-block d-none"></div>
+                        <div class="booking-list d-flex">
+                            <div class="icon">
+                                <img src="https://touro.template.wowtheme7.com/assets/img/home-1/icon/14.svg" alt="img">
+                            </div>
+                            <div class="content">
+                                <span class="subt">All Activity</span>
+                                <div class="form-clt">
+                                    <div class="form">
+                                        <select class="single-select w-100">
+                                            <option>Choose Activity</option>
+                                            <option>Activity 01</option>
+                                            <option>Activity 02</option>
+                                            <option>Activity 03</option>
+                                            <option>Activity 04</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line d-xl-block d-none"></div>
+                        <div class="booking-list d-flex">
+                            <div class="icon">
+                                <img src="https://touro.template.wowtheme7.com/assets/img/home-1/icon/15.svg" alt="img">
+                            </div>
+                            <div class="content">
+                                <span class="subt">Departure Date</span>
+                                <div class="form">
+                                    <select class="single-select w-100">
+                                        <option>Date Form</option>
+                                        <option>Berlin Germany</option>
+                                        <option>Paris France</option>
+                                        <option>Tokyo Japan</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line d-xl-block d-none"></div>
+                        <div class="booking-list d-flex">
+                            <div class="icon">
+                                <img src="https://touro.template.wowtheme7.com/assets/img/home-1/icon/16.svg" alt="img">
+                            </div>
+                            <div class="content">
+                                <span class="subt">Guest</span>
+                                <div class="form-clt">
+                                    <div class="form">
+                                        <select class="single-select w-100">
+                                            <option>Your Guest</option>
+                                            <option>01</option>
+                                            <option>02</option>
+                                            <option>03</option>
+                                            <option>04</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="theme-btn theme-bg" type="submit">
+                            <i class="fa-solid fa-magnifying-glass"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div> {% endcomment %}
+
+        <!-- ==================== Featured Destination ==================== -->
+        <section class="rafting-section section-padding position-relative fix">
+            <img src="{% static 'frontend/img/home-1/hero/shape-2.png' %}" alt="img" class="position-absolute top-0 end-0">
+            <img src="{% static 'frontend/img/home-2/fly-rafting.png' %}" alt="img"
+                class="position-absolute top-0 start-0 ms-120 float-bob-y pt-120 mt-120 d-none d-xl-block">
+            <img src="{% static 'frontend/img/home-2/cmn-desti.png' %}" alt="img"
+                class="position-absolute bottom-0 end-0 float-bob-y pt-120 d-md-block d-none mb-120">
+            <div class="container pt-xl-80">
+<!-- =====================================================
+     TRAVEL AGENCY FEATURES
+====================================================== -->
+<div class="row g-4 section-bottom travel-feature-row">
+
+    <!-- Feature 1 -->
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 wow fadeInUp"
+         data-wow-delay=".2s">
+
+        <div class="travel-feature-item">
+
+            <div class="travel-feature-icon">
+                <i class="fa-regular fa-map"></i>
+            </div>
+
+            <div class="travel-feature-content">
+
+                <h3>
+                    Curated Tour Packages
+                </h3>
+
+                <div class="travel-feature-line"></div>
+
+                <p>
+                    Carefully planned tour packages designed
+                    for memorable and hassle-free journeys.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Feature 2 -->
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 wow fadeInUp"
+         data-wow-delay=".4s">
+
+        <div class="travel-feature-item">
+
+            <div class="travel-feature-icon">
+                <i class="fa-regular fa-calendar-check"></i>
+            </div>
+
+            <div class="travel-feature-content">
+
+                <h3>
+                    Easy & Quick Booking
+                </h3>
+
+                <div class="travel-feature-line"></div>
+
+                <p>
+                    Simple booking assistance that makes
+                    planning your next holiday quick and easy.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Feature 3 -->
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 wow fadeInUp"
+         data-wow-delay=".6s">
+
+        <div class="travel-feature-item">
+
+            <div class="travel-feature-icon">
+                <i class="fa-solid fa-earth-asia"></i>
+            </div>
+
+            <div class="travel-feature-content">
+
+                <h3>
+                    Amazing Destinations
+                </h3>
+
+                <div class="travel-feature-line"></div>
+
+                <p>
+                    Explore beautiful destinations and
+                    experiences selected for every traveller.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Feature 4 -->
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 wow fadeInUp"
+         data-wow-delay=".8s">
+
+        <div class="travel-feature-item">
+
+            <div class="travel-feature-icon">
+                <i class="fa-solid fa-headset"></i>
+            </div>
+
+            <div class="travel-feature-content">
+
+                <h3>
+                    Travel Assistance
+                </h3>
+
+                <div class="travel-feature-line"></div>
+
+                <p>
+                    Friendly support and guidance throughout
+                    your journey from enquiry to return.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     POPULAR DESTINATION
+========================================================= -->
+
+<div class="section-title-area destination-title-area">
+
+    <div class="section-title">
+        <h6 class="sub-title wow fadeInUp">POPULAR DESTINATION</h6>
+        <h2 class="char-animation">Our Popular Destination</h2>
+        <p class="wow fadeInUp" data-wow-delay=".3s">
+            Discover beautiful destinations and unforgettable
+            experiences carefully selected for your next journey.
+        </p>
+    </div>
+
+    <div class="dest-arrows">
+        <button type="button" class="dest-prev" aria-label="Previous destination">
+            <i class="fa-solid fa-arrow-left-long"></i>
+        </button>
+        <button type="button" class="dest-next" aria-label="Next destination">
+            <i class="fa-solid fa-arrow-right-long"></i>
+        </button>
+    </div>
+
+</div>
+
+
+<div class="swiper dest-slider">
+
+    <div class="swiper-wrapper">
+
+        {% for destination in destinations %}
+
+        <div class="swiper-slide">
+
+            <div class="dest-card {% cycle 'is-tall' 'is-short' %}">
+
+                {% if destination.image %}
+                    <img class="dest-img"
+                         src="{{ destination.image.url }}"
+                         alt="{{ destination.name }}"
+                         loading="lazy">
+                {% else %}
+                    <div class="dest-no-image"><i class="fa-regular fa-image"></i></div>
+                {% endif %}
+
+                <span class="dest-rating">
+                    <i class="fa-solid fa-star"></i> 5
+                </span>
+
+                <div class="dest-content">
+                    <h3>
+                        <a href="{% url 'destination_details' destination.slug %}">
+                            {{ destination.name }}
+                        </a>
+                    </h3>
+                    <p>
+                        {% if destination.location %}{{ destination.location }}{% else %}Explore Destination{% endif %}
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="swiper-slide">
+            <div class="text-center py-5">
+                <h4>No destinations available</h4>
+                <p class="mt-2">New destinations will be added soon.</p>
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<script>
+window.addEventListener('load', function () {
+    if (typeof Swiper === 'undefined') return;
+
+    new Swiper('.dest-slider', {
+        slidesPerView: 1.15,
+        spaceBetween: 20,
+        grabCursor: true,
+        speed: 700,
+        navigation: {
+            prevEl: '.dest-prev',
+            nextEl: '.dest-next'
+        },
+        breakpoints: {
+            576:  { slidesPerView: 1.6, spaceBetween: 24 },
+            768:  { slidesPerView: 2.1, spaceBetween: 28 },
+            992:  { slidesPerView: 2.4, spaceBetween: 32 },
+            1200: { slidesPerView: 2.8, spaceBetween: 36 },
+            1400: { slidesPerView: 3.3, spaceBetween: 38 }
+        }
+    });
+});
+</script>
+
+
+
+ </div>
+</section>
+
+        <!-- ==================== Best Destinations + Brands ==================== -->
+        <!-- ==================== Best Packages ==================== -->
+<section
+     class="news-sections best-packages-section section-padding fix position-relative bg-top-cover"
+    style="background: url('{% static 'frontend/img/home-2/adjustment-bg-quck.png' %}');"
+>
+
+    <!-- Background Decoration -->
+    <div class="world-theme">
+        <img
+            src="{% static 'frontend/img/home-2/world-theme.png' %}"
+            alt="img"
+            class="world-theme-shape start-0 ms-60"
+        >
+    </div>
+
+    <div class="container">
+
+        <!-- ==================== Section Title ==================== -->
+        <div class="mb-xxl-45 mb-xl-35 mb-lg-25 mb-20">
+
+            <div class="section-title text-center">
+
+                <h6 class="sub-title wow fadeInUp">
+                    BEST PACKAGES
+                </h6>
+
+                <h2 class="char-animation">
+                    Explore Our Best Tour Packages
+                </h2>
+
+                <p
+                    class="wow fadeInUp"
+                    data-wow-delay=".2s"
+                >
+                    Discover carefully selected tour packages and unforgettable
+                    travel experiences designed for your perfect journey.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==================== Package Cards ==================== -->
+
+        <div class="row g-4">
+
+            {% for package in best_packages %}
+
+            <div
+                class="col-md-6 col-lg-6 wow fadeInUp"
+                data-wow-delay=".2s"
+            >
+
+                <div
+                    class="blog__item blog__item4 best-package-card
+                           d-flex align-items-center
+                           bg-white rounded-4 p-10
+                           card-effect gap-lg-0 gap-12"
+                >
+
+                    <!-- ==================== Package Image ==================== -->
+
+                    <div class="thumb-img position-relative">
+
+                        {% if package.main_image %}
+
+                        <img
+                            src="{{ package.main_image.url }}"
+                            alt="{{ package.name }}"
+                            class="w--100"
+                        >
+
+                        {% endif %}
+
+
+                        <!-- Package Type Badge -->
+
+                        <span
+                            class="position-absolute top-0 start-0
+                                   mt-20 ms-20
+                                   theme-bg-2 white-color
+                                   rounded-pill
+                                   px-3 py-1"
+                        >
+                            {{ package.get_package_type_display }}
+                        </span>
+
+
+                        <!-- Heart -->
+
+                        <span
+                            class="desti-badge
+                                   w-38 h-38
+                                   position-absolute
+                                   top-0 end-0
+                                   mt-20 me-20
+                                   d-center rounded-circle
+                                   bg-white theme-color-2"
+                        >
+                            <i class="fa-regular fa-heart position-relative top-02"></i>
+                        </span>
+
+                    </div>
+
+
+                    <!-- ==================== Package Content ==================== -->
+
+                    <div class="px-3">
+
+
+                        <!-- Package Type -->
+
+                        <div class="d-flex align-items-center gap-5 fs-16">
+
+                            <i class="fa-solid fa-location-dot theme-color"></i>
+
+                            {{ package.get_package_type_display }}
+
+                        </div>
+
+
+                        <!-- Package Name -->
+
+                        <h4>
+
+                            <a
+                                href="{% url 'package_details' package.slug %}"
+                                class="link-effect fw-medium"
+                            >
+                                {{ package.name }}
+                            </a>
+
+                        </h4>
+
+
+                        <!-- Rating + Duration -->
+
+                        <div class="d-flex align-items-center gap-10 flex-wrap">
+
+                            <div
+                                class="d-flex align-items-center
+                                       gap-5 text-color3 fw-semibold"
+                            >
+                                <i class="fa-solid fa-star theme-color-2"></i>
+
+                                5.00
+                            </div>
+
+
+                            {% if package.duration %}
+
+                            <div class="line"></div>
+
+                            <div class="text-color3 fw-semibold">
+                                {{ package.duration }}
+                            </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="border-bottom-dash my-lg-3 my-2"></div>
+
+
+                        <!-- ==================== Price ==================== -->
+
+                        <div class="price-item d-flex justify-content-between align-items-center">
+
+                            <div class="content">
+
+                                {% if package.price_from %}
+
+                                <h3 class="lh-1">
+                                    ₹{{ package.price_from }}
+                                </h3>
+
+                                <span>
+                                    / Per Person
+                                </span>
+
+                                {% else %}
+
+                                <h4 class="lh-1">
+                                    Contact for Price
+                                </h4>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- Details Button -->
+
+<a
+    href="{% url 'package_details' package.slug %}"
+    class="theme-btn_white theme-border-25 package-details-btn"
+>
+    <i class="fa-solid fa-arrow-right-long"></i>
+    <span>View Details</span>
+</a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {% empty %}
+
+            <!-- ==================== No Packages ==================== -->
+
+            <div class="col-12">
+
+                <div class="text-center py-5">
+
+                    <h4>
+                        No tour packages available.
+                    </h4>
+
+                    <p>
+                        New packages will be added soon.
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- ==================== Discover More ==================== -->
+
+        <div
+            class="text-center
+                   mt-xxl-50 mt-xl-40
+                   mt-lg-30 mt-20
+                   wow fadeInUp"
+            data-wow-delay=".3s"
+        >
+
+            <a
+                href="{% url 'packages' %}"
+                class="theme-btn_white theme_btn"
+            >
+
+                <i class="fa-solid fa-arrow-right-long"></i>
+
+                Discover More Packages
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+        <!-- ==================== Hot Deals + Countdown ==================== -->
+        {% comment %} <section class="destination-common03 section-padding fix pb-0 position-relative">
+            <img src="https://touro.template.wowtheme7.com/assets/img/home-1/hero/shape-2.png" alt="img" class="position-absolute top-0 end-0">
+            <img src="https://touro.template.wowtheme7.com/assets/img/home-2/boat.png" alt="img" class="position-absolute top-0 start-0 ms-120 float-bob-y pt-120">
+            <div class="container">
+                <div class="section-title text-center mb-xxl-50 mb-xl-40 mb-lg-30 mb-20 wow fadeInUp">
+                    <h6 class="sub-title">BEST DISCOUNTS</h6>
+                    <h2 class="char-animation">Hot Offer Deals & Discount for You</h2>
+                </div>
+                <div class="mb-xxl-50 mb-xl-40 mb-lg-30 mb-20 wow fadeInUp" data-wow-delay=".3s">
+                    <div id="countdown">
+                        <ul class="d-flex align-items-center justify-content-center gap-xl-15 gap-10 flex-wrap">
+                            <li class="d-flex count-down-item flex-column gap-1 fs-16 justify-content-center align-items-center text-center">
+                                <span class="fs-2 fw-bold text-dark" id="days"></span> days
+                            </li>
+                            <li class="dots-clone d-sm-block d-none">:</li>
+                            <li class="d-flex count-down-item flex-column gap-1 fs-16 justify-content-center align-items-center text-center">
+                                <span class="fs-2 fw-bold text-dark" id="hours"></span> Hours
+                            </li>
+                            <li class="dots-clone d-sm-block d-none">:</li>
+                            <li class="d-flex count-down-item flex-column gap-1 fs-16 justify-content-center align-items-center text-center">
+                                <span class="fs-2 fw-bold text-dark" id="minutes"></span> Minutes
+                            </li>
+                            <li class="dots-clone d-sm-block d-none">:</li>
+                            <li class="d-flex count-down-item flex-column gap-1 fs-16 justify-content-center align-items-center text-center">
+                                <span class="fs-2 fw-bold text-dark" id="seconds"></span> Seconds
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row g-xl-4 g-3">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="tours-image-itmes tours-image-itmes-style-1 tours-image-itmes__03 item_right_1">
+                            <div class="tour-image">
+                                <img src="https://touro.template.wowtheme7.com/assets/img/home-2/deal1.jpg" alt="img">
+                                <div class="badge-cus theme-bg text-white fs-16 py-1 px-3 rounded-end-2 mt-20 position-absolute top-0 start-0">50% Off</div>
+                                <div class="tour-content">
+                                    <div class="text-white fs-16 mb-10">Enjoy these cool staycation.</div>
+                                    <h3 class="mb-xxl-30 mb-20"><a href="tour-details.html">Best Staycation Deals of New York</a></h3>
+                                    <a href="tour-details.html" class="theme-btn_white theme_btn"><i class="fa-solid fa-arrow-right-long"></i> Discover</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="tours-image-itmes tours-image-itmes-style-1 tours-image-itmes__03">
+                            <div class="tour-image">
+                                <img src="https://touro.template.wowtheme7.com/assets/img/home-2/deal2.jpg" alt="img">
+                                <div class="badge-cus theme-bg text-white fs-16 py-1 px-3 rounded-end-2 mt-20 position-absolute top-0 start-0">50% Off</div>
+                                <div class="tour-content">
+                                    <div class="text-white fs-16 mb-10">Enjoy these cool staycation.</div>
+                                    <h3 class="mb-xxl-30 mb-20"><a href="tour-details.html">Discover the wow of Europe to Travel</a></h3>
+                                    <a href="tour-details.html" class="theme-btn_white theme_btn"><i class="fa-solid fa-arrow-right-long"></i> Discover</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="tours-image-itmes tours-image-itmes-style-1 tours-image-itmes__03 item_left_1">
+                            <div class="tour-image">
+                                <img src="https://touro.template.wowtheme7.com/assets/img/home-2/deal3.jpg" alt="img">
+                                <div class="badge-cus theme-bg text-white fs-16 py-1 px-3 rounded-end-2 mt-20 position-absolute top-0 start-0">50% Off</div>
+                                <div class="tour-content">
+                                    <div class="text-white fs-16 mb-10">Enjoy these cool staycation.</div>
+                                    <h3 class="mb-xxl-30 mb-20"><a href="tour-details.html">All Time Favorite Activities in Dubai Cities</a></h3>
+                                    <a href="tour-details.html" class="theme-btn_white theme_btn"><i class="fa-solid fa-arrow-right-long"></i> Discover</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> {% endcomment %}
+
+
+
+        
+<section class="adventure-section services-adventure-section section-padding mb-0 fix">
+
+    <!-- Background Top Shape -->
+    <div class="top-shape">
+        <img
+            src="{% static 'frontend/img/home-1/adventure/bg-shape.png' %}"
+            alt=""
+        >
+    </div>
+
+    <!-- Plane Decoration -->
+    <div class="plane-shape float-bob-y">
+        <img
+            src="{% static 'frontend/img/home-1/adventure/plane.png' %}"
+            alt=""
+        >
+    </div>
+
+
+    <!-- =====================================================
+         SECTION HEADING
+    ====================================================== -->
+
+    <div class="container">
+
+        <div class="section-title-area">
+
+            <div class="section-title">
+
+                <h6 class="sub-title text-white wow fadeInUp">
+                    OUR TRAVEL SERVICES
+                </h6>
+
+                <h2 class="text-white char-animation">
+                    Everything You Need for <br>
+                    a Perfect Journey
+                </h2>
+
+            </div>
+
+
+            <p
+                class="wow fadeInUp"
+                data-wow-delay=".5s"
+            >
+                From carefully planned tour packages and customized
+                itineraries to hotels, transportation and complete
+                travel assistance, we make every part of your journey
+                simple, comfortable and memorable.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SERVICES SLIDER
+    ====================================================== -->
+
+    <div class="swiper adventure-slider services-slider">
+
+        <div class="swiper-wrapper">
+
+
+            <!-- ================= SERVICE 01 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-60">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/01.jpg' %}"
+                            alt="Tour Packages"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-suitcase-rolling"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'packages' %}">
+                                        Tour <br> Packages
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 02 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-30">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/02.jpg' %}"
+                            alt="Customized Itineraries"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'contact' %}">
+                                        Customized <br> Itineraries
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 03 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-0">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/03.jpg' %}"
+                            alt="Hotel Bookings"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-hotel"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'contact' %}">
+                                        Hotel <br> Bookings
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 04 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-30">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/04.jpg' %}"
+                            alt="Transportation"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-car-side"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'contact' %}">
+                                        Travel <br> Transportation
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 05 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-60">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/05.jpg' %}"
+                            alt="Honeymoon Packages"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'packages' %}">
+                                        Honeymoon <br> Packages
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 06 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-30">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/01.jpg' %}"
+                            alt="Family Vacations"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-people-roof"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'packages' %}">
+                                        Family <br> Vacations
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 07 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-0">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/02.jpg' %}"
+                            alt="Group Tours"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'packages' %}">
+                                        Group <br> Tours
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 08 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-30">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/03.jpg' %}"
+                            alt="Adventure Trips"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-person-hiking"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'packages' %}">
+                                        Adventure <br> Trips
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 09 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-60">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/04.jpg' %}"
+                            alt="Pilgrimage Tours"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-place-of-worship"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'packages' %}">
+                                        Pilgrimage <br> Tours
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 10 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-30">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/05.jpg' %}"
+                            alt="Corporate Travel"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'contact' %}">
+                                        Corporate <br> Travel
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 11 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-0">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/01.jpg' %}"
+                            alt="Travel Insurance"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-shield-heart"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'contact' %}">
+                                        Travel <br> Insurance
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 12 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-30">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/02.jpg' %}"
+                            alt="Airport Transfers"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-plane-arrival"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'contact' %}">
+                                        Airport <br> Transfers
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SERVICE 13 ================= -->
+
+            <div class="swiper-slide">
+
+                <div class="adventure-items adventure-items-style-1 mt-60">
+
+                    <div class="adventure-image">
+
+                        <img
+                            src="{% static 'frontend/img/home-1/adventure/03.jpg' %}"
+                            alt="Travel Consultation"
+                        >
+
+                        <div class="adventure-content d-flex align-items-center">
+
+                            <div class="icon">
+                                <i class="fa-solid fa-headset"></i>
+                            </div>
+
+                            <div class="content">
+
+                                <h4>
+                                    <a href="{% url 'contact' %}">
+                                        Travel <br> Consultation
+                                    </a>
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SLIDER PAGINATION
+    ====================================================== -->
+
+    <div class="swiper-dot">
+
+        <div class="dot"></div>
+
+    </div>
+
+</section>
+
+
+
+
+        <!-- ==================== Top Attractions (tabs removed, single slider) ==================== -->
+        {% comment %} <section class="popular-destination-section section-padding fix">
+            <div class="container">
+                <div class="section-title text-center mb-xxl-60 mb-xl-50 mb-lg-40 mb-30">
+                    <h6 class="sub-title wow fadeInUp">TOP ATTRACTIONS PLACE</h6>
+                    <h2 class="char-animation">Our Top Attractions Place</h2>
+                    <p class="wow fadeInUp" data-wow-delay=".2s">
+                        Nemo enim ipsam voluptatem quia voluptas sit asper natur aut oditut fugit seduia.
+                    </p>
+                </div>
+            </div>
+            <div class="container container-cus">
+                <div class="swiper testimonial-destination-03 destination-slide-update">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="destination-items-style03 d-flex flex-column gap-15 align-items-center text-center">
+                                <div class="destination-image rounded-circle mb-xxl-15 mb-xl-10 mb-5">
+                                    <img src="https://touro.template.wowtheme7.com/assets/img/home-2/dest2-v1.jpg" alt="img" class="rounded-circle">
+                                </div>
+                                <div class="content">
+                                    <h3 class="mb-5"><a href="destination-details.html">Colosseum</a></h3>
+                                    <span class="text-color">103+ Tours</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="destination-items-style03 d-flex flex-column gap-15 align-items-center text-center">
+                                <div class="destination-image rounded-3 mb-xxl-15 mb-xl-10 mb-5">
+                                    <img src="https://touro.template.wowtheme7.com/assets/img/home-2/desti-l1.jpg" alt="img" class="rounded-3">
+                                </div>
+                                <div class="content">
+                                    <h3 class="mb-5"><a href="destination-details.html">Pompeii</a></h3>
+                                    <span class="text-color">103+ Tours</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="destination-items-style03 d-flex flex-column gap-15 align-items-center text-center">
+                                <div class="destination-image rounded-circle mb-xxl-15 mb-xl-10 mb-5">
+                                    <img src="https://touro.template.wowtheme7.com/assets/img/home-2/desti-l2.jpg" alt="img" class="rounded-circle">
+                                </div>
+                                <div class="content">
+                                    <h3 class="mb-5"><a href="destination-details.html">Versailles</a></h3>
+                                    <span class="text-color">103+ Tours</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="destination-items-style03 d-flex flex-column gap-15 align-items-center text-center">
+                                <div class="destination-image rounded-3 mb-xxl-15 mb-xl-10 mb-5">
+                                    <img src="https://touro.template.wowtheme7.com/assets/img/home-2/desti-l3.jpg" alt="img" class="rounded-3">
+                                </div>
+                                <div class="content">
+                                    <h3 class="mb-5"><a href="destination-details.html">Petra</a></h3>
+                                    <span class="text-color">103+ Tours</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="destination-items-style03 d-flex flex-column gap-15 align-items-center text-center">
+                                <div class="destination-image rounded-circle mb-xxl-15 mb-xl-10 mb-5">
+                                    <img src="https://touro.template.wowtheme7.com/assets/img/home-2/desti-l4.jpg" alt="img" class="rounded-circle">
+                                </div>
+                                <div class="content">
+                                    <h3 class="mb-5"><a href="destination-details.html">Chichen</a></h3>
+                                    <span class="text-color">103+ Tours</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="destination-items-style03 d-flex flex-column gap-15 align-items-center text-center">
+                                <div class="destination-image rounded-3 mb-xxl-15 mb-xl-10 mb-5">
+                                    <img src="https://touro.template.wowtheme7.com/assets/img/home-2/desti-l5.jpg" alt="img" class="rounded-3">
+                                </div>
+                                <div class="content">
+                                    <h3 class="mb-5"><a href="destination-details.html">Athens</a></h3>
+                                    <span class="text-color">103+ Tours</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="destination-items-style03 d-flex flex-column gap-15 align-items-center text-center">
+                                <div class="destination-image rounded-circle mb-xxl-15 mb-xl-10 mb-5">
+                                    <img src="https://touro.template.wowtheme7.com/assets/img/home-2/desti-l6.jpg" alt="img" class="rounded-circle">
+                                </div>
+                                <div class="content">
+                                    <h3 class="mb-5"><a href="destination-details.html">Acropolis</a></h3>
+                                    <span class="text-color">103+ Tours</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="destination-items-style03 d-flex flex-column gap-15 align-items-center text-center">
+                                <div class="destination-image rounded-3 mb-xxl-15 mb-xl-10 mb-5">
+                                    <img src="https://touro.template.wowtheme7.com/assets/img/home-2/desti-l7.jpg" alt="img" class="rounded-3">
+                                </div>
+                                <div class="content">
+                                    <h3 class="mb-5"><a href="destination-details.html">Parthenon</a></h3>
+                                    <span class="text-color">103+ Tours</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-dot-2 text-center mt-xl-60 mt-lg-50 mt-md-40 mt-30">
+                        <div class="dot-2"></div>
+                    </div>
+                </div>
+            </div>
+        </section> {% endcomment %}
+
+        <!-- ==================== About ==================== -->
+        <section class="about-section03 section-padding fix position-relative bg-top-cover"
+            style="background: url({% static 'frontend/img/home-3/desti-bg.png' %});">
+            <div class="container pb-xxl-100 mb-xxl-30 pt-xxl-50">
+                <div class="row g-4 justify-content-between">
+                    <div class="col-xxl-6 col-lg-6">
+                        <div class="about-thumb03 ms-auto about-thumb__three position-relative">
+                            <img src="{% static 'frontend/img/home-3/fly-ja.png' %}" alt="img"
+                                class="d-sm-block d-none position-absolute end-0 me-10 bottom-0 mt-50 float-bob-y z-1">
+                            <div class="exprience-counting d-flex gap-xxl-20 gap-10">
+                                <img width="62" height="62" src="{% static 'frontend/img/home-2/badge-count.png' %}" alt="img" class="mt-1">
+                                <div>
+                                    <h2 class="theme-color-2"><span class="count">25</span>+</h2>
+                                    <p>Years of Experience</p>
+                                </div>
+                            </div>
+                            <div class="thumb1 position-absolute top-0 end-0 fix wow img-custom-anim-right">
+                                <img src="{% static 'frontend/img/home-2/about3-v1.png' %}" alt="img">
+                            </div>
+                            <div class="thumb2 position-absolute bottom-0 start-0 fix wow img-custom-anim-left">
+                                <img src="{% static 'frontend/img/home-2/about3-v2.png' %}" alt="img">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-5 col-lg-6">
+                        <div class="about-content about-content-2-rtl ms-0">
+                            <div class="section-title style-2 mb-xxl-40 mb-xl-30 mb-lg-20 mb-15">
+                                <h6 class="sub-title wow fadeInUp">ABOUT TOURO</h6>
+                                <h2 class="char-animation">Our Stories Have Experience adventure</h2>
+                                <p class="wow fadeInUp" data-wow-delay=".2s">
+                                    We are experienced in bringing adventures to their journey, with all outdoor
+                                    destinations on the world as our specialties. Start your adventure now! Nature has
+                                    already called you!
+                                </p>
+                            </div>
+                            <div class="d-flex flex-column gap-xxl-30 gap-xl-20 gap-lg-10 gap-8 flex-wrap mb-xl-40 mb-lg-30 mb-md-20 mb-sm-10 wow fadeInUp" data-wow-delay=".4s">
+                                <div class="about-advanture py-2 px-2 bg-white rounded-end-4 d-flex align-items-xl-center gap-xxl-30 gap-15">
+                                    <div class="thumb">
+                                        <img src="{% static 'frontend/img/home-3/for-man.jpg' %}" alt="img" class="w--100">
+                                    </div>
+                                    <div class="content">
+                                        <p>“Find out what’s happening at Touro, from the latest travel news to our special offers.”</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-item d-flex align-items-center gap-55 mt-0 wow fadeInUp" data-wow-delay=".6s">
+                                <ul class="list">
+                                    <li><i class="fa-solid fa-circle-check"></i> Easy Booking</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> 24/7 Support</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> Adventure Activities</li>
+                                </ul>
+                                <ul class="list">
+                                    <li><i class="fa-solid fa-circle-check"></i> Weather Updates</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> Instant Confirmation</li>
+                                    <li><i class="fa-solid fa-circle-check"></i> Itinerary Planner</li>
+                                </ul>
+                            </div>
+                            <div class="about-button mt-xxl-40 mt-xl-30 mt-lg-20 mt-15 wow fadeInUp" data-wow-delay=".8s">
+                                <a href="about.html" class="theme-btn">
+                                    <i class="fa-sharp fa-regular fa-arrow-right"></i> Discover More
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Counters ==================== -->
+        <section class="counting-status fix">
+            <div class="container">
+                <div class="counting-status-wrapper zoom-effect-style">
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-6 col-sm-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay=".2s">
+                            <div class="card-effect count-status-item d-flex gap-xxl-20 gap-10">
+                                <div class="icon mt-3"><img src="{% static 'frontend/img/home-2/icon/count-s1.png' %}" alt="icon"></div>
+                                <div class="content">
+                                    <h2><span class="count">34</span>+</h2>
+                                    <p class="text-white">Worldwide Branches</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay=".4s">
+                            <div class="card-effect count-status-item d-flex gap-xxl-20 gap-10">
+                                <div class="icon mt-3"><img src="{% static 'frontend/img/home-2/icon/count-s2.png' %}" alt="icon"></div>
+                                <div class="content">
+                                    <h2><span class="count">12</span>+</h2>
+                                    <p class="text-white">Total Destinations</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay=".6s">
+                            <div class="card-effect count-status-item d-flex gap-xxl-20 gap-10">
+                                <div class="icon mt-3"><img src="{% static 'frontend/img/home-2/icon/count-s3.png' %}" alt="icon"></div>
+                                <div class="content">
+                                    <h2><span class="count">44</span>k</h2>
+                                    <p class="text-white">International Trips</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay=".8s">
+                            <div class="card-effect count-status-item d-flex gap-xxl-20 gap-10">
+                                <div class="icon mt-3"><img src="{% static 'frontend/img/home-2/icon/count-s1.png' %}" alt="icon"></div>
+                                <div class="content">
+                                    <h2><span class="count">18</span>K+</h2>
+                                    <p class="text-white">Happy Travelers</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Support Members ==================== -->
+        {% comment %} <section class="support-member position-relative pt-120 fix">
+            <div class="float-bob-y position-absolute bottom-0 start-0 m-lg-100">
+                <img src="https://touro.template.wowtheme7.com/assets/img/home-2/bl3.png" alt="img">
+            </div>
+            <div class="container">
+                <div class="section-title text-center">
+                    <h6 class="sub-title wow fadeInUp">OUR SUPPORT MEMBERS</h6>
+                    <h2 class="char-animation">We’re here to help, 24/7.</h2>
+                </div>
+                <div class="row g-3 align-items-center">
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-4 col-6 wow fadeInUp" data-wow-delay=".2s">
+                        <a href="contact.html" class="support-memeber rounded-circle thumb-img">
+                            <img src="https://touro.template.wowtheme7.com/assets/img/home-2/member1.png" alt="img" class="rounded-circle">
+                        </a>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-4 col-6 wow fadeInUp" data-wow-delay=".3s">
+                        <a href="contact.html" class="support-memeber rounded-3 thumb-img">
+                            <img src="https://touro.template.wowtheme7.com/assets/img/home-2/member2.png" alt="img" class="rounded-3">
+                        </a>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-4 col-6 wow fadeInUp" data-wow-delay=".4s">
+                        <a href="contact.html" class="support-memeber rounded-circle thumb-img">
+                            <img src="https://touro.template.wowtheme7.com/assets/img/home-2/member3.png" alt="img" class="rounded-circle">
+                        </a>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-4 col-6 wow fadeInUp" data-wow-delay=".6s">
+                        <a href="contact.html" class="support-memeber rounded-3 thumb-img">
+                            <img src="https://touro.template.wowtheme7.com/assets/img/home-2/member4.png" alt="img" class="rounded-3">
+                        </a>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-4 col-6 wow fadeInUp" data-wow-delay=".8s">
+                        <a href="contact.html" class="support-memeber rounded-circle thumb-img">
+                            <img src="https://touro.template.wowtheme7.com/assets/img/home-2/member5.png" alt="img" class="rounded-circle">
+                        </a>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-4 col-6 wow fadeInUp" data-wow-delay=".9s">
+                        <a href="contact.html" class="support-memeber rounded-3 thumb-img">
+                            <img src="https://touro.template.wowtheme7.com/assets/img/home-2/member6.png" alt="img" class="rounded-3">
+                        </a>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-center gap-xxl-40 gap-sm-20 gap-10 flex-sm-nowrap flex-wrap mt-xxl-60 mt-40">
+                    <div class="call-item gap-xxl-15 gap-10 d-flex justify-content-sm-start justify-content-center flex-nowrap align-items-center wow fadeInUp" data-wow-delay=".2s">
+                        <div class="mt-1"><img src="https://touro.template.wowtheme7.com/assets/img/home-2/help-head.png" alt="icon"></div>
+                        <div class="content">
+                            <p class="fs-16 text-color">Need Your Help</p>
+                            <h4><a href="tel:63552584250">(635) 5258-4250</a></h4>
+                        </div>
+                    </div>
+                    <svg class="d-sm-block d-none" width="15" height="44" viewBox="0 0 15 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="14.4754" y1="0.154793" x2="0.475436" y2="43.1548" stroke="black" stroke-opacity="0.13" />
+                    </svg>
+                    <div class="call-item gap-xxl-15 gap-10 d-flex justify-content-sm-start justify-content-center flex-nowrap align-items-center wow fadeInUp" data-wow-delay=".4s">
+                        <div class="mt-1"><img src="https://touro.template.wowtheme7.com/assets/img/home-2/help-message.png" alt="icon"></div>
+                        <div class="content">
+                            <p class="fs-16 text-color">Email Us</p>
+                            <h4><a href="mailto:support@touro.com">support@touro.com</a></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> {% endcomment %}
+
+        <!-- ==================== Activity categories ==================== -->
+        <div class="stact-section fix">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-sm-6 col-md-4 col-xl-3 col-xxl-2 wow fadeInUp" data-wow-delay=".2s">
+                        <div class="stact-item card-theme2 text-center icon-effect white-bg border rounded-4 py-4 px-2">
+                            <div class="py-2">
+                                <div class="icon mb-xxl-30 mb-xl-20 mb-15"><img src="{% static 'frontend/img/home-2/icon/stact1.png' %}" alt="icon"></div>
+                                <h4 class="fw-medium"><a href="contact.html" class="fw-medium">Tent Camping <br> Travel</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xl-3 col-xxl-2 wow fadeInUp" data-wow-delay=".3s">
+                        <div class="stact-item card-theme2 text-center icon-effect white-bg border rounded-4 py-4 px-2">
+                            <div class="py-2">
+                                <div class="icon mb-xxl-30 mb-xl-20 mb-15"><img src="{% static 'frontend/img/home-2/icon/stact2.png' %}" alt="icon"></div>
+                                <h4 class="fw-medium"><a href="contact.html" class="fw-medium">Adventure <br> Travel</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xl-3 col-xxl-2 wow fadeInUp" data-wow-delay=".4s">
+                        <div class="stact-item card-theme2 text-center icon-effect white-bg border rounded-4 py-4 px-2">
+                            <div class="py-2">
+                                <div class="icon mb-xxl-30 mb-xl-20 mb-15"><img src="{% static 'frontend/img/home-2/icon/stact3.png' %}" alt="icon"></div>
+                                <h4 class="fw-medium"><a href="contact.html" class="fw-medium">Biking and <br> Mountain</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xl-3 col-xxl-2 wow fadeInUp" data-wow-delay=".6s">
+                        <div class="stact-item card-theme2 text-center icon-effect white-bg border rounded-4 py-4 px-2">
+                            <div class="py-2">
+                                <div class="icon mb-xxl-30 mb-xl-20 mb-15"><img src="{% static 'frontend/img/home-2/icon/stact4.png' %}" alt="icon"></div>
+                                <h4 class="fw-medium"><a href="contact.html" class="fw-medium">Beach Camping <br> Travel</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xl-3 col-xxl-2 wow fadeInUp" data-wow-delay=".8s">
+                        <div class="stact-item card-theme2 text-center icon-effect white-bg border rounded-4 py-4 px-2">
+                            <div class="py-2">
+                                <div class="icon mb-xxl-30 mb-xl-20 mb-15"><img src="{% static 'frontend/img/home-2/icon/stact5.png' %}" alt="icon"></div>
+                                <h4 class="fw-medium"><a href="contact.html" class="fw-medium">Paragliding <br> Travel</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xl-3 col-xxl-2 wow fadeInUp" data-wow-delay=".9s">
+                        <div class="stact-item card-theme2 text-center icon-effect white-bg border rounded-4 py-4 px-2">
+                            <div class="py-2">
+                                <div class="icon mb-xxl-30 mb-xl-20 mb-15"><img src="{% static 'frontend/img/home-2/icon/stact6.png' %}" alt="icon"></div>
+                                <h4 class="fw-medium"><a href="contact.html" class="fw-medium">Fishing and <br> Swimming</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- ==================== Testimonials ==================== -->
+
+<section
+    class="home-testimonial-section section-adjustment position-relative fix section-padding bg-cover rounded-5"
+    style="background: url('{% static 'frontend/img/home-2/testimonial-mask.png' %}');"
+>
+
+    <!-- Decorative Shape -->
+    <img
+        src="{% static 'frontend/img/home-2/arrow-des.png' %}"
+        alt=""
+        class="position-absolute d-xl-block d-none float-bob-y mt-xl-60 mt-30 end-0 top-0"
+    >
+
+
+    <!-- ==================================================
+         SECTION HEADING
+    =================================================== -->
+
+    <div class="container pt-xl-100 pt-80">
+
+        <div class="row">
+
+            <div class="section-title style-2 max-w-700px mx-auto text-center">
+
+                <h6 class="sub-title wow fadeInUp">
+                    OUR TESTIMONIALS
+                </h6>
+
+                <h2 class="mb-md-10 mb-0 char-animation">
+                    See What They are Talking?
+                </h2>
+
+                <p
+                    class="wow fadeInUp mt-15"
+                    data-wow-delay=".3s"
+                >
+                    Discover what our travellers say about their
+                    journeys, experiences, and memorable holidays
+                    planned with us.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         DYNAMIC TESTIMONIAL SLIDER
+    =================================================== -->
+
+    <div class="swiper-slide-active__here">
+
+        <div class="swiper testimonial-slider">
+
+            <div class="swiper-wrapper">
+
+
+                {% for testimonial in testimonials %}
+
+                <div class="swiper-slide">
+
+                    <div
+                        class="testimonial-box-item border testimonial-box-item-style-1 testimonial-box-2"
+                    >
+
+
+                        <!-- =========================================
+                             GOOGLE REVIEW - TOP
+                        ========================================== -->
+
+                        <div class="test-meta d-flex align-items-center">
+
+                            <div class="google-image">
+
+                                <img
+                                    src="{% static 'frontend/img/home-1/testimonial/google.png' %}"
+                                    alt="Google Review"
+                                >
+
+                            </div>
+
+
+                            <div class="star">
+
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =========================================
+                             REVIEW
+                        ========================================== -->
+
+                        <div class="testimonial-review">
+
+                            {{ testimonial.review|safe }}
+
+                        </div>
+
+
+                        <!-- =========================================
+                             CLIENT INFORMATION - BOTTOM
+                        ========================================== -->
+
+                        <div
+                            class="client-info-item d-flex justify-content-between mb-0"
+                        >
+
+                            <div
+                                class="info-item d-flex align-items-center"
+                            >
+
+
+                                <!-- Client Image -->
+
+                                <div class="client-image">
+
+                                    {% if testimonial.image %}
+
+                                    <img
+                                        src="{{ testimonial.image.url }}"
+                                        alt="{{ testimonial.name }}"
+                                    >
+
+                                    {% else %}
+
+                                    <img
+                                        src="{% static 'frontend/assets/img/default-user.png' %}"
+                                        alt="{{ testimonial.name }}"
+                                    >
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <!-- Client Details -->
+
+                                <div class="content">
+
+                                    <h5>
+                                        {{ testimonial.name }}
+                                    </h5>
+
+                                    <span>
+                                        Traveler
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Quote Icon -->
+
+                            <div class="icon">
+
+                                <img
+                                    src="{% static 'frontend/img/home-1/icon/11.svg' %}"
+                                    alt="Quote"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                {% empty %}
+
+
+                <!-- =============================================
+                     EMPTY STATE
+                ============================================== -->
+
+                <div class="swiper-slide">
+
+                    <div
+                        class="testimonial-box-item border testimonial-box-item-style-1 testimonial-box-2"
+                    >
+
+                        <div class="test-meta d-flex align-items-center">
+
+                            <div class="google-image">
+
+                                <img
+                                    src="{% static 'frontend/img/home-1/testimonial/google.png' %}"
+                                    alt="Google Review"
+                                >
+
+                            </div>
+
+                            <div class="star">
+
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="testimonial-review">
+
+                            <p>
+                                Our traveller reviews will appear here soon.
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            class="client-info-item d-flex justify-content-between mb-0"
+                        >
+
+                            <div class="info-item d-flex align-items-center">
+
+                                <div class="client-image">
+
+                                    <img
+                                        src="{% static 'frontend/assets/img/default-user.png' %}"
+                                        alt="Traveler"
+                                    >
+
+                                </div>
+
+                                <div class="content">
+
+                                    <h5>Traveler</h5>
+
+                                    <span>Guest Review</span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="icon">
+
+                                <img
+                                    src="{% static 'frontend/img/home-1/icon/11.svg' %}"
+                                    alt="Quote"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         SLIDER DOTS
+    =================================================== -->
+
+    <div class="swiper-dot-2 text-center">
+
+        <div class="dot-2"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     HOME GALLERY SECTION START
+========================================================= -->
+
+{% comment %} <section class="gallery-section section-padding fix">
+        <div class="container">
+            <div class="section-title-area">
+                <div class="section-title">
+                    <h6 class="sub-title wow fadeInUp">
+                        OUR GALLARY
+                    </h6>
+                    <h2 class="char-animation">
+                        View Our Image Gallery
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="container custom-container">
+            <div class="row g-4">
+                <div class="col-xl-9 col-lg-7">
+                    <div class="row g-4">
+                        <div class="col-xl-8 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                            <div class="gallery-item">
+                                <div class="gallery-iamge">
+                                    <img src="https://touro.template.wowtheme7.com/assets/img/home-1/gallery/gallery-1.jpg " alt="img">
+                                    <a href="assets/img/home-1/gallery/gallery-1.jpg .html" class="icon img-popup2">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-delay=".5s">
+                            <div class="gallery-item">
+                                <div class="gallery-iamge">
+                                    <img src="https://touro.template.wowtheme7.com/assets/img/home-1/gallery/gallery-2.jpg " alt="img">
+                                    <a href="assets/img/home-1/gallery/gallery-2.jpg .html" class="icon img-popup2">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-delay=".7s">
+                            <div class="gallery-item">
+                                <div class="gallery-iamge">
+                                    <img src="https://touro.template.wowtheme7.com/assets/img/home-1/gallery/gallery-3.jpg " alt="img">
+                                    <a href="assets/img/home-1/gallery/gallery-3.jpg .html" class="icon img-popup2">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-md-6 wow fadeInUp" data-wow-delay=".9s">
+                            <div class="gallery-item">
+                                <div class="gallery-iamge">
+                                    <img src="https://touro.template.wowtheme7.com/assets/img/home-1/gallery/gallery-4.jpg " alt="img">
+                                    <a href="assets/img/home-1/gallery/gallery-4.jpg .html" class="icon img-popup2">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-5 wow fadeInUp" data-wow-delay=".4s">
+                    <div class="gallery-item">
+                        <div class="gallery-iamge style-2">
+                            <img src="https://touro.template.wowtheme7.com/assets/img/home-1/gallery/gallery-5.jpg " alt="img">
+                            <a href="assets/img/home-1/gallery/gallery-5.jpg .html" class="icon img-popup2">
+                                <i class="fa-regular fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section> {% endcomment %}
+
+<section class="gallery-section section-padding fix">
+
+    <div class="container">
+
+        <div class="section-title-area">
+
+            <div class="section-title">
+
+                <h6 class="sub-title wow fadeInUp">
+                    OUR GALLERY
+                </h6>
+
+                <h2 class="char-animation">
+                    View Our Image Gallery
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="container custom-container">
+
+        {% if gallery_images %}
+
+        <div class="row g-4">
+
+
+            <!-- =================================================
+                 LEFT SIDE
+            ================================================== -->
+
+            <div class="col-xl-9 col-lg-7">
+
+                <div class="row g-4">
+
+
+                    <!-- ================= IMAGE 1 ================= -->
+
+                    {% if gallery_images.0 %}
+
+                    <div
+                        class="col-xl-8 col-md-6 wow fadeInUp"
+                        data-wow-delay=".3s"
+                    >
+
+                        <div class="gallery-item">
+
+                            <div class="gallery-iamge">
+
+                                <img
+                                    src="{{ gallery_images.0.image.url }}"
+                                    alt="{{ gallery_images.0.title|default:'Gallery Image' }}"
+                                >
+
+                                <a
+                                    href="{{ gallery_images.0.image.url }}"
+                                    class="icon img-popup2"
+                                >
+                                    <i class="fa-regular fa-eye"></i>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+
+
+                    <!-- ================= IMAGE 2 ================= -->
+
+                    {% if gallery_images.1 %}
+
+                    <div
+                        class="col-xl-4 col-md-6 wow fadeInUp"
+                        data-wow-delay=".5s"
+                    >
+
+                        <div class="gallery-item">
+
+                            <div class="gallery-iamge">
+
+                                <img
+                                    src="{{ gallery_images.1.image.url }}"
+                                    alt="{{ gallery_images.1.title|default:'Gallery Image' }}"
+                                >
+
+                                <a
+                                    href="{{ gallery_images.1.image.url }}"
+                                    class="icon img-popup2"
+                                >
+                                    <i class="fa-regular fa-eye"></i>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+
+
+                    <!-- ================= IMAGE 3 ================= -->
+
+                    {% if gallery_images.2 %}
+
+                    <div
+                        class="col-xl-4 col-md-6 wow fadeInUp"
+                        data-wow-delay=".7s"
+                    >
+
+                        <div class="gallery-item">
+
+                            <div class="gallery-iamge">
+
+                                <img
+                                    src="{{ gallery_images.2.image.url }}"
+                                    alt="{{ gallery_images.2.title|default:'Gallery Image' }}"
+                                >
+
+                                <a
+                                    href="{{ gallery_images.2.image.url }}"
+                                    class="icon img-popup2"
+                                >
+                                    <i class="fa-regular fa-eye"></i>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+
+
+                    <!-- ================= IMAGE 4 ================= -->
+
+                    {% if gallery_images.3 %}
+
+                    <div
+                        class="col-xl-8 col-md-6 wow fadeInUp"
+                        data-wow-delay=".9s"
+                    >
+
+                        <div class="gallery-item">
+
+                            <div class="gallery-iamge">
+
+                                <img
+                                    src="{{ gallery_images.3.image.url }}"
+                                    alt="{{ gallery_images.3.title|default:'Gallery Image' }}"
+                                >
+
+                                <a
+                                    href="{{ gallery_images.3.image.url }}"
+                                    class="icon img-popup2"
+                                >
+                                    <i class="fa-regular fa-eye"></i>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RIGHT SIDE - TALL IMAGE
+            ================================================== -->
+
+            {% if gallery_images.4 %}
+
+            <div
+                class="col-xl-3 col-lg-5 wow fadeInUp"
+                data-wow-delay=".4s"
+            >
+
+                <div class="gallery-item">
+
+                    <div class="gallery-iamge style-2">
+
+                        <img
+                            src="{{ gallery_images.4.image.url }}"
+                            alt="{{ gallery_images.4.title|default:'Gallery Image' }}"
+                        >
+
+                        <a
+                            href="{{ gallery_images.4.image.url }}"
+                            class="icon img-popup2"
+                        >
+                            <i class="fa-regular fa-eye"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+
+        </div>
+
+
+        {% else %}
+
+        <!-- =====================================================
+             NO GALLERY IMAGES
+        ====================================================== -->
+
+        <div class="text-center py-5">
+
+            <i
+                class="fa-regular fa-images"
+                style="font-size: 45px; color: #ff5a36;"
+            ></i>
+
+            <h4 class="mt-3">
+                Gallery images coming soon
+            </h4>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     HOME GALLERY SECTION END
+========================================================= -->
+
+
+
+       <!-- =========================================================
+     BLOG SECTION
+========================================================= -->
+<!-- =========================================================
+     HOME BLOG SECTION - TOURO INDEX TWO STYLE
+========================================================= -->
+
+<section class="news-sections blog-home-section section-padding fix">
+
+    <div class="container">
+
+        <!-- =====================================================
+             SECTION TITLE
+        ====================================================== -->
+
+        <div class="section-title text-center">
+
+            <h6 class="sub-title wow fadeInUp">
+                OUR NEWS & BLOG
+            </h6>
+
+            <h2 class="char-animation">
+                News, Tips, Guides and Articles
+            </h2>
+
+            <p
+                class="max-w-575px mx-auto wow fadeInUp"
+                data-wow-delay=".2s"
+            >
+                Discover inspiring travel stories, destination guides,
+                useful travel tips and ideas to help you plan your
+                next unforgettable journey.
+            </p>
+
+        </div>
+
+
+        {% if blogs %}
+
+        <!-- =====================================================
+             BLOG GRID
+        ====================================================== -->
+
+        <div class="row g-4 align-items-stretch">
+
+
+            <!-- =================================================
+                 BLOG 1 - LARGE LEFT
+            ================================================== -->
+
+            {% for blog in blogs|slice:":2" %}
+
+            <div
+                class="col-md-6 col-lg-4 wow fadeInUp"
+                data-wow-delay=".{{ forloop.counter|add:'1' }}s"
+            >
+
+                <article class="blog__item home-blog-main-card">
+
+
+                    <!-- IMAGE -->
+
+                    <div
+                        class="thumb-img
+                               home-blog-main-image
+                               position-relative
+                               mb-xl-20 mb-15"
+                    >
+
+                        <a href="{{ blog.get_absolute_url }}">
+
+                            {% if blog.image %}
+
+                            <img
+                                src="{{ blog.image.url }}"
+                                alt="{{ blog.title }}"
+                                class="w--100"
+                            >
+
+                            {% else %}
+
+                            <img
+                                src="{% static 'frontend/assets/img/default-blog.jpg' %}"
+                                alt="{{ blog.title }}"
+                                class="w--100"
+                            >
+
+                            {% endif %}
+
+                        </a>
+
+
+                        <!-- CATEGORY BADGE -->
+
+                        <span
+                            class="position-absolute
+                                   top-0 start-0
+                                   theme-bg
+                                   rounded-end
+                                   mt-20
+                                   fs-16
+                                   text-white
+                                   fw-medium
+                                   py-10 px-3"
+                        >
+                            Travel
+                        </span>
+
+
+                        <!-- DATE BOX -->
+
+                        <div
+                            class="home-blog-date
+                                   text-center
+                                   position-absolute
+                                   d-flex
+                                   flex-column
+                                   gap-1
+                                   bottom-0
+                                   start-0
+                                   bg-white
+                                   rounded
+                                   m-xl-20 m-10
+                                   fs-16
+                                   text-dark
+                                   fw-medium
+                                   px-4 py-2"
+                        >
+
+                            <h3>
+                                {{ blog.created_at|date:"d" }}
+                            </h3>
+
+                            <p class="text-uppercase">
+                                {{ blog.created_at|date:"M" }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TITLE -->
+
+                    <div class="home-blog-main-content">
+
+                        <h3
+                            class="mb-xl-20
+                                   mb-lg-15
+                                   mb-10
+                                   pb-xxl-8"
+                        >
+
+                            <a
+                                href="{{ blog.get_absolute_url }}"
+                                class="link-effect"
+                            >
+                                {{ blog.title }}
+                            </a>
+
+                        </h3>
+
+
+                        <!-- CONTINUE READING -->
+
+                        <a
+                            href="{{ blog.get_absolute_url }}"
+                            class="theme-btn_white white-theme fw-bold"
+                        >
+
+                            <i class="fa-solid fa-arrow-right-long"></i>
+
+                            Continue Reading
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+            {% endfor %}
+
+
+
+            <!-- =================================================
+                 RIGHT SIDE SMALL BLOGS
+            ================================================== -->
+
+            <div
+                class="col-md-12 col-lg-4 wow fadeInUp"
+                data-wow-delay=".5s"
+            >
+
+                <div
+                    class="home-blog-side-list
+                           d-flex
+                           flex-lg-column
+                           flex-wrap
+                           flex-md-nowrap
+                           gap-xxl-30
+                           gap-xl-20
+                           gap-10"
+                >
+
+
+                    {% for blog in blogs|slice:"2:4" %}
+
+                    <article
+                        class="home-blog-side-card
+                               grap-bg
+                               py-4
+                               px-4
+                               rounded-3"
+                    >
+
+                        <div class="py-lg-2">
+
+
+                            <!-- DATE / CATEGORY -->
+
+                            <div
+                                class="home-blog-side-meta
+                                       d-flex
+                                       align-items-center
+                                       gap-5
+                                       mb-10"
+                            >
+
+                                <i
+                                    class="fa-light
+                                           fa-calendar
+                                           theme-color-2"
+                                ></i>
+
+                                <span>
+
+                                    {{ blog.created_at|date:"d F, Y" }}
+
+                                    -
+
+                                    Travel
+
+                                </span>
+
+                            </div>
+
+
+                            <!-- TITLE -->
+
+                            <h4
+                                class="mb-xl-20
+                                       mb-lg-15
+                                       mb-10"
+                            >
+
+                                <a
+                                    href="{{ blog.get_absolute_url }}"
+                                    class="link-effect fw-medium"
+                                >
+                                    {{ blog.title }}
+                                </a>
+
+                            </h4>
+
+
+                            <!-- READ MORE -->
+
+                            <a
+                                href="{{ blog.get_absolute_url }}"
+                                class="home-blog-side-link
+                                       d-flex
+                                       align-items-center
+                                       gap-10
+                                       fs-16
+                                       theme-color-2
+                                       fw-bold"
+                            >
+
+                                Read More
+
+                                <i
+                                    class="fa-solid
+                                           fa-arrow-right-long
+                                           mt-4"
+                                ></i>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                    {% empty %}
+
+
+                    <!-- OPTIONAL FALLBACK IF ONLY 1 OR 2 BLOGS EXIST -->
+
+                    <div
+                        class="home-blog-side-card
+                               grap-bg
+                               py-4
+                               px-4
+                               rounded-3"
+                    >
+
+                        <div class="py-lg-2">
+
+                            <div class="home-blog-side-meta mb-10">
+                                More travel stories coming soon
+                            </div>
+
+                            <h4 class="fw-medium">
+                                Explore our latest travel inspiration,
+                                guides and destination ideas.
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             VIEW ALL
+        ====================================================== -->
+
+        <div
+            class="text-center
+                   mt-xxl-50
+                   mt-xl-40
+                   mt-lg-30
+                   mt-25
+                   wow fadeInUp"
+            data-wow-delay=".3s"
+        >
+
+            <a
+                href="{% url 'blogs' %}"
+                class="theme-btn"
+            >
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+                View All Blogs
+
+            </a>
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- =====================================================
+             NO BLOGS
+        ====================================================== -->
+
+        <div class="row">
+
+            <div class="col-12">
+
+                <div class="text-center py-5">
+
+                    <h4>
+                        No blogs available yet.
+                    </h4>
+
+                    <p class="mt-2">
+                        New travel stories and guides will be added soon.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+
+
+       
+{% endblock %}

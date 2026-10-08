@@ -1,0 +1,750 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+
+
+{% block title %}
+Gallery | Touro Travel & Tour
+{% endblock %}
+
+
+{% block extra_css %}
+
+<style>
+
+/* ==========================================================
+   GALLERY PAGE
+   ========================================================== */
+
+.gallery-page-section {
+    position: relative;
+    background: #ffffff;
+}
+
+
+/* ==========================================================
+   SECTION HEADING
+   ========================================================== */
+
+.gallery-page-section .gallery-heading {
+    max-width: 720px;
+    margin: 0 auto 40px;
+    text-align: center;
+}
+
+.gallery-page-section .gallery-heading .sub-title {
+    margin-bottom: 10px;
+}
+
+.gallery-page-section .gallery-heading p {
+    max-width: 620px;
+    margin: 15px auto 0;
+    color: #687179;
+}
+
+
+/* ==========================================================
+   FILTER BUTTONS
+   ========================================================== */
+
+.gallery-filter-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-bottom: 45px;
+}
+
+
+.gallery-filter-btn {
+    border: 1px solid #e8e8e8;
+
+    background: #ffffff;
+
+    color: #071c1f;
+
+    padding: 11px 25px;
+
+    border-radius: 50px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.gallery-filter-btn:hover {
+    color: #ffffff;
+
+    background: #ff5a36;
+
+    border-color: #ff5a36;
+
+    transform: translateY(-2px);
+}
+
+
+.gallery-filter-btn.active {
+    color: #ffffff;
+
+    background: #ff5a36;
+
+    border-color: #ff5a36;
+
+    box-shadow: 0 8px 20px rgba(255, 90, 54, 0.20);
+}
+
+
+/* ==========================================================
+   GALLERY GRID
+   ========================================================== */
+
+.gallery-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 24px;
+}
+
+
+/* ==========================================================
+   GALLERY ITEM
+   ========================================================== */
+
+.gallery-item {
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 16px;
+
+    background: #f5f5f5;
+
+    height: 330px;
+
+    transition:
+        opacity 0.35s ease,
+        transform 0.35s ease;
+}
+
+
+/* hidden during category filtering */
+.gallery-item.gallery-hidden {
+    display: none;
+}
+
+
+/* Image */
+.gallery-item .gallery-image {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+}
+
+
+.gallery-item .gallery-image img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition: transform 0.55s ease;
+}
+
+
+.gallery-item:hover .gallery-image img {
+    transform: scale(1.08);
+}
+
+
+/* ==========================================================
+   IMAGE OVERLAY
+   ========================================================== */
+
+.gallery-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-end;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(5, 28, 31, 0.85) 0%,
+            rgba(5, 28, 31, 0.35) 42%,
+            rgba(5, 28, 31, 0.00) 75%
+        );
+
+    opacity: 0;
+
+    transition: opacity 0.4s ease;
+}
+
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+
+/* Category badge */
+.gallery-category {
+    display: inline-flex;
+
+    align-items: center;
+
+    width: fit-content;
+
+    margin-bottom: 8px;
+
+    padding: 6px 13px;
+
+    border-radius: 30px;
+
+    background: #ff5a36;
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* Image title */
+.gallery-overlay h4 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 21px;
+    line-height: 1.3;
+}
+
+
+/* ==========================================================
+   VIEW IMAGE BUTTON
+   ========================================================== */
+
+.gallery-view-btn {
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    color: #ff5a36;
+
+    font-size: 17px;
+
+    transform: scale(0.7);
+
+    opacity: 0;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+
+.gallery-item:hover .gallery-view-btn {
+    opacity: 1;
+
+    transform: scale(1);
+}
+
+
+.gallery-view-btn:hover {
+    background: #ff5a36;
+
+    color: #ffffff;
+}
+
+
+/* ==========================================================
+   EMPTY GALLERY
+   ========================================================== */
+
+.gallery-empty {
+    grid-column: 1 / -1;
+
+    padding: 70px 20px;
+
+    text-align: center;
+
+    border-radius: 15px;
+
+    background: #f8f8f8;
+}
+
+
+.gallery-empty i {
+    display: block;
+
+    margin-bottom: 18px;
+
+    color: #ff5a36;
+
+    font-size: 50px;
+}
+
+
+.gallery-empty h4 {
+    margin-bottom: 8px;
+}
+
+
+.gallery-empty p {
+    margin: 0;
+
+    color: #687179;
+}
+
+
+/* ==========================================================
+   TABLET
+   ========================================================== */
+
+@media (max-width: 991px) {
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: 20px;
+    }
+
+
+    .gallery-item {
+        height: 300px;
+    }
+
+}
+
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+
+@media (max-width: 575px) {
+
+    .gallery-filter-wrapper {
+        gap: 8px;
+
+        margin-bottom: 30px;
+    }
+
+
+    .gallery-filter-btn {
+        padding: 10px 17px;
+
+        font-size: 14px;
+    }
+
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+
+    .gallery-item {
+        height: 285px;
+
+        border-radius: 12px;
+    }
+
+
+    .gallery-overlay {
+        opacity: 1;
+
+        padding: 20px;
+    }
+
+
+    .gallery-view-btn {
+        opacity: 1;
+
+        transform: scale(1);
+
+        width: 42px;
+        height: 42px;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<!-- =========================================================
+     BREADCRUMB
+========================================================= -->
+
+<section
+    class="breadcrumb-wrapper parallaxie fix bg-cover"
+    style="background-image: url('{% static 'frontend/assets/img/inner-page/breadcrumb.jpg' %}');"
+>
+
+    <div class="container">
+
+        <div class="page-heading">
+
+            <ul class="breadcrumb-list d-flex align-items-center justify-content-center">
+
+                <li class="text-white">
+
+                    <a href="{% url 'home' %}">
+                        Home
+                    </a>
+
+                </li>
+
+                <li class="text-white">
+                    /
+                </li>
+
+                <li class="text-white">
+                    Gallery
+                </li>
+
+            </ul>
+
+
+            <h1 class="breadcrumb-title text-white text-center">
+                Our Gallery
+            </h1>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     GALLERY SECTION
+========================================================= -->
+
+<section class="gallery-page-section section-padding">
+
+    <div class="container">
+
+
+        <!-- =================================================
+             SECTION HEADING
+        ================================================== -->
+
+        <div class="gallery-heading">
+
+            <div class="section-title">
+
+                <h6
+                    class="sub-title wow fadeInUp"
+                    data-wow-delay=".2s"
+                >
+                    TRAVEL MOMENTS
+                </h6>
+
+
+                <h2 class="char-animation">
+                    Explore Our Travel Gallery
+                </h2>
+
+
+                <p
+                    class="wow fadeInUp"
+                    data-wow-delay=".4s"
+                >
+                    Discover unforgettable destinations, beautiful
+                    experiences and inspiring travel moments from
+                    journeys around the world.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CATEGORY FILTER BUTTONS
+        ================================================== -->
+
+        {% if categories %}
+
+        <div
+            class="gallery-filter-wrapper wow fadeInUp"
+            data-wow-delay=".3s"
+        >
+
+            <!-- ALL -->
+            <button
+                type="button"
+                class="gallery-filter-btn active"
+                data-filter="all"
+            >
+                All
+            </button>
+
+
+            <!-- DYNAMIC CATEGORIES -->
+            {% for category in categories %}
+
+            <button
+                type="button"
+                class="gallery-filter-btn"
+                data-filter="category-{{ category.id }}"
+            >
+                {{ category.name }}
+            </button>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+
+
+        <!-- =================================================
+             GALLERY IMAGES
+        ================================================== -->
+
+        <div class="gallery-grid" id="galleryGrid">
+
+
+            {% for item in gallery_images %}
+
+            <div
+                class="gallery-item wow fadeInUp"
+                data-category="category-{{ item.category.id }}"
+                data-wow-delay=".2s"
+            >
+
+                <div class="gallery-image">
+
+
+                    <!-- IMAGE -->
+                    <img
+                        src="{{ item.image.url }}"
+                        alt="{{ item.title|default:item.category.name }}"
+                        loading="lazy"
+                    >
+
+
+                    <!-- IMAGE OVERLAY -->
+                    <div class="gallery-overlay">
+
+
+                        <span class="gallery-category">
+                            {{ item.category.name }}
+                        </span>
+
+
+                        {% if item.title %}
+
+                        <h4>
+                            {{ item.title }}
+                        </h4>
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                    <!-- OPEN FULL IMAGE -->
+                    <a
+                        href="{{ item.image.url }}"
+                        class="gallery-view-btn gallery-popup"
+                        title="{{ item.title|default:item.category.name }}"
+                        aria-label="View image"
+                    >
+                        <i class="fa-solid fa-plus"></i>
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+            {% empty %}
+
+
+            <div class="gallery-empty">
+
+                <i class="fa-regular fa-images"></i>
+
+                <h4>
+                    No Gallery Images Yet
+                </h4>
+
+                <p>
+                    Gallery images will appear here once they are added.
+                </p>
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{% endblock %}
+
+
+
+{% block extra_js %}
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* ======================================================
+       GALLERY CATEGORY FILTER
+       ====================================================== */
+
+    const filterButtons =
+        document.querySelectorAll(".gallery-filter-btn");
+
+    const galleryItems =
+        document.querySelectorAll(".gallery-item");
+
+
+    filterButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            const selectedCategory =
+                this.getAttribute("data-filter");
+
+
+            /* ----------------------------------------------
+               ACTIVE BUTTON
+            ---------------------------------------------- */
+
+            filterButtons.forEach(function (btn) {
+                btn.classList.remove("active");
+            });
+
+            this.classList.add("active");
+
+
+            /* ----------------------------------------------
+               FILTER IMAGES
+            ---------------------------------------------- */
+
+            galleryItems.forEach(function (item) {
+
+                const itemCategory =
+                    item.getAttribute("data-category");
+
+
+                if (
+                    selectedCategory === "all" ||
+                    selectedCategory === itemCategory
+                ) {
+
+                    item.classList.remove("gallery-hidden");
+
+                } else {
+
+                    item.classList.add("gallery-hidden");
+
+                }
+
+            });
+
+        });
+
+    });
+
+
+
+    /* ======================================================
+       MAGNIFIC POPUP
+       Uses the Magnific Popup already included by Touro
+       ====================================================== */
+
+    if (
+        typeof jQuery !== "undefined" &&
+        typeof jQuery.fn.magnificPopup !== "undefined"
+    ) {
+
+        jQuery(".gallery-popup").magnificPopup({
+
+            type: "image",
+
+            gallery: {
+                enabled: true
+            },
+
+            closeOnContentClick: false,
+
+            closeBtnInside: true
+
+        });
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

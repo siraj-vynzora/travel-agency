@@ -1,0 +1,970 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+
+
+{% block title %}
+Touro - Travel & Tour Booking Agency | {{ package.name }}
+{% endblock %}
+
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'frontend/assets/css/datepickerboot.css' %}">
+<link rel="stylesheet" href="{% static 'frontend/assets/css/rtl.css' %}">
+<link rel="stylesheet" href="{% static 'frontend/assets/css/toastr.min.css' %}">
+
+<style>
+
+/* ==========================================================
+   PACKAGE DETAILS HEADER FIX
+   Header overlays the breadcrumb, same as the other pages
+   ========================================================== */
+
+#header-sticky {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: absolute !important;
+    top: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 9999 !important;
+    background: transparent !important;
+}
+
+#header-sticky .header-main,
+#header-sticky .mega-menu-wrapper,
+#header-sticky .container {
+    background: transparent !important;
+}
+
+#header-sticky .header-left,
+#header-sticky .header-right {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.breadcrumb-wrapper {
+    position: relative !important;
+    z-index: 1 !important;
+    margin-top: 0 !important;
+}
+
+
+/* TABLET / MOBILE */
+
+@media (max-width: 1199px) {
+
+    #header-sticky {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: absolute !important;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 9999 !important;
+        background: transparent !important;
+    }
+
+    #header-sticky .header-main {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+    }
+
+    #header-sticky .header-left {
+        display: block !important;
+        visibility: visible !important;
+    }
+
+    #header-sticky .mean__menu-wrapper {
+        display: none !important;
+    }
+
+    #header-sticky .header__hamburger {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    #header-sticky .sidebar__toggle {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
+/* MOBILE: hide only the top info bar */
+
+@media (max-width: 991px) {
+
+    .header-top-section {
+        display: none !important;
+    }
+
+    #header-sticky {
+        top: 0 !important;
+    }
+}
+
+
+/* STICKY HEADER AFTER SCROLL */
+
+#header-sticky.sticky {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 99999 !important;
+    background: #ffffff !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+#header-sticky.sticky .mega-menu-wrapper,
+#header-sticky.sticky .header-main {
+    background: #ffffff !important;
+}
+
+#header-sticky.sticky .main-menu ul li a {
+    color: #0b1f1a !important;
+}
+
+#header-sticky.sticky .header-search .search-trigger,
+#header-sticky.sticky .header-search .search-icon {
+    color: #0b1f1a !important;
+}
+
+#header-sticky.sticky .sidebar__toggle {
+    color: #0b1f1a !important;
+}
+
+#header-sticky.sticky .theme-btn {
+    color: #ffffff !important;
+}
+
+
+/* ==========================================================
+   IMAGE FIXES (any uploaded size fits the template layout)
+   ========================================================== */
+
+.tour-gallery-image-style-1 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Sidebar "Top Packages" list */
+.tour-single-sideber-box .recent-post-item .post-thumb {
+    flex: 0 0 90px;
+    width: 90px;
+}
+
+.tour-single-sideber-box .recent-post-item .post-thumb img {
+    width: 90px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
+.tour-single-sideber-box .recent-post-item .content {
+    flex: 1;
+    min-width: 0;
+}
+
+.tour-single-sideber-box .recent-post-item .star {
+    white-space: nowrap;
+    display: flex;
+    gap: 2px;
+}
+
+.tour-single-sideber-box .recent-post-item .content p {
+    white-space: normal;
+    line-height: 1.4;
+}
+
+</style>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+    <!-- Breadcrumb-Wrapper Section Start -->
+    <section class="breadcrumb-wrapper parallaxie fix bg-cover"
+        style="background-image: url('{{ package.main_image.url }}');">
+        <div class="container">
+            <div class="page-heading">
+                <ul class="breadcrumb-list d-flex align-items-center justify-content-center">
+                    <li class="text-white"><a href="{% url 'home' %}">Home</a></li>
+                    <li class="text-white">/</li>
+                    <li class="text-white"><a href="{% url 'packages' %}">Packages</a></li>
+                    <li class="text-white">/</li>
+                    <li class="text-white">{{ package.name }}</li>
+                </ul>
+                <h1 class="breadcrumb-title text-white text-center">{{ package.name }}</h1>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tour-gallery Section Start -->
+    {% comment %} <div class="tour-gallery-section mt-15 fix">
+        <div class="row g-4">
+            <div class="col-xl-3 col-lg-3 col-md-3">
+                <div class="tour-gallery-image tour-gallery-image-style-1">
+                    <img src="https://touro.template.wowtheme7.com/assets/img/inner-page/tour-details/details-1.jpg" alt="img">
+                </div>
+                <div class="tour-gallery-image tour-gallery-image-style-1 mt-20">
+                    <img src="https://touro.template.wowtheme7.com/assets/img/inner-page/tour-details/details-2.jpg" alt="img">
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6">
+                <div class="tour-gallery-image tour-gallery-image-style-1">
+                    <img src="{{ package.main_image.url }}" alt="{{ package.name }}">
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3">
+                <div class="tour-gallery-image tour-gallery-image-style-1">
+                    <img src="https://touro.template.wowtheme7.com/assets/img/inner-page/tour-details/details-4.jpg" alt="img">
+                </div>
+            </div>
+        </div>
+    </div> {% endcomment %}
+
+    <!-- Tour-Details Section Start -->
+    <section class="tour-details-section section-padding">
+        <div class="container">
+
+            <!-- Title + rating -->
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="activities-rating activities-rating-style-1 d-flex align-items-center justify-content-between mb-40">
+                        <div class="activities-content">
+                            <h2 class="mb-15 char-animation">{{ package.name }}</h2>
+                            <ul class="rating">
+                                <li class="text-muted">(16 Review)</li>
+                                <li class="star">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-regular fa-star"></i>
+                                </li>
+                                <li>
+                                    <i class="fa-regular fa-clock"></i>
+                                    {{ package.duration|default:package.get_package_type_display }}
+                                </li>
+                            </ul>
+                        </div>
+                        <ul class="share">
+                            <li>
+                                <a href="javascript:void(0)">Share</a>
+                                <i class="fa-sharp fa-regular fa-share-nodes"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+
+                <!-- ================= LEFT: MAIN CONTENT ================= -->
+                <div class="col-lg-8">
+                    <div class="tour-details-post tour-details-post-style-1">
+
+                        <!-- Info boxes -->
+                        <div class="tour-box-wrap mb-50">
+                            <div class="tour-box-area d-flex align-items-center justify-content-between">
+                                <div class="tour-box-item">
+                                    <div class="icon">
+                                        <img src="https://touro.template.wowtheme7.com/assets/img/home-1/icon/17.svg" alt="img">
+                                    </div>
+                                    <div class="content">
+                                        <h6>Package Type</h6>
+                                        <span>{{ package.get_package_type_display }}</span>
+                                    </div>
+                                </div>
+                                {% comment %} <div class="tour-box-item style-2">
+                                    <div class="icon">
+                                        <img src="https://touro.template.wowtheme7.com/assets/img/home-1/icon/18.svg" alt="img">
+                                    </div>
+                                    <div class="content">
+                                        <h6>Activities Type</h6>
+                                        <span>Adventure</span>
+                                    </div>
+                                </div> {% endcomment %}
+                                <div class="tour-box-item">
+                                    <div class="icon">
+                                        <img src="https://touro.template.wowtheme7.com/assets/img/home-1/icon/19.svg" alt="img">
+                                    </div>
+                                    <div class="content">
+                                        <h6>Duration</h6>
+                                        <span>{{ package.duration|default:"On request" }}</span>
+                                    </div>
+                                </div> 
+                                <div class="tour-box-item">
+                                    <div class="icon">
+                                        <img src="https://touro.template.wowtheme7.com/assets/img/home-1/icon/19.svg" alt="img">
+                                    </div>
+                                    <div class="content">
+                                        <h6>Tour Availability</h6>
+                                        <span>Available</span>
+                                    </div>
+                                </div>
+                                 <div class="tour-box-item">
+                                    <div class="icon">
+                                        <img src="https://touro.template.wowtheme7.com/assets/img/home-1/icon/18.svg" alt="img">
+                                    </div>
+                                    <div class="content">
+                                        <h6>Price From</h6>
+                                        <span>
+                                            {% if package.price_from %}₹{{ package.price_from|floatformat:0 }}{% else %}On request{% endif %}
+                                        </span>
+                                    </div>
+                                </div>
+                                {% comment %} <div class="tour-box-item">
+                                    <div class="icon">
+                                        <img src="https://touro.template.wowtheme7.com/assets/img/home-1/icon/20.svg" alt="img">
+                                    </div>
+                                    <div class="content">
+                                        <h6>Traveler</h6>
+                                        <span>02</span>
+                                    </div>
+                                </div> {% endcomment %}
+                            </div>
+                            {% comment %} <div class="tour-box-area mb-0 d-flex align-items-center justify-content-between">
+                                <div class="tour-box-item">
+                                    <div class="icon">
+                                        <img src="https://touro.template.wowtheme7.com/assets/img/home-1/icon/21.svg" alt="img">
+                                    </div>
+                                    <div class="content">
+                                        <h6>Max People</h6>
+                                        <span>12</span>
+                                    </div>
+                                </div>
+                                <div class="tour-box-item">
+                                    <div class="icon">
+                                        <img src="https://touro.template.wowtheme7.com/assets/img/home-1/icon/19.svg" alt="img">
+                                    </div>
+                                    <div class="content">
+                                        <h6>Tour Availability</h6>
+                                        <span>Available</span>
+                                    </div>
+                                </div>
+                                <div class="tour-box-item">
+                                    <div class="icon">
+                                        <img src="https://touro.template.wowtheme7.com/assets/img/home-1/icon/20.svg" alt="img">
+                                    </div>
+                                    <div class="content">
+                                        <h6>Transportation</h6>
+                                        <span>Bus, Taxi</span>
+                                    </div>
+                                </div>
+                                <div class="tour-box-item">
+                                    <div class="icon">
+                                        <img src="https://touro.template.wowtheme7.com/assets/img/home-1/icon/18.svg" alt="img">
+                                    </div>
+                                    <div class="content">
+                                        <h6>Price From</h6>
+                                        <span>
+                                            {% if package.price_from %}₹{{ package.price_from|floatformat:0 }}{% else %}On request{% endif %}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div> {% endcomment %}
+                        </div>
+
+                        <div class="tour-detils-content">
+
+                            <!-- Overview -->
+                            <h3 class="mb-15">Overview</h3>
+                            <div class="mb-25">
+                                {{ package.description|safe }}
+                            </div>
+
+                            <!-- Highlights (dynamic) -->
+                            {% if package.highlights_list %}
+                            <h4 class="mb-15">Top Highlights</h4>
+                            <div class="row g-4">
+                                <div class="col-lg-12">
+                                    <ul class="list">
+                                        {% for item in package.highlights_list %}
+                                        <li>
+                                            <i class="fa-regular fa-badge-check"></i>
+                                            {{ item }}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            <!-- Cost includes (dynamic) -->
+                            {% if package.inclusions_list %}
+                            <h4 class="mb-20">The Cost Includes</h4>
+                            <ul class="list">
+                                {% for item in package.inclusions_list %}
+                                <li>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    {{ item }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+
+                            <!-- Cost excludes (static) -->
+                            <h4 class="mb-20">The Cost Excludes</h4>
+                            <ul class="list style-2">
+                                <li>
+                                    <i class="fa-solid fa-xmark"></i>
+                                    Hotel Expenses (some packages do include hotel expenses)
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-xmark"></i>
+                                    International Airfare
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-xmark"></i>
+                                    Your travel and medical insurance
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-xmark"></i>
+                                    Personal expenses such as shopping, bar bills, hot shower, telephone, laundry, titbits etc
+                                </li>
+                            </ul>
+
+                            <!-- Tour timeline (static) -->
+                            <h3 class="text mb-10">Tour Timeline</h3>
+                            <p>
+                                On the North Island, you’ll find the vibrant city of Auckland, known as the "City of Sails"
+                                for its bustling harbors, as well as the geothermal wonders of Rotorua.
+                            </p>
+                            <div class="faq-items-2">
+                                <div class="faq-accordion">
+                                    <div class="accordion" id="accordion">
+
+                                        <div class="accordion-item style-inner-page">
+                                            <h5 class="accordion-header">
+                                                <button class="accordion-button d-flex align-items-center collapsed"
+                                                    type="button" data-bs-toggle="collapse" data-bs-target="#faq1"
+                                                    aria-expanded="false" aria-controls="faq1">
+                                                    <span>Day 01:</span>
+                                                    6:30 AM – Departure from Queenstown
+                                                </button>
+                                            </h5>
+                                            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#accordion">
+                                                <div class="content">
+                                                    <div class="accordion-body">
+                                                        <p>
+                                                            Adventure enthusiasts flock to Queenstown, the "Adventure
+                                                            Capital of the World," for activities like bungee jumping,
+                                                            skydiving, and jet boating, while nearby Wanaka offers stunning
+                                                            lake views and hiking trails.
+                                                        </p>
+                                                        <p class="mt-10">
+                                                            Whether exploring the Hobbiton Movie Set in Matamata, skiing in
+                                                            the Remarkables, or enjoying the Maori culture and hospitality,
+                                                            New Zealand offers a rich tapestry.
+                                                        </p>
+                                                    </div>
+                                                    <div class="thumb">
+                                                        <img src="https://touro.template.wowtheme7.com/assets/img/inner-page/tour-details/details-5.jpg" alt="img">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item style-inner-page">
+                                            <h5 class="accordion-header">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#faq2" aria-expanded="true" aria-controls="faq2">
+                                                    <span>Day 02:</span>
+                                                    10:30 AM – Arrive at Milford Sound
+                                                </button>
+                                            </h5>
+                                            <div id="faq2" class="accordion-collapse collapse show" data-bs-parent="#accordion">
+                                                <div class="content">
+                                                    <div class="accordion-body">
+                                                        <p>
+                                                            Adventure enthusiasts flock to Queenstown, the "Adventure
+                                                            Capital of the World," for activities like bungee jumping,
+                                                            skydiving, and jet boating, while nearby Wanaka offers stunning
+                                                            lake views and hiking trails.
+                                                        </p>
+                                                        <p class="mt-10">
+                                                            Whether exploring the Hobbiton Movie Set in Matamata, skiing in
+                                                            the Remarkables, or enjoying the Maori culture and hospitality,
+                                                            New Zealand offers a rich tapestry.
+                                                        </p>
+                                                    </div>
+                                                    <div class="thumb">
+                                                        <img src="https://touro.template.wowtheme7.com/assets/img/inner-page/tour-details/details-5.jpg" alt="img">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item style-inner-page">
+                                            <h5 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#faq3"
+                                                    aria-expanded="false" aria-controls="faq3">
+                                                    <span>Day 03:</span>
+                                                    11:00 AM – Milford Sound Cruise
+                                                </button>
+                                            </h5>
+                                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#accordion">
+                                                <div class="content">
+                                                    <div class="accordion-body">
+                                                        <p>
+                                                            Adventure enthusiasts flock to Queenstown, the "Adventure
+                                                            Capital of the World," for activities like bungee jumping,
+                                                            skydiving, and jet boating, while nearby Wanaka offers stunning
+                                                            lake views and hiking trails.
+                                                        </p>
+                                                        <p class="mt-10">
+                                                            Whether exploring the Hobbiton Movie Set in Matamata, skiing in
+                                                            the Remarkables, or enjoying the Maori culture and hospitality,
+                                                            New Zealand offers a rich tapestry.
+                                                        </p>
+                                                    </div>
+                                                    <div class="thumb">
+                                                        <img src="https://touro.template.wowtheme7.com/assets/img/inner-page/tour-details/details-5.jpg" alt="img">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item style-inner-page">
+                                            <h5 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#faq4"
+                                                    aria-expanded="false" aria-controls="faq4">
+                                                    <span>Day 04:</span>
+                                                    1:00 PM – Lunch at Milford Sound Lodge
+                                                </button>
+                                            </h5>
+                                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#accordion">
+                                                <div class="content">
+                                                    <div class="accordion-body">
+                                                        <p>
+                                                            Adventure enthusiasts flock to Queenstown, the "Adventure
+                                                            Capital of the World," for activities like bungee jumping,
+                                                            skydiving, and jet boating, while nearby Wanaka offers stunning
+                                                            lake views and hiking trails.
+                                                        </p>
+                                                        <p class="mt-10">
+                                                            Whether exploring the Hobbiton Movie Set in Matamata, skiing in
+                                                            the Remarkables, or enjoying the Maori culture and hospitality,
+                                                            New Zealand offers a rich tapestry.
+                                                        </p>
+                                                    </div>
+                                                    <div class="thumb">
+                                                        <img src="https://touro.template.wowtheme7.com/assets/img/inner-page/tour-details/details-5.jpg" alt="img">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item style-inner-page">
+                                            <h5 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#faq5"
+                                                    aria-expanded="false" aria-controls="faq5">
+                                                    <span>Day 05:</span>
+                                                    2:00 PM – Return Journey
+                                                </button>
+                                            </h5>
+                                            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#accordion">
+                                                <div class="content">
+                                                    <div class="accordion-body">
+                                                        <p>
+                                                            Adventure enthusiasts flock to Queenstown, the "Adventure
+                                                            Capital of the World," for activities like bungee jumping,
+                                                            skydiving, and jet boating, while nearby Wanaka offers stunning
+                                                            lake views and hiking trails.
+                                                        </p>
+                                                        <p class="mt-10">
+                                                            Whether exploring the Hobbiton Movie Set in Matamata, skiing in
+                                                            the Remarkables, or enjoying the Maori culture and hospitality,
+                                                            New Zealand offers a rich tapestry.
+                                                        </p>
+                                                    </div>
+                                                    <div class="thumb">
+                                                        <img src="https://touro.template.wowtheme7.com/assets/img/inner-page/tour-details/details-5.jpg" alt="img">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Map -->
+                            {% comment %} <div class="map-items">
+                                <div class="googpemap">
+                                    <iframe
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6678.7619084840835!2d144.9618311901502!3d-37.81450084255415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642b4758afc1d%3A0x3119cc820fdfc62e!2sEnvato!5e0!3m2!1sen!2sbd!4v1641984054261!5m2!1sen!2sbd"
+                                        style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                                </div>
+                            </div> {% endcomment %}
+
+                            <!-- Customer reviews summary (static) -->
+                            <div class="review-area">
+                                <h3>Customer Reviews</h3>
+                                <div class="courses-reviews-box-items">
+                                    <div class="courses-reviews-box">
+                                        <div class="reviews-box">
+                                            <h2><span class="count">4.9</span></h2>
+                                            <div class="star">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <p>856+ Reviews</p>
+                                        </div>
+                                        <div class="reviews-ratting-right">
+                                            <div class="reviews-ratting-item">
+                                                <div class="star">
+                                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                                                </div>
+                                                <div class="progress"><div class="progress-value style-two"></div></div>
+                                                <span>Services</span>
+                                            </div>
+                                            <div class="reviews-ratting-item">
+                                                <div class="star">
+                                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                                </div>
+                                                <div class="progress"><div class="progress-value style-three"></div></div>
+                                                <span>Safety</span>
+                                            </div>
+                                            <div class="reviews-ratting-item">
+                                                <div class="star">
+                                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                                </div>
+                                                <div class="progress"><div class="progress-value style-three"></div></div>
+                                                <span>Guides</span>
+                                            </div>
+                                            <div class="reviews-ratting-item">
+                                                <div class="star">
+                                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                                </div>
+                                                <div class="progress"><div class="progress-value style-four"></div></div>
+                                                <span>Foods</span>
+                                            </div>
+                                            <div class="reviews-ratting-item">
+                                                <div class="star">
+                                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                                                </div>
+                                                <div class="progress"><div class="progress-value style-five"></div></div>
+                                                <span>Hotels</span>
+                                            </div>
+                                            <div class="reviews-ratting-item">
+                                                <div class="star">
+                                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                                                </div>
+                                                <div class="progress"><div class="progress-value style-five"></div></div>
+                                                <span>Places</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Client reviews (static) -->
+                            {% comment %} <div class="client-review-items">
+                                <h3>Clients Reviews</h3>
+                                <div class="clinet-box-items">
+                                    <div class="clinet-box">
+                                        <div class="star">
+                                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                        </div>
+                                        <h5>
+                                            "Our family trip was amazing from start to finish! The itinerary was perfect,
+                                            the guides were knowledgeable, and the service was excellent. I can’t wait to
+                                            book our next adventure!"
+                                        </h5>
+                                        <div class="review-wrap-area d-flex gap-4 align-items-center">
+                                            <div class="review-thumb">
+                                                <img src="https://touro.template.wowtheme7.com/assets/img/inner-page/client.png" alt="img">
+                                            </div>
+                                            <div class="review-content">
+                                                <div class="head-area d-flex flex-wrap gap-2 align-items-center justify-content-between">
+                                                    <div class="cont">
+                                                        <h5>Smith Thomas</h5>
+                                                        <span>from New York, USA</span>
+                                                    </div>
+                                                    <h6><a href="javascript:void(0)">Reply</a></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clinet-box style-2">
+                                        <div class="star">
+                                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                        </div>
+                                        <h5>
+                                            The itinerary was perfect, the guides were knowledgeable, and the service was
+                                            excellent. I can’t wait to book our next adventure!"
+                                        </h5>
+                                        <div class="review-wrap-area d-flex gap-4 align-items-center">
+                                            <div class="review-thumb">
+                                                <img src="https://touro.template.wowtheme7.com/assets/img/inner-page/client.png" alt="img">
+                                            </div>
+                                            <div class="review-content">
+                                                <div class="head-area d-flex flex-wrap gap-2 align-items-center justify-content-between">
+                                                    <div class="cont">
+                                                        <h5>Smith Thomas</h5>
+                                                        <span>from New York, USA</span>
+                                                    </div>
+                                                    <h6><a href="javascript:void(0)">Reply</a></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clinet-box-3">
+                                    <div class="star">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    </div>
+                                    <h5>
+                                        "Our family trip was amazing from start to finish! The itinerary was perfect, the
+                                        guides were knowledgeable, and the service was excellent. I can’t wait to book our
+                                        next adventure!"
+                                    </h5>
+                                    <div class="review-wrap-area d-flex gap-4 align-items-center">
+                                        <div class="review-thumb">
+                                            <img src="https://touro.template.wowtheme7.com/assets/img/inner-page/client.png" alt="img">
+                                        </div>
+                                        <div class="review-content">
+                                            <div class="head-area d-flex flex-wrap gap-2 align-items-center justify-content-between">
+                                                <div class="cont">
+                                                    <h5>Smith Thomas</h5>
+                                                    <span>from New York, USA</span>
+                                                </div>
+                                                <img src="https://touro.template.wowtheme7.com/assets/img/inner-page/quote.png" alt="img">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> {% endcomment %}
+
+                            <!-- Add review form -->
+                            {% comment %} <div class="review-comment-items">
+                                <h3>Add Your Reviews</h3>
+                                <ul>
+                                    <li>Services
+                                        <div class="star"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
+                                    </li>
+                                    <li>Hotel
+                                        <div class="star"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
+                                    </li>
+                                    <li>Places
+                                        <div class="star"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
+                                    </li>
+                                </ul>
+                                <ul class="mb-0">
+                                    <li>Safety
+                                        <div class="star"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
+                                    </li>
+                                    <li>Foods
+                                        <div class="star"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
+                                    </li>
+                                    <li>Guides
+                                        <div class="star"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
+                                    </li>
+                                </ul>
+                                <h4>Leave Feedback</h4>
+                                <form action="#" id="contact-form" method="POST">
+                                    {% csrf_token %}
+                                    <div class="row g-4">
+                                        <div class="col-lg-6">
+                                            <div class="form-clt">
+                                                <input type="text" name="name" id="name" placeholder="Your name">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-clt">
+                                                <input type="text" name="phone" id="phone" placeholder="Your phone">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-clt">
+                                                <input type="text" name="email2" id="email21" placeholder="Your email">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-clt">
+                                                <textarea name="message" id="message" placeholder="Your comments..."></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <button class="theme-btn" type="submit">
+                                                <i class="fa-sharp fa-regular fa-arrow-right"></i>Submit Reviews
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div> {% endcomment %}
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ================= RIGHT: SIDEBAR ================= -->
+                <div class="col-lg-4">
+                    <div class="tour-sideber tour-sideber-style-1 sticky-style">
+
+                        <!-- Booking box -->
+                        <div class="tour-sidebar-items">
+                            <h3>Tour Booking</h3>
+                            <ul class="form-list">
+                                <li>
+                                    From Date:
+                                    <div class="form-clt">
+                                        <input type="date" id="calendar" name="calendar">
+                                    </div>
+                                </li>
+                                <li>
+                                    Time:
+                                    <div class="form-clt d-flex gap-10">
+                                        <label class="checkbox-single">
+                                            <span class="d-flex gap-xl-4 gap-2 align-items-center">
+                                                <span class="checkbox-area d-center">
+                                                    <input type="checkbox">
+                                                    <span class="checkmark d-center"></span>
+                                                </span>
+                                                <span class="text-color">12:00</span>
+                                            </span>
+                                        </label>
+                                        <label class="checkbox-single">
+                                            <span class="d-flex gap-xl-3 gap-2 align-items-center">
+                                                <span class="checkbox-area d-center">
+                                                    <input type="checkbox">
+                                                    <span class="checkmark d-center"></span>
+                                                </span>
+                                                <span class="text-color">10:00</span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="tickets-list">
+                                <p>Tickets</p>
+                                <ul>
+                                    <li>
+                                        18+ Years: <b>{% if package.price_from %}₹{{ package.price_from|floatformat:0 }}{% else %}On request{% endif %}</b>
+                                        <div class="form-clt">
+                                            <div class="form">
+                                                <select class="single-select w-100">
+                                                    <option> 01</option>
+                                                    <option> 02</option>
+                                                    <option> 03</option>
+                                                    <option> 04</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        18- Years:
+                                        <div class="form-clt">
+                                            <div class="form">
+                                                <select class="single-select w-100">
+                                                    <option> 01</option>
+                                                    <option> 02</option>
+                                                    <option> 03</option>
+                                                    <option> 04</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="extra-items">
+                                <p>Add Extra:</p>
+                                <label class="checkbox-single d-flex justify-content-between align-items-center">
+                                    <span class="d-flex gap-xl-3 gap-2 align-items-center">
+                                        <span class="checkbox-area d-center">
+                                            <input type="checkbox">
+                                            <span class="checkmark d-center"></span>
+                                        </span>
+                                        <span class="text-color">Add service per booking</span>
+                                    </span>
+                                    <span class="text-color">$45</span>
+                                </label>
+                                <label class="checkbox-single d-flex justify-content-between align-items-center">
+                                    <span class="d-flex gap-xl-3 gap-2 align-items-center">
+                                        <span class="checkbox-area d-center">
+                                            <input type="checkbox">
+                                            <span class="checkmark d-center"></span>
+                                        </span>
+                                        <span class="text-color">Add service per personal</span>
+                                    </span>
+                                    <span class="text-color">$35</span>
+                                </label>
+                            </div>
+                            <ul class="total-list">
+                                <li>Total:</li>
+                                <li>{% if package.price_from %}₹{{ package.price_from|floatformat:0 }}{% else %}On request{% endif %}</li>
+                            </ul>
+                            <a href="{% url 'contact' %}" class="theme-btn">
+                                <i class="fa-sharp fa-regular fa-arrow-right"></i> Book Now
+                            </a>
+                            <p class="text">Need any help?</p>
+                        </div>
+
+                        <!-- Top packages (dynamic) -->
+                        {% if top_packages %}
+                        <div class="tour-single-sideber-box pt-30 pb-30 ps-25 pe-25 mt-25">
+                            <h3 class="mb-15">Top Packages</h3>
+
+                            {% for p in top_packages %}
+                            <div class="recent-post-item d-flex align-items-center gap-20 {% if not forloop.last %}mb-20{% endif %}">
+                                <div class="post-thumb">
+                                    <a href="{% url 'package_details' p.slug %}">
+                                        <img src="{{ p.main_image.url }}" alt="{{ p.name }}">
+                                    </a>
+                                </div>
+                                <div class="content">
+                                    <div class="star">
+                                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    </div>
+                                    <h6><a href="{% url 'package_details' p.slug %}">{{ p.name|truncatechars:24 }}</a></h6>
+                                    {% if p.price_from %}
+                                        <p><span>From </span>₹{{ p.price_from|floatformat:0 }}</p>
+                                    {% else %}
+                                        <p>{{ p.duration|default:"Price on request" }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script src="https://touro.template.wowtheme7.com/assets/js/bootstrap-datepicker.js"></script>
+<script src="https://touro.template.wowtheme7.com/assets/js/toastr.min.js"></script>
+{% endblock %}

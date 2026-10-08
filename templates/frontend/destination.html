@@ -1,0 +1,913 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+
+
+{% block title %}
+Touro - Travel & Tour Booking Agency | Destination
+{% endblock %}
+
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'frontend/assets/css/datepickerboot.css' %}"
+>
+
+<link
+    rel="stylesheet"
+    href="{% static 'frontend/assets/css/rtl.css' %}"
+>
+
+<link
+    rel="stylesheet"
+    href="{% static 'frontend/assets/css/toastr.min.css' %}"
+>
+
+<style>
+
+/* ==========================================================
+   DESTINATION HEADER FIX
+   Header must overlay breadcrumb like About page
+   ========================================================== */
+
+#header-sticky {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+
+    position: absolute !important;
+
+    left: 0;
+    right: 0;
+    width: 100%;
+
+    z-index: 9999 !important;
+
+    background: transparent !important;
+}
+
+
+#header-sticky .header-main,
+#header-sticky .mega-menu-wrapper,
+#header-sticky .container {
+    background: transparent !important;
+}
+
+
+#header-sticky .header-left,
+#header-sticky .header-right {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+
+/* ==========================================================
+   BREADCRUMB
+   ========================================================== */
+
+.breadcrumb-wrapper {
+    position: relative !important;
+    z-index: 1 !important;
+    margin-top: 0 !important;
+}
+
+
+/* ==========================================================
+   TABLET / MOBILE
+   ========================================================== */
+
+@media (max-width: 1199px) {
+
+    #header-sticky {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+
+        position: absolute !important;
+
+        left: 0;
+        right: 0;
+        width: 100%;
+
+        z-index: 9999 !important;
+
+        background: transparent !important;
+    }
+
+
+    #header-sticky .header-main {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+    }
+
+
+    #header-sticky .header-left {
+        display: block !important;
+    }
+
+
+    #header-sticky .mean__menu-wrapper {
+        display: none !important;
+    }
+
+
+    #header-sticky .header__hamburger {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+
+    #header-sticky .sidebar__toggle {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+
+@media (max-width: 991px) {
+
+    .header-top-section {
+        display: none !important;
+    }
+
+    #header-sticky {
+        top: 0 !important;
+    }
+}
+
+
+/* ==========================================================
+   STICKY HEADER
+   ========================================================== */
+
+/* =========================================================
+   STICKY HEADER AFTER SCROLL
+   ========================================================= */
+
+#header-sticky.sticky {
+    position: fixed !important;
+
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+
+    width: 100% !important;
+
+    z-index: 99999 !important;
+
+    /* IMPORTANT */
+    background: #ffffff !important;
+
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+
+    transition:
+        background-color 0.3s ease,
+        box-shadow 0.3s ease !important;
+}
+
+
+/* The previous rules force these transparent.
+   Restore white when sticky. */
+
+#header-sticky.sticky .mega-menu-wrapper,
+#header-sticky.sticky .header-main {
+    background: #ffffff !important;
+}
+
+
+/* Keep navbar text visible on white background */
+
+#header-sticky.sticky .main-menu ul li a {
+    color: #0b1f1a !important;
+}
+
+
+/* Search icon */
+
+#header-sticky.sticky .header-search .search-trigger,
+#header-sticky.sticky .header-search .search-icon {
+    color: #0b1f1a !important;
+}
+
+
+/* Hamburger */
+
+#header-sticky.sticky .sidebar__toggle {
+    color: #0b1f1a !important;
+}
+
+
+/* Keep Discover button styling */
+
+#header-sticky.sticky .theme-btn {
+    color: #ffffff !important;
+}
+
+
+
+
+{% comment %} pagination css start {% endcomment %}
+
+/* Destination cards: image always fills the card like the template */
+.popular-deatination-style-1 .popular-deatination-image {
+    position: relative;
+    width: 100%;
+}
+
+.popular-deatination-style-1 .popular-deatination-image > img {
+    width: 100%;
+    aspect-ratio: 478 / 583;   /* same proportion as the template card */
+    object-fit: cover;         /* crops instead of stretching */
+    border-radius: 16px;
+    display: block;
+}
+{% comment %} pagination css end {% endcomment %}
+
+{% comment %} filteration and title css start {% endcomment %}
+
+
+/* ==========================================================
+   DESTINATION PAGE INTRO
+========================================================== */
+
+.destination-page-intro {
+    position: relative;
+    margin-bottom: 55px;
+}
+
+
+.destination-page-title {
+    max-width: 760px;
+    margin-bottom: 35px;
+}
+
+
+.destination-page-title .sub-title {
+    margin-bottom: 12px;
+}
+
+
+.destination-page-title h2 {
+    margin: 0 0 15px;
+
+    color: #08251d;
+
+    font-size: 48px;
+    line-height: 1.15;
+    font-weight: 700;
+}
+
+
+.destination-page-title p {
+    max-width: 680px;
+
+    margin: 0;
+
+    color: #68736f;
+
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+
+/* ==========================================================
+   DESTINATION FILTER BAR
+========================================================== */
+
+.destination-filter-bar {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    padding: 10px;
+
+    background: #ffffff;
+
+    border: 1px solid #eeeeee;
+    border-radius: 50px;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.06);
+}
+
+
+/* ==========================================================
+   ALL DESTINATIONS
+========================================================== */
+
+.destination-filter-all {
+    min-width: 230px;
+    height: 62px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 24px;
+
+    background: #f5f6f6;
+
+    border-radius: 40px;
+
+    color: #10231d;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: all .3s ease;
+}
+
+
+.destination-filter-all > i:first-child {
+    margin-right: 12px;
+
+    color: #ff5a36;
+
+    font-size: 18px;
+}
+
+
+.destination-filter-all .filter-arrow {
+    margin-left: auto;
+
+    color: #75807c;
+
+    font-size: 12px;
+}
+
+
+.destination-filter-all:hover,
+.destination-filter-all.active {
+    color: #ff5a36;
+}
+
+
+/* ==========================================================
+   SEARCH FIELD
+========================================================== */
+
+.destination-search-field {
+    position: relative;
+
+    flex: 1;
+
+    height: 62px;
+
+    display: flex;
+    align-items: center;
+
+    margin-left: 12px;
+
+    padding: 0 24px;
+
+    background: #f5f6f6;
+
+    border-radius: 40px;
+}
+
+
+.destination-search-field > i {
+    flex-shrink: 0;
+
+    margin-right: 12px;
+
+    color: #ff5a36;
+
+    font-size: 17px;
+}
+
+
+.destination-search-field input {
+    width: 100%;
+    height: 100%;
+
+    padding: 0;
+
+    border: 0;
+    outline: 0;
+
+    background: transparent;
+
+    color: #10231d;
+
+    font-size: 16px;
+    font-weight: 500;
+}
+
+
+.destination-search-field input::placeholder {
+    color: #6f7975;
+    opacity: 1;
+}
+
+
+/* ==========================================================
+   SEARCH BUTTON
+========================================================== */
+
+.destination-search-btn {
+    min-width: 165px;
+    height: 62px;
+
+    margin-left: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 40px;
+
+    background: #ff5a36;
+
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background .3s ease,
+        transform .3s ease;
+}
+
+
+.destination-search-btn:hover {
+    background: #08251d;
+}
+
+
+.destination-search-btn i {
+    font-size: 17px;
+}
+
+
+/* ==========================================================
+   RESULTS INFORMATION
+========================================================== */
+
+.destination-results-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-top: 22px;
+}
+
+
+.destination-results-info p {
+    margin: 0;
+
+    color: #6f7975;
+
+    font-size: 14px;
+}
+
+
+.destination-results-info strong {
+    color: #08251d;
+}
+
+
+.destination-clear-search {
+    color: #ff5a36;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+.destination-clear-search:hover {
+    color: #08251d;
+}
+
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (max-width: 991px) {
+
+    .destination-page-title h2 {
+        font-size: 38px;
+    }
+
+
+    .destination-filter-all {
+        min-width: 190px;
+    }
+
+
+    .destination-search-btn {
+        min-width: 135px;
+    }
+}
+
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (max-width: 767px) {
+
+    .destination-page-intro {
+        margin-bottom: 40px;
+    }
+
+
+    .destination-page-title {
+        margin-bottom: 25px;
+    }
+
+
+    .destination-page-title h2 {
+        font-size: 32px;
+    }
+
+
+    .destination-page-title p {
+        font-size: 14px;
+    }
+
+
+    .destination-filter-bar {
+        flex-direction: column;
+
+        padding: 10px;
+
+        border-radius: 24px;
+    }
+
+
+    .destination-filter-all,
+    .destination-search-field,
+    .destination-search-btn {
+        width: 100%;
+        min-width: 0;
+
+        height: 58px;
+
+        margin: 0;
+    }
+
+
+    .destination-filter-all,
+    .destination-search-field {
+        margin-bottom: 10px;
+    }
+
+
+    .destination-filter-all,
+    .destination-search-field,
+    .destination-search-btn {
+        border-radius: 18px;
+    }
+
+
+    .destination-results-info {
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: 8px;
+    }
+}
+{% comment %} filteration title css end  {% endcomment %}
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+    <!-- Breadcrumb-Wrapper Section Start -->
+    <section class="breadcrumb-wrapper parallaxie fix bg-cover"
+        style="background-image: url('{% static 'frontend/assets/img/inner-page/breadcrumb.jpg' %}');">
+        <div class="container">
+            <div class="page-heading">
+                <ul class="breadcrumb-list d-flex align-items-center justify-content-center">
+                    <li class="text-white"><a href="{% url 'home' %}">Home</a></li>
+                    <li class="text-white">/</li>
+                    <li class="text-white">Our Destinations</li>
+                </ul>
+                <h1 class="breadcrumb-title text-white text-center">Our Destinations</h1>
+            </div>
+        </div>
+    </section>
+
+ <!-- =========================================================
+     DESTINATION LISTING SECTION
+========================================================= -->
+
+<section class="popular-destination-section section-padding fix">
+
+    <div class="container">
+
+
+        <!-- =====================================================
+             TITLE + FILTER AREA
+        ====================================================== -->
+
+        <div class="destination-page-intro">
+
+
+            <!-- ===============================================
+                 TITLE
+            ================================================ -->
+
+            <div class="destination-page-title">
+
+                <h6 class="sub-title wow fadeInUp">
+                    POPULAR DESTINATION
+                </h6>
+
+
+                <h2 class="char-animation">
+                    Explore Our Popular Destinations
+                </h2>
+
+
+                <p
+                    class="wow fadeInUp"
+                    data-wow-delay=".2s"
+                >
+                    Discover beautiful destinations and find the
+                    perfect place for your next unforgettable
+                    journey.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             DESTINATION CARDS
+        ====================================================== -->
+
+        <div class="row g-4">
+
+
+            {% for d in destinations %}
+
+
+            <div class="col-xl-4 col-lg-6 col-md-6">
+
+                <div
+                    class="
+                        popular-deatination-items
+                        popular-deatination-style-1
+                    "
+                >
+
+                    <div class="popular-deatination-image">
+
+
+                        <!-- IMAGE -->
+
+                        {% if d.image %}
+
+                        <img
+                            src="{{ d.image.url }}"
+                            alt="{{ d.name }}"
+                            loading="lazy"
+                        >
+
+                        {% else %}
+
+                        <img
+                            src="{% static 'frontend/assets/img/inner-page/breadcrumb.jpg' %}"
+                            alt="{{ d.name }}"
+                            loading="lazy"
+                        >
+
+                        {% endif %}
+
+
+
+                        <!-- STAR -->
+
+                        <span class="star">
+
+                            <i class="fa-solid fa-star"></i>
+
+                            <span>
+                                {{ d.rating|default:"5" }}
+                            </span>
+
+                        </span>
+
+
+
+                        <!-- CONTENT -->
+
+                        <div class="popular-deatination-content">
+
+                            <h3>
+
+                                <a
+                                    href="{% url 'destination_details' d.slug %}"
+                                >
+                                    {{ d.name }}
+                                </a>
+
+                            </h3>
+
+
+                            <p>
+                                {{ d.listing_count|default:0 }}
+                                Listing
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {% empty %}
+
+
+            <!-- =================================================
+                 NO RESULTS
+            ================================================== -->
+
+            <div class="col-12">
+
+                <div class="text-center py-5">
+
+                    <i
+                        class="fa-regular fa-map-location-dot"
+                        style="
+                            font-size: 50px;
+                            color: #ff5a36;
+                            margin-bottom: 20px;
+                        "
+                    ></i>
+
+
+                    <h3>
+                        No Destinations Found
+                    </h3>
+
+
+                    {% if search_query %}
+
+                    <p>
+                        We couldn't find a destination matching
+                        "{{ search_query }}".
+                    </p>
+
+
+                    <a
+                        href="{% url 'destination' %}"
+                        class="theme-btn mt-20"
+                    >
+
+                        <i class="fa-regular fa-arrow-left"></i>
+
+                        View All Destinations
+
+                    </a>
+
+                    {% else %}
+
+                    <p>
+                        No destinations are available right now.
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+
+        <!-- =====================================================
+             PAGINATION
+        ====================================================== -->
+
+        {% if page_obj.has_other_pages %}
+
+        <div class="page-nav-wrap text-center mt-50">
+
+            <ul>
+
+
+                <!-- PREVIOUS -->
+
+                {% if page_obj.has_previous %}
+
+                <li>
+
+                    <a
+                        class="page-numbers"
+                        href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}"
+                    >
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                    </a>
+
+                </li>
+
+                {% endif %}
+
+
+
+                <!-- PAGE NUMBERS -->
+
+                {% for n in page_obj.paginator.page_range %}
+
+                <li
+                    {% if n == page_obj.number %}
+                        class="active"
+                    {% endif %}
+                >
+
+                    <a
+                        class="page-numbers"
+                        href="?page={{ n }}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}"
+                    >
+
+                        {{ n|stringformat:"02d" }}
+
+                    </a>
+
+                </li>
+
+                {% endfor %}
+
+
+
+                <!-- NEXT -->
+
+                {% if page_obj.has_next %}
+
+                <li>
+
+                    <a
+                        class="page-numbers"
+                        href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}"
+                    >
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </li>
+
+                {% endif %}
+
+
+            </ul>
+
+        </div>
+
+        {% endif %}
+
+
+    </div>
+
+</section>
+
+
+
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script src="https://touro.template.wowtheme7.com/assets/js/bootstrap-datepicker.js"></script>
+<script src="https://touro.template.wowtheme7.com/assets/js/toastr.min.js"></script>
+{% endblock %}

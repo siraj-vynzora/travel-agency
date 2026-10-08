@@ -1,0 +1,1305 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+
+
+{% block title %}
+Touro - Travel & Tour Booking Agency | Contact Us
+{% endblock %}
+
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'frontend/assets/css/datepickerboot.css' %}"
+>
+
+<link
+    rel="stylesheet"
+    href="{% static 'frontend/assets/css/rtl.css' %}"
+>
+
+<link
+    rel="stylesheet"
+    href="{% static 'frontend/assets/css/toastr.min.css' %}"
+>
+
+
+<style>
+
+/* =========================================================
+   CONTACT PAGE — BASE HEADER FIX
+   ========================================================= */
+
+
+/* Main navbar must sit over breadcrumb image */
+#header-sticky {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+
+    position: absolute !important;
+
+    top: auto;
+    left: 0;
+    right: 0;
+
+    width: 100%;
+
+    z-index: 9999 !important;
+
+    background: transparent !important;
+}
+
+
+/* Don't allow inner header elements to create white background */
+#header-sticky .container,
+#header-sticky .mega-menu-wrapper,
+#header-sticky .header-main {
+    background: transparent !important;
+}
+
+
+/* Ensure header itself remains visible */
+#header-sticky .header-left,
+#header-sticky .header-right {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   BREADCRUMB
+   ========================================================= */
+
+.breadcrumb-wrapper {
+    position: relative !important;
+
+    margin-top: 0 !important;
+
+    z-index: 1 !important;
+}
+
+
+/* =========================================================
+   TABLET / MOBILE
+   ========================================================= */
+
+@media (max-width: 1199px) {
+
+    #header-sticky {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+
+        position: absolute !important;
+
+        left: 0;
+        right: 0;
+
+        width: 100%;
+
+        z-index: 9999 !important;
+
+        background: transparent !important;
+    }
+
+
+    #header-sticky .header-main {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+    }
+
+
+    /* logo */
+    #header-sticky .header-left {
+        display: block !important;
+        visibility: visible !important;
+    }
+
+
+    /* desktop menu hidden */
+    #header-sticky .mean__menu-wrapper {
+        display: none !important;
+    }
+
+
+    /* hamburger visible */
+    #header-sticky .header__hamburger {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+
+    #header-sticky .sidebar__toggle {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    /*
+       Hide only top information bar.
+       Navbar must remain.
+    */
+    .header-top-section {
+        display: none !important;
+    }
+
+
+    #header-sticky {
+        top: 0 !important;
+    }
+
+}
+
+
+/* =========================================================
+   STICKY STATE
+   ========================================================= */
+
+/* =========================================================
+   STICKY HEADER AFTER SCROLL
+   ========================================================= */
+
+#header-sticky.sticky {
+    position: fixed !important;
+
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+
+    width: 100% !important;
+
+    z-index: 99999 !important;
+
+    /* IMPORTANT */
+    background: #ffffff !important;
+
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+
+    transition:
+        background-color 0.3s ease,
+        box-shadow 0.3s ease !important;
+}
+
+
+/* The previous rules force these transparent.
+   Restore white when sticky. */
+
+#header-sticky.sticky .mega-menu-wrapper,
+#header-sticky.sticky .header-main {
+    background: #ffffff !important;
+}
+
+
+/* Keep navbar text visible on white background */
+
+#header-sticky.sticky .main-menu ul li a {
+    color: #0b1f1a !important;
+}
+
+
+/* Search icon */
+
+#header-sticky.sticky .header-search .search-trigger,
+#header-sticky.sticky .header-search .search-icon {
+    color: #0b1f1a !important;
+}
+
+
+/* Hamburger */
+
+#header-sticky.sticky .sidebar__toggle {
+    color: #0b1f1a !important;
+}
+
+
+/* Keep Discover button styling */
+
+#header-sticky.sticky .theme-btn {
+    color: #ffffff !important;
+}
+
+
+
+{% comment %} contact form css start {% endcomment %}
+/* =========================================================
+   CONTACT FORM
+========================================================= */
+
+/* =========================================================
+   CONTACT FORM - COMPACT VERSION
+========================================================= */
+
+/* Form card */
+.contact-from-section .contact-from-box {
+    width: 100%;
+    padding: 28px 30px !important;
+}
+
+
+/* Reduce title area */
+.contact-from-section .section-title {
+    margin-bottom: 18px !important;
+}
+
+.contact-from-section .section-title .sub-title {
+    margin-bottom: 5px !important;
+}
+
+.contact-from-section .section-title h2 {
+    margin-bottom: 0 !important;
+}
+
+
+/* Reduce Bootstrap form row gaps */
+.contact-from-box form .row {
+    --bs-gutter-y: 16px;
+}
+
+
+/* Remove unnecessary field bottom spacing */
+.contact-from-box .form-clt {
+    margin-bottom: 0 !important;
+}
+
+
+/* Labels */
+.contact-from-box .form-clt > span {
+    display: block;
+    margin-bottom: 6px;
+
+    font-size: 14px;
+    line-height: 1.3;
+}
+
+
+/* Inputs */
+.contact-from-box .form-clt input {
+    width: 100%;
+
+    height: 50px !important;
+    min-height: 50px !important;
+
+    padding: 10px 18px !important;
+}
+
+
+/* Message */
+.contact-from-box .form-clt textarea {
+    width: 100%;
+
+    height: 105px !important;
+    min-height: 105px !important;
+
+    padding: 14px 18px !important;
+
+    resize: vertical;
+}
+
+
+/* =========================================================
+   ROBOT BOX - COMPACT
+========================================================= */
+
+.robot-check-wrapper {
+    margin: 0;
+}
+
+.robot-check-box {
+    width: 100%;
+    max-width: 360px;
+
+    min-height: 58px;
+
+    padding: 10px 14px;
+
+    display: flex;
+    align-items: center;
+
+    background: #ffffff;
+
+    border: 1px solid #dedede;
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    transition: all .25s ease;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .04);
+}
+
+.robot-check-box:hover {
+    border-color: #63ab45;
+
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .07);
+}
+
+
+/* Hide original checkbox */
+
+.robot-check-box input {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* Custom checkbox */
+
+.robot-custom-check {
+    width: 24px;
+    height: 24px;
+
+    min-width: 24px;
+
+    border: 2px solid #8b8b8b;
+    border-radius: 3px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 12px;
+
+    background: #ffffff;
+
+    transition: all .2s ease;
+}
+
+.robot-custom-check i {
+    font-size: 12px;
+
+    color: #ffffff;
+
+    opacity: 0;
+
+    transform: scale(.6);
+
+    transition: all .2s ease;
+}
+
+
+/* Checked state */
+
+.robot-check-box input:checked + .robot-custom-check {
+    background: #63ab45;
+    border-color: #63ab45;
+}
+
+.robot-check-box input:checked + .robot-custom-check i {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+/* Robot text */
+
+.robot-text {
+    color: #1f2937;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* Shield */
+
+.robot-shield {
+    margin-left: auto;
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f0f8ec;
+    color: #63ab45;
+
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+#contactSubmitBtn {
+    min-height: 50px !important;
+
+    padding: 12px 25px !important;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   VALIDATION ERROR
+========================================================= */
+
+.contact-field-error {
+    margin-top: 5px;
+
+    color: #dc3545;
+
+    font-size: 12px;
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .contact-from-section .contact-from-box {
+        padding: 25px 20px !important;
+    }
+
+    .contact-from-box form .row {
+        --bs-gutter-y: 14px;
+    }
+
+    .contact-from-box .form-clt input {
+        height: 48px !important;
+        min-height: 48px !important;
+    }
+
+    .contact-from-box .form-clt textarea {
+        height: 100px !important;
+        min-height: 100px !important;
+    }
+
+    .robot-check-box {
+        max-width: 100%;
+        min-height: 56px;
+
+        padding: 9px 12px;
+    }
+
+    .robot-text {
+        font-size: 13px;
+    }
+
+}
+
+
+/* =========================================================
+   VALIDATION ERROR
+========================================================= */
+
+.contact-field-error {
+    margin-top: 7px;
+    color: #dc3545;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   I'M NOT A ROBOT
+========================================================= */
+
+.robot-check-wrapper {
+    margin-top: 2px;
+    margin-bottom: 4px;
+}
+
+.robot-check-box {
+    width: 100%;
+    max-width: 390px;
+    min-height: 74px;
+
+    padding: 15px 18px;
+
+    display: flex;
+    align-items: center;
+
+    background: #ffffff;
+
+    border: 1px solid #dedede;
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    transition: all .25s ease;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .04);
+}
+
+.robot-check-box:hover {
+    border-color: #63ab45;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .07);
+}
+
+
+/* Hide normal checkbox */
+
+.robot-check-box input {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* Custom checkbox */
+
+.robot-custom-check {
+    width: 28px;
+    height: 28px;
+
+    min-width: 28px;
+
+    border: 2px solid #8b8b8b;
+    border-radius: 3px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 14px;
+
+    background: #ffffff;
+
+    transition: all .2s ease;
+}
+
+.robot-custom-check i {
+    font-size: 14px;
+
+    color: #ffffff;
+
+    opacity: 0;
+
+    transform: scale(.6);
+
+    transition: all .2s ease;
+}
+
+
+/* Checked */
+
+.robot-check-box input:checked + .robot-custom-check {
+    background: #63ab45;
+    border-color: #63ab45;
+}
+
+.robot-check-box input:checked + .robot-custom-check i {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+/* Text */
+
+.robot-text {
+    color: #1f2937;
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+/* Shield */
+
+.robot-shield {
+    margin-left: auto;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f0f8ec;
+    color: #63ab45;
+
+    font-size: 19px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 575px) {
+
+    .robot-check-box {
+        max-width: 100%;
+        min-height: 68px;
+
+        padding: 12px 14px;
+    }
+
+    .robot-text {
+        font-size: 14px;
+    }
+
+}
+{% comment %} contact form css end  {% endcomment %}
+</style>
+
+{% endblock %}
+
+
+
+{% block content %}
+    <!-- Breadcrumb Section -->
+    <section class="breadcrumb-wrapper parallaxie fix bg-cover"
+        style="background-image: url('{% static 'frontend/assets/img/inner-page/breadcrumb.jpg' %}')">
+        <div class="container">
+            <div class="page-heading">
+                <ul class="breadcrumb-list d-flex align-items-center justify-content-center">
+                    <li class="text-white"><a href="{% url 'home' %}">Home</a></li>
+                    <li class="text-white">/</li>
+                    <li class="text-white">Contact Us</li>
+                </ul>
+                <h1 class="breadcrumb-title text-white text-center">Contact Us</h1>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact-Us Section Start -->
+    <section class="contact-us-section section-padding fix">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                    <div class="contact-us-items d-flex align-items-center gap-28">
+                        <div class="icon">
+                            <i class="fa-regular fa-phone-volume"></i>
+                        </div>
+                        <div class="content">
+                            <h5 class="mb-10">Call me:</h5>
+                            <p>
+                                <a href="tel:+49030939900">+49 030 9399 00</a> <br />
+                                <a href="tel:+492119399067">+49 211 9399 067</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".5s">
+                    <div class="contact-us-items d-flex align-items-center gap-28">
+                        <div class="icon">
+                            <i class="fa-regular fa-envelope"></i>
+                        </div>
+                        <div class="content">
+                            <h5 class="mb-10">Mail me:</h5>
+                            <p>
+                                <a href="mailto:hellotravelor@gmail.com">hellotravelor@gmail.com</a>
+                                <br />
+                                <a href="mailto:supporttravelor@gmail.com">supporttravelor@gmail.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".7s">
+                    <div class="contact-us-items d-flex align-items-center gap-28">
+                        <div class="icon">
+                            <i class="fa-regular fa-location-dot"></i>
+                        </div>
+                        <div class="content">
+                            <h5 class="mb-10">Mail me:</h5>
+                            <p>
+                                Old Westbury 256, New York <br />
+                                11201, United States
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact-From Section Start -->
+    <section class="contact-from-section section-padding pt-0 fix">
+        <div class="container">
+            <div class="row g-4 align-items-stretch">
+
+    <!-- LEFT IMAGE -->
+            <div class="col-lg-6 wow fadeInUp d-flex" data-wow-delay=".3s">
+
+               <div class="contact-image contact-inner-image1 contact-page-image contact-equal-image">
+
+                <img
+                src="{% static 'frontend/assets/img/inner-page/faq.jpg' %}"
+                alt="Contact Us"
+                />
+
+                    </div>
+
+            </div>
+
+
+    
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay=".5s">
+                    <div class="contact-from-box contact-inner-box-1">
+                        <div class="section-title style-2">
+                            <h6 class="sub-title wow fadeInUp">GET A QUOTE</h6>
+                            <h2 class="char-animation">Contact With Us</h2>
+                        </div>
+                        <form
+    action="{% url 'contact' %}"
+    id="contact-form"
+    method="POST"
+    novalidate
+>
+
+    {% csrf_token %}
+
+    <div class="row g-4">
+
+
+        <!-- ==================================================
+             FIRST NAME
+        =================================================== -->
+
+        <div class="col-lg-6">
+
+            <div class="form-clt mb-10">
+
+                <span>First name*</span>
+
+                <input
+                    type="text"
+                    name="first_name"
+                    id="first_name"
+                    placeholder="John"
+                    value="{{ form.first_name.value|default:'' }}"
+                    required
+                />
+
+                {% if form.first_name.errors %}
+
+                    <div class="contact-field-error">
+                        {{ form.first_name.errors.0 }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             LAST NAME
+        =================================================== -->
+
+        <div class="col-lg-6">
+
+            <div class="form-clt mb-10">
+
+                <span>Last name*</span>
+
+                <input
+                    type="text"
+                    name="last_name"
+                    id="last_name"
+                    placeholder="Smith"
+                    value="{{ form.last_name.value|default:'' }}"
+                    required
+                />
+
+                {% if form.last_name.errors %}
+
+                    <div class="contact-field-error">
+                        {{ form.last_name.errors.0 }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             PHONE
+        =================================================== -->
+
+        <div class="col-lg-12">
+
+            <div class="form-clt mb-10">
+
+                <span>Your phone*</span>
+
+                <input
+                    type="tel"
+                    name="phone"
+                    id="phone"
+                    placeholder="+91 98765 43210"
+                    value="{{ form.phone.value|default:'' }}"
+                    required
+                />
+
+                {% if form.phone.errors %}
+
+                    <div class="contact-field-error">
+                        {{ form.phone.errors.0 }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             EMAIL
+        =================================================== -->
+
+        <div class="col-lg-12">
+
+            <div class="form-clt mb-10">
+
+                <span>Your email</span>
+
+                <input
+                    type="email"
+                    name="email"
+                    id="contact_email"
+                    placeholder="john@example.com"
+                    value="{{ form.email.value|default:'' }}"
+                />
+
+                {% if form.email.errors %}
+
+                    <div class="contact-field-error">
+                        {{ form.email.errors.0 }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             MESSAGE
+        =================================================== -->
+
+        <div class="col-lg-12">
+
+            <div class="form-clt mb-10">
+
+                <span>Your message</span>
+
+                <textarea
+                    name="message"
+                    id="message"
+                    rows="5"
+                    placeholder="Tell us how we can help you..."
+                >{{ form.message.value|default:'' }}</textarea>
+
+                {% if form.message.errors %}
+
+                    <div class="contact-field-error">
+                        {{ form.message.errors.0 }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             NOT A ROBOT
+        =================================================== -->
+
+        <div class="col-lg-12">
+
+            <div class="robot-check-wrapper">
+
+                <label
+                    class="robot-check-box"
+                    for="not_robot"
+                >
+
+                    <input
+                        type="checkbox"
+                        name="not_robot"
+                        id="not_robot"
+                        value="1"
+                        {% if form.not_robot.value %}checked{% endif %}
+                        required
+                    >
+
+                    <span class="robot-custom-check">
+
+                        <i class="fa-solid fa-check"></i>
+
+                    </span>
+
+
+                    <span class="robot-text">
+
+                        I'm not a robot
+
+                    </span>
+
+
+                    <span class="robot-shield">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                    </span>
+
+                </label>
+
+
+                {% if form.not_robot.errors %}
+
+                    <div class="contact-field-error mt-2">
+
+                        Please confirm that you are not a robot.
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             SUBMIT
+        =================================================== -->
+
+        <div class="col-lg-12">
+
+            <button
+                class="theme-btn"
+                id="contactSubmitBtn"
+                type="submit"
+            >
+
+                <i class="fa-sharp fa-regular fa-arrow-right"></i>
+
+                Send Message
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section Start -->
+    <div class="map-section section-padding fix pt-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="map-items">
+                        <div class="googpemap">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6678.7619084840835!2d144.9618311901502!3d-37.81450084255415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642b4758afc1d%3A0x3119cc820fdfc62e!2sEnvato!5e0!3m2!1sen!2sbd!4v1641984054261!5m2!1sen!2sbd"
+                                style="border: 0" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{# ========== Footer Three (replaces base footer) ========== #}
+{% block footer %}
+<footer class="footer-style2 footer-style3 pt-100 rounded-0 position-relative bg-cover bg-overlay"
+    style="background: url('{% static 'frontend/assets/img/home-3/footer-bg3.jpg' %}'); border-radius: 0 !important;">
+    <div class="position-absolute end-0 plan2 bottom-0 d-sm-block d-none mb-xxl-100 pb-50 me-100 float-bob-y">
+        <img src="{% static 'frontend/assets/img/home-2/bl.png' %}" alt="img">
+    </div>
+    <div class="position-absolute plan2 float-bob-y d-sm-block d-none">
+        <img src="{% static 'frontend/assets/img/home-2/plan2.png' %}" alt="img">
+    </div>
+    <div class="position-absolute trou-plan float-bob-y d-xl-block d-none">
+        <img src="{% static 'frontend/assets/img/home-2/tour-plan.png' %}" alt="img">
+    </div>
+    <div class="container">
+        <div class="footer-widget-wrapper pt-0">
+            <div class="row text-md-start text-center justify-content-md-start justify-content-center gy-3 pb-xxl-90 pb-xl-70 pb-lg-60 pb-md-40 pb-30">
+                <div class="col-md-6">
+                    <h2 class="text-white fw-semibold char-animation">Join our newsletter and get $20 discount</h2>
+                </div>
+                <div class="col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                    <p class="fs-16 text-white mb-xxl-30 mb-xl-25 mb-lg-20 mb-md-15 mb-10">Get E-mail updates about our latest shop and special offers.</p>
+                    <form action="#" class="rounded-2 footer-newsletter m-0">
+                        <div class="form-clt">
+                            <input type="text" name="email" id="email" placeholder="Enter your email" class="rounded-2">
+                            <button type="submit" class="theme-btn rounded-2 px-lg-4 px-3 d-flex gap-10 align-items-center">
+                                Subscribe <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-2 col-md-3 col-sm-6 wow fadeInUp" data-wow-delay=".2s">
+                    <div class="single-footer-widget style-2 m-0">
+                        <div class="wid-title"><h4>Useful Links</h4></div>
+                        <ul class="list-items">
+                            <li><a href="destination.html">All Destination</a></li>
+                            <li><a href="{% url 'contact' %}">24/7 Support</a></li>
+                            <li><a href="news.html">Our Blog</a></li>
+                            <li><a href="tour.html">Tour Places</a></li>
+                            <li><a href="{% url 'contact' %}">Reviews</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 wow fadeInUp" data-wow-delay=".4s">
+                    <div class="single-footer-widget style-2 m-0">
+                        <div class="wid-title"><h4>About Touro</h4></div>
+                        <ul class="list-items">
+                            <li><a href="{% url 'about' %}">About Us</a></li>
+                            <li><a href="{% url 'contact' %}">Legal Notice</a></li>
+                            <li><a href="{% url 'contact' %}">Terms & Condition</a></li>
+                            <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                            <li><a href="{% url 'contact' %}">Apple Store</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4 wow fadeInUp" data-wow-delay=".6s">
+                    <div class="single-footer-widget style-2 m-0">
+                        <div class="wid-title"><h4>Support</h4></div>
+                        <ul class="list-items">
+                            <li><a href="{% url 'contact' %}">Help Center</a></li>
+                            <li><a href="{% url 'contact' %}">24/7 Support</a></li>
+                            <li><a href="{% url 'contact' %}">Forum support</a></li>
+                            <li><a href="{% url 'contact' %}">Live Chat</a></li>
+                            <li><a href="{% url 'contact' %}">How Working</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-12 col-sm-8 wow fadeInUp" data-wow-delay=".8s">
+                    <div class="wid-title mb-xxl-30 mb-xl-20 mb-15">
+                        <a href="{% url 'home' %}" class="footer-logo">
+                            <img src="{% static 'frontend/assets/img/logo/white-logo.svg' %}" alt="img">
+                        </a>
+                    </div>
+                    <p class="text-white mb-xxl-40 mb-xl-30 mb-20">
+                        We offer carefully curated destinations and tours that capture the true essence.
+                    </p>
+                    <div class="d-flex align-items-center flex-lg-nowrap flex-wrap gap-xxl-25 gap-xl-15 gap-10">
+                        <div>
+                            <h4 class="mb-xxl-15 mb-xl-15 mb-10 text-white">Contact us:</h4>
+                            <div class="d-flex flex-column gap-2">
+                                <a href="#0" class="fs-16 text-white">hellotravelor@gmail.com</a>
+                                <a href="#0" class="fs-16 text-white">+49 030 9399 00</a>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="mb-xxl-15 mb-xl-15 mb-10 text-white">Our Location:</h4>
+                            <div class="d-flex flex-column gap-2">
+                                <a href="#0" class="fs-16 text-white">Old Westbury 256, New York 11201, United States</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom3 theme-bg-2 py-2">
+        <div class="container">
+            <div class="row align-items-center justify-content-xl-between justify-content-center gx-lg-4 gy-xl-0 gy-2 wow fadeInUp" data-wow-delay=".3s">
+                <div class="col-lg-6 col-md-6">
+                    <p class="text-md-start text-center mx-md-0 mx-auto text-white">&copy; 2025 TouroLLC All rights reserved.</p>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="social-icon2 social-icon3 d-flex justify-content-xl-end justify-content-center gap-md-10 gap-5 align-items-center">
+                        <a href="javascript:void(0)"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="javascript:void(0)"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="javascript:void(0)"><i class="fa-brands fa-pinterest-p"></i></a>
+                        <a href="javascript:void(0)"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+
+{# ========== Colour switcher (demo widget from the original page) ========== #}
+{% block extra_body %}
+<div class="color-palate">
+    <button class="color-trigger"><i class="fa-solid fa-gear"></i></button>
+    <button class="close-color-trigger"><i class="fa-solid fa-xmark"></i></button>
+    <div class="color-palate-inner">
+        <a href="{% url 'home' %}" class="palate-logo">
+            <img src="{% static 'frontend/assets/img/logo/black-logo.svg' %}" alt="img">
+        </a>
+        <div class="various-color clearfix">
+            <h6>Multiple Colors</h6>
+            <h4 class="title-theme-color">Theme Color 1</h4>
+            <div class="color-picker-panel">
+                <label><input type="color" data-var="--theme" value="#FB5B32"></label>
+                <label><input type="color" data-var="--theme" value="#63AB45"></label>
+                <label><input type="color" data-var="--theme" value="#560ce3"></label>
+                <label><input type="color" data-var="--theme" value="#FF5956"></label>
+            </div>
+            <h4 class="title-theme-color">Theme Color 2</h4>
+            <div class="color-picker-panel">
+                <label><input type="color" data-var="--theme-2" value="#1ABC9C"></label>
+                <label><input type="color" data-var="--theme-2" value="#3498DB"></label>
+                <label><input type="color" data-var="--theme-2" value="#9B59B6"></label>
+                <label><input type="color" data-var="--theme-2" value="#E67E22"></label>
+            </div>
+        </div>
+        <h6>RTL Version</h6>
+        <ul class="rtl-version option-box">
+            <li class="rtl">RTL Version</li>
+            <li>LTR Version</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+
+<script src="{% static 'frontend/assets/js/bootstrap-datepicker.js' %}"></script>
+<script src="{% static 'frontend/assets/js/toastr.min.js' %}"></script>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* ========================================================
+       TOAST SETTINGS
+    ======================================================== */
+
+    if (typeof toastr !== "undefined") {
+
+        toastr.options = {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-right",
+            timeOut: "5000",
+            extendedTimeOut: "1000"
+        };
+
+    }
+
+
+    /* ========================================================
+       DJANGO MESSAGES
+    ======================================================== */
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            {% if message.tags == "success" %}
+
+                toastr.success(
+                    "{{ message|escapejs }}"
+                );
+
+            {% elif message.tags == "error" %}
+
+                toastr.error(
+                    "{{ message|escapejs }}"
+                );
+
+            {% elif message.tags == "warning" %}
+
+                toastr.warning(
+                    "{{ message|escapejs }}"
+                );
+
+            {% else %}
+
+                toastr.info(
+                    "{{ message|escapejs }}"
+                );
+
+            {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    /* ========================================================
+       SUBMIT BUTTON
+    ======================================================== */
+
+    const form =
+        document.getElementById("contact-form");
+
+    const submitButton =
+        document.getElementById("contactSubmitBtn");
+
+
+    if (form && submitButton) {
+
+        form.addEventListener(
+            "submit",
+            function () {
+
+                if (!form.checkValidity()) {
+
+                    return;
+
+                }
+
+                submitButton.disabled = true;
+
+                submitButton.innerHTML =
+                    '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+
+            }
+        );
+
+    }
+
+});
+
+</script>
+
+{% endblock %}
